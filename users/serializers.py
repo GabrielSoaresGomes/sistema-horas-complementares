@@ -2,11 +2,12 @@ from rest_framework import serializers
 from .models import User
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserListDetailSerializer(serializers.ModelSerializer):
 
-	class Meta:
-		model = User
-		fields = '__all__'
+    class Meta:
+        model = User
+        fields = ['id', 'last_login', 'name', 'email', 'is_admin', 'is_active', 'registration', 'created_at']
+
 
 
 class RegistrationSerializer(serializers.ModelSerializer):

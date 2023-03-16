@@ -8,19 +8,20 @@ from rest_framework.response import  Response
 from rest_framework.views import APIView
 from .utils import get_tokens_for_user
 from .models import User
-from .serializers import UserSerializer, RegistrationSerializer, PasswordChangeSerializer
+from .serializers import RegistrationSerializer, PasswordChangeSerializer, UserListDetailSerializer
 
 
 # API Usuário
 class UserList(generics.ListAPIView):
     permission_classes = [IsAuthenticated, ]
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserListDetailSerializer
 
-
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+class UserDetail(generics.RetrieveAPIView):
+    permission_classes = [IsAuthenticated, ]
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserListDetailSerializer
+
 
 
 # Autenticação
