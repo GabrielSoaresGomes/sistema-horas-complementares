@@ -20,5 +20,5 @@ Criação de um serviço que facilite o registro e o monitoramento de horas comp
 
 ### Identação
 
-- Utilizar o 4 de espaçamento para identação
+- Utilizar 4 de espaçamento para identação
  

@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "users.apps.UsersConfig",
     "additional_hours.apps.AdditionalHoursConfig",
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -88,6 +89,14 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+# Configurações do rest_framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
 
 
 LANGUAGE_CODE = "pt-br"
