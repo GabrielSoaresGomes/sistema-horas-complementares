@@ -1,5 +1,6 @@
 import os
 import json
+import datetime
 from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
@@ -95,7 +96,13 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
 }
 
 
@@ -115,3 +122,7 @@ STATIC_URL = "static/"
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_PROFILE_MODULE = 'users.User'
+
+AUTH_USER_MODEL = 'users.User'

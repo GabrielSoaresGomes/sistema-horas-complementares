@@ -22,3 +22,20 @@ Criação de um serviço que facilite o registro e o monitoramento de horas comp
 
 - Utilizar 4 de espaçamento para identação
  
+## Body para APIs
+
+### Regsiter
+
+{
+  "email": "email@gmail.com",
+  "registration": "matricula",
+  "password": "senha",
+  "password2": "senha"
+}
+
+### Login
+
+{
+  "email": "email@gmail.com",
+  "password" : "senha"
+}
