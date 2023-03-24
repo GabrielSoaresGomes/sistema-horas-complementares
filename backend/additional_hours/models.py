@@ -3,6 +3,8 @@ from users.models import User
 
 
 class Activity(models.Model):
+    class Admin:
+        pass
     name = models.TextField(blank=False, null=False, verbose_name='Nome')
     description = models.TextField(blank=False, null=False, verbose_name='Descrição')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -16,6 +18,8 @@ class Activity(models.Model):
 
 
 class Course(models.Model):
+    class Admin:
+        pass
     name = models.TextField(blank=False, null=False, verbose_name='Nome')
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
@@ -28,8 +32,10 @@ class Course(models.Model):
 
 
 class ActivityCourse(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.DO_NOTHING, verbose_name='Curso')
-    activity = models.ForeignKey(Activity, on_delete=models.DO_NOTHING, verbose_name='Atividade')
+    class Admin:
+        pass
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL, verbose_name='Curso', null=True)
+    activity = models.ForeignKey(Activity, on_delete=models.SET_NULL, verbose_name='Atividade', null=True)
     maximun_hours = models.IntegerField(default=0, verbose_name='Máximo de Horas')
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
@@ -42,8 +48,10 @@ class ActivityCourse(models.Model):
 
 
 class UserActivity(models.Model):
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='Usuário')
-    activity = models.ForeignKey(Activity, on_delete=models.DO_NOTHING, verbose_name='Atividade')
+    class Admin:
+        pass
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='Usuário', null=True)
+    activity = models.ForeignKey(Activity, on_delete=models.SET_NULL, verbose_name='Atividade', null=True)
     quantity = models.IntegerField(verbose_name='Quantidade', default=0)
     hours_acc = models.IntegerField(verbose_name='Horas ACC', default=0)
     total_hours = models.IntegerField(verbose_name='Horas Totais', default=0)
@@ -59,8 +67,10 @@ class UserActivity(models.Model):
 
 
 class UserCourse(models.Model):
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='Usuário')
-    course = models.ForeignKey(Course, on_delete=models.DO_NOTHING, verbose_name='Curso')
+    class Admin:
+        pass
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='Usuário', null=True)
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL, verbose_name='Curso', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
@@ -69,6 +79,3 @@ class UserCourse(models.Model):
 
     class Meta:
         db_table = 'user_course'
-
-
-

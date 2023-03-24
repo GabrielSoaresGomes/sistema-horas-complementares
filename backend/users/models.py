@@ -37,6 +37,8 @@ class UserManager(BaseUserManager):
 
 # Utilização da classe TimeStampMixin para criação automática das colunas created_at e deleted_at
 class User(AbstractBaseUser):
+    class Admin:
+        pass
     name = models.TextField(blank=False, null=False, verbose_name='Nome')
     email = models.EmailField(
         max_length=255,

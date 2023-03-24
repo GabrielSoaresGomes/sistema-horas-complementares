@@ -14,9 +14,11 @@ Criação de um serviço que facilite o registro e o monitoramento de horas comp
     2. [Linux] Execute o comando: `source nome_venv/bin/activate`
 3. Instalando dependências
     1. Execute o comando: `pip install -r requirements.txt`
-4. Aplicando as migrates
+4. Criando o .env
+    1. Execute o comando: `cp .env-local .env`
+5. Aplicando as migrates
     1. Execute o comando: `python backend/manage.py migrate`
-5. Executando servidor:
+6. Executando servidor:
     1. Execute o comando: `python backend/manage.py runserver`
 ## Regras de Projeto
 
