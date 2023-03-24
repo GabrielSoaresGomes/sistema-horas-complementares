@@ -17,11 +17,11 @@ class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserListDetailSerializer
 
+
 class UserDetail(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated, ]
     queryset = User.objects.all()
     serializer_class = UserListDetailSerializer
-
 
 
 # Autenticação
@@ -54,7 +54,6 @@ class LogoutView(APIView):
         return Response({'msg': 'Sucesso no Logout '}, status=status.HTTP_200_OK)
 
 
-      
 class ChangePasswordView(APIView):
     permission_classes = [IsAuthenticated, ]
 
