@@ -8,12 +8,22 @@ services:
     volumes:
       - .:/code
     depends_on:
-      - horas_complementares
-  horas_complementares:
+        - db
+  db:
+    container_name: postgres-horas-complementares
     image: postgres:13
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
     environment:
-      - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - POSTGRES_DB=horas_complementares
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - PGDATA=data/postgres
+    restart: always
+    volumes:
+      - postgres-db:/var/lib/postgresql/data/
+      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    ports:
+      - "15433:5432"
+
 volumes:
-  postgres_data:
+    postgres-db:
+        driver: local

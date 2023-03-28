@@ -71,7 +71,7 @@ DATABASES = {
         'NAME': 'horas_complementares',
         'USER': 'postgres',
         'PASSWORD': '123',
-        'HOST': 'horas_complementares',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
