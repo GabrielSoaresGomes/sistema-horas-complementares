@@ -1,5 +1,40 @@
+from datetime import datetime
 from django.db import models
 from users.models import User
+
+
+class ActivityManager(models.Manager):
+    def get_all_activities_not_deleted(self):
+        return super().get_queryset().filter(deleted_at=None).values()
+
+    def get_all_activities(self):
+        return super().get_queryset().values()
+
+    def get_activity_not_deleted_by_pk(self, pk):
+        activity = super().get_queryset().filter(pk=pk).filter(deleted_at=None).values()
+        if len(activity) > 0:
+            return activity[0]
+        return {}
+
+    def delete_activity_by_pk(self, pk):
+        activity = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
+        if len(activity) > 0:
+            activity = activity[0]
+            activity.deleted_at = datetime.now()
+            activity.save()
+            return {"success": True, "message": "Deletado com sucesso"}
+        return {"success": False, "message": "Não foi encontrado nenhuma atividade com essa pk!"}
+
+    def update_activity_by_pk(self, pk, name, description):
+        activity = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
+        if len(activity) > 0:
+            activity = activity[0]
+            activity.name = name
+            activity.description = description
+            activity.save()
+            return {"success": True, "message": "Atualizado com sucesso"}
+        return {"success": False, "message": "Não foi encontrado nenhuma atividade com essa pk!"}
+
 
 
 class Activity(models.Model):
@@ -9,6 +44,8 @@ class Activity(models.Model):
     description = models.TextField(blank=False, null=False, verbose_name='Descrição')
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
+
+    objects = ActivityManager()
 
     def __str__(self):
         return self.name
