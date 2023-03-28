@@ -3,6 +3,39 @@ from django.db import models
 from users.models import User
 
 
+class BaseManager(models.Manager):
+    def get_all_not_deleted(self):
+        result = super().get_queryset().filter(deleted_at=None).values()
+        return {"result": result, "success": True, "message": ""}
+
+    def get_all(self):
+        return super().get_queryset().values()
+
+    def get_not_deleted_by_pk(self, pk):
+        result = super().get_queryset().filter(pk=pk).filter(deleted_at=None).values()
+        if len(result) > 0:
+            return result[0]
+        return {}
+
+    def delete_by_pk(self, pk):
+        result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
+        if len(result) > 0:
+            result = activity[0]
+            result.deleted_at = datetime.now()
+            result.save()
+            return {"success": True, "message": "Deletado com sucesso"}
+        return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
+
+    def update_by_pk(self, pk, name, description):
+        result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
+        if len(activity) > 0:
+            result = result[0]
+            result.name = name
+            result.description = description
+            result.save()
+            return {"success": True, "message": "Atualizado com sucesso"}
+        return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
+
 class ActivityManager(models.Manager):
     def get_all_activities_not_deleted(self):
         return super().get_queryset().filter(deleted_at=None).values()
@@ -54,12 +87,17 @@ class Activity(models.Model):
         db_table = 'activity'
 
 
+class CourseManager(BaseManager):
+    pass
+
 class Course(models.Model):
     class Admin:
         pass
     name = models.TextField(blank=False, null=False, verbose_name='Nome')
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
+
+    objects = CourseManager()
 
     def __str__(self):
         return self.name

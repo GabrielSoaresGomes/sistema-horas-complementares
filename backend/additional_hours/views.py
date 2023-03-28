@@ -41,3 +41,24 @@ def detail_remove_update_activity(request, pk):
         description = request.data['description']
         update_result = Activity.objects.update_activity_by_pk(pk, name, description)
         return Response({"result": update_result['message']})
+
+@api_view(['POST', 'GET'])
+def insert_list_course(request):
+    if request.method == 'GET':
+        try:
+            courses_result = Course.objects.get_all_not_deleted()
+            if courses_result['success']:
+                return Response({"result": courses_result['result']})
+        except Exception as e:
+            full_message = f"[ ERRO ] Falha ao listar atividades: {e}"
+            print(full_message)
+            message = "Falha ao listar atividades"
+            return Response({"result": message})
+
+    # elif request.method == 'POST':
+    #     name = request.data['name']
+    #     description = request.data['description']
+    #     new_course = Course()
+    #     new_course.save()
+    #     new_course_id = new_course.id
+    #     return Response({"result": f"Inserido com sucesso com id {new_course_id}"})
