@@ -14,8 +14,8 @@ class BaseManager(models.Manager):
     def get_not_deleted_by_pk(self, pk):
         result = super().get_queryset().filter(pk=pk).filter(deleted_at=None).values()
         if len(result) > 0:
-            return result[0]
-        return {}
+            return {"result": result[0], "success": True, "message": ""}
+        return {"result": "", "success": False, "message": "Não foi possível achar um resultado!"}
 
     def delete_by_pk(self, pk):
         result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
@@ -94,6 +94,7 @@ class Course(models.Model):
     class Admin:
         pass
     name = models.TextField(blank=False, null=False, verbose_name='Nome')
+    code = models.TextField(blank=False, null=False, verbose_name='Code')
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
