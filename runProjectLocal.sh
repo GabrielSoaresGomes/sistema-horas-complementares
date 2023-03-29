@@ -18,6 +18,6 @@ echoFormatted '### Iniciando build ###'
 docker build . -t my:horas_complementares
 
 echoFormatted '### Subindo docker-compose ###'
-docker-compose -f docker-compose.yml up -d
+docker-compose -f docker-compose.yml up -d --build
 
 
