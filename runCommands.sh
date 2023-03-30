@@ -11,6 +11,15 @@ declare -A commands_map=(
     ["start"]="start"
 
     ["stop"]="stop"
+
+    ["start-postgres"]="start-postgres"
+    ["s-postgres"]="start-postgres"
+    ["start-p"]="start-postgres"
+    ["s-p"]="start-postgres"
+    ["sp"]="start-postgres"
+
+    ["stop-postgres"]="stop-postgres"
+    ["stop-p"]="stop-postgres"
 )
 if [[ ! -z "$1" ]]; then
     command=${commands_map[$1]}
@@ -22,5 +31,9 @@ if [[ ! -z "$1" ]]; then
         docker stop sistema-horas-complementares_web_1
     elif [ "$command" == "start" ]; then
         docker start sistema-horas-complementares_web_1
+    elif [ "$command" = "stop-postgres" ]; then
+        docker stop postgres-horas-complementares
+    elif [ "$command" = "start-postgres" ]; then
+        docker start postgres-horas-complementares
     fi
 fi
