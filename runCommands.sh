@@ -14,8 +14,13 @@ declare -A commands_map=(
 )
 if [[ ! -z "$1" ]]; then
     command=${commands_map[$1]}
-    echo "$command"
-    if [ command == "logs" ]; then
-        echo 'ooiii'
+    if [ "$command" == "logs" ]; then
+        docker logs --follow sistema-horas-complementares_web_1
+    elif [ "$command" == "terminal" ]; then
+        docker exec -it sistema-horas-complementares_web_1 bash
+    elif [ "$command" == "stop" ]; then
+        docker stop sistema-horas-complementares_web_1
+    elif [ "$command" == "start" ]; then
+        docker start sistema-horas-complementares_web_1
     fi
 fi
