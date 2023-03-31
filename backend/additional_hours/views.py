@@ -192,12 +192,13 @@ def detail_remove_update_activity_course(request, pk):
 
     elif request.method == 'PUT':
         try:
-            name = request.data['name']
-            code = request.data['code']
-            update_result = Course.objects.update_activity_by_pk(pk, name, code)
+            course_id = request.data['course_id']
+            activity_id = request.data['activity_id']
+            maximum_hours = request.data['maximum_hours']
+            update_result = ActivityCourse.objects.update_by_pk(pk, course_id, activity_id, maximum_hours)
             return Response({"result": update_result['message']}, status=status.HTTP_204_NO_CONTENT)
         except Exception as e:
-            full_message = f"[ ERRO ] Falha ao atualizar curso: {e}"
+            full_message = f"[ ERRO ] Falha ao atualizar atividade do curso: {e}"
             print(full_message)
-            message = "Falha ao atualizar curso"
+            message = "Falha ao atualizar atividade do curso"
             return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
