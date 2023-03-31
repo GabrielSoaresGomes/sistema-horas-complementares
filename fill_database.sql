@@ -6,6 +6,9 @@ INSERT INTO course(name, code, created_at) VALUES  ('Nome curso 02', 'code002', 
 
 INSERT INTO "user"(password, last_login, name, email, is_admin, is_active, registration, created_at) VALUES
     ('pbkdf2_sha256$390000$8x3vzWawPLswQzemf9AG2s$sMmOZaNZYanBp5VOsCtcBY+NTg/PunUseF/Xrrhqlrs=',
+     now(), admin, admin@admin.com, TRUE, FALSE, 0000000000, now());
+INSERT INTO "user"(password, last_login, name, email, is_admin, is_active, registration, created_at) VALUES
+    ('pbkdf2_sha256$390000$8x3vzWawPLswQzemf9AG2s$sMmOZaNZYanBp5VOsCtcBY+NTg/PunUseF/Xrrhqlrs=',
      now(), concat('nome ', md5(random()::text)), concat('email',md5(random()::text),'01@gmail.com'), FALSE, FALSE, md5(random()::text), now());
 
 INSERT INTO "user"(password, last_login, name, email, is_admin, is_active, registration, created_at) VALUES
