@@ -3,7 +3,7 @@ NC='\033[0m'
 
 echoFormatted() {
     echo ''
-    echo "$AZUL $1 $NC"
+    echo -e "$AZUL $1 $NC"
     echo ''
     sleep 1
 }
