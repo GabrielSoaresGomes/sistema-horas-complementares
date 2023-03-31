@@ -17,10 +17,16 @@ class BaseManager(models.Manager):
             return {"result": result[0], "success": True, "message": ""}
         return {"result": "", "success": False, "message": "Não foi possível achar um resultado!"}
 
+    def get_instance_not_deleted_by_pk(self, pk):
+        result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
+        if len(result) > 0:
+            return result[0]
+        return {"result": "", "success": False, "message": "Não foi possível achar um resultado!"}
+
     def delete_by_pk(self, pk):
         result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
         if len(result) > 0:
-            result = activity[0]
+            result = result[0]
             result.deleted_at = datetime.now()
             result.save()
             return {"success": True, "message": "Deletado com sucesso"}
@@ -28,13 +34,14 @@ class BaseManager(models.Manager):
 
     def update_by_pk(self, pk, name, description):
         result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
-        if len(activity) > 0:
+        if len(result) > 0:
             result = result[0]
             result.name = name
             result.description = description
             result.save()
             return {"success": True, "message": "Atualizado com sucesso"}
         return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
+
 
 class ActivityManager(models.Manager):
     def get_all_activities_not_deleted(self):
@@ -68,6 +75,11 @@ class ActivityManager(models.Manager):
             return {"success": True, "message": "Atualizado com sucesso"}
         return {"success": False, "message": "Não foi encontrado nenhuma atividade com essa pk!"}
 
+    def get_instance_not_deleted_by_pk(self, pk):
+        result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
+        if len(result) > 0:
+            return result[0]
+        return {"result": "", "success": False, "message": "Não foi possível achar um resultado!"}
 
 
 class Activity(models.Model):
@@ -89,6 +101,30 @@ class Activity(models.Model):
 
 class CourseManager(BaseManager):
     pass
+
+
+class ActivityCourseManager(BaseManager):
+    def insert_new_activity_course(self, data):
+        course_id = data['course_id']
+        activity_id = data['activity_id']
+        maximum_hours = data['maximum_hours']
+        if not course_id or not activity_id or not maximum_hours:
+            return None
+        activity = Activity.objects.get_instance_not_deleted_by_pk(activity_id)
+        course = Course.objects.get_instance_not_deleted_by_pk(course_id)
+        activity_course = ActivityCourse(course=course, activity=activity, maximum_hours=maximum_hours)
+        activity_course.save()
+        return activity_course.id
+    def list_not_deleted_by_query(self, query):
+        result = super().get_queryset().filter(deleted_at=None)
+        if query.get('course_id'):
+            result = result.filter(course_id=query.get('course_id'))
+            print(f"##############{list(result.values())}")
+        if query.get('activity_id'):
+            result = result.filter(activity_id=query.get('activity_id'))
+        result = result.values()
+        return {"result": result, "success": True, "message": ""}
+
 
 class Course(models.Model):
     class Admin:
@@ -112,9 +148,11 @@ class ActivityCourse(models.Model):
         pass
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, verbose_name='Curso', null=True)
     activity = models.ForeignKey(Activity, on_delete=models.SET_NULL, verbose_name='Atividade', null=True)
-    maximun_hours = models.IntegerField(default=0, verbose_name='Máximo de Horas')
+    maximum_hours = models.IntegerField(default=0, verbose_name='Máximo de Horas')
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
+
+    objects = ActivityCourseManager()
 
     def __str__(self):
         return f'{self.id}'
