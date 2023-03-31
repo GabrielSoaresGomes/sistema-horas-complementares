@@ -20,6 +20,8 @@ declare -A commands_map=(
 
     ["stop-postgres"]="stop-postgres"
     ["stop-p"]="stop-postgres"
+
+    ["fill-database"]="fill-database"
 )
 if [[ ! -z "$1" ]]; then
     command=${commands_map[$1]}
@@ -35,5 +37,7 @@ if [[ ! -z "$1" ]]; then
         docker stop postgres-horas-complementares
     elif [ "$command" = "start-postgres" ]; then
         docker start postgres-horas-complementares
+    elif [ "$command" = "fill-database" ]; then
+        psql -h localhost -U postgres horas_complementares -a -p 15433 -f fill_database.sql
     fi
 fi
