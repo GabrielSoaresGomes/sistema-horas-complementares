@@ -30,7 +30,7 @@ Criação de um serviço que facilite o registro e o monitoramento de horas comp
 ### Nome de Variáveis
 
 - Utilizar snake_case para variáveis comuns, métodos, propriedades de JSON e para nome de colunas do banco
-- Utilizar ChamelCase para nome de classes
+- Utilizar CamelCase para nome de classes
 
 ### Nome de Arquivos
 

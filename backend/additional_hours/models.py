@@ -72,23 +72,6 @@ class ActivityManager(models.Manager):
         return {"result": "", "success": False, "message": "Não foi possível achar um resultado!"}
 
 
-class Activity(models.Model):
-    class Admin:
-        pass
-    name = models.TextField(blank=False, null=False, verbose_name='Nome')
-    description = models.TextField(blank=False, null=False, verbose_name='Descrição')
-    created_at = models.DateTimeField(auto_now_add=True)
-    deleted_at = models.DateTimeField(blank=True, null=True)
-
-    objects = ActivityManager()
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'activity'
-
-
 class CourseManager(BaseManager):
     def update_by_pk(self, pk, name, code):
         result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
@@ -134,6 +117,57 @@ class ActivityCourseManager(BaseManager):
             result.save()
             return {"success": True, "message": "Atualizado com sucesso"}
         return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
+
+
+class UserCourseManager(BaseManager):
+
+    def insert_new_user_course(self, data):
+        course_id = data['course_id']
+        user_id = data['user_id']
+        if not course_id or not user_id:
+            return None
+        user = User.objects.get_instance_not_deleted_by_pk(user_id)
+        course = Course.objects.get_instance_not_deleted_by_pk(course_id)
+        user_course = UserCourse(course=course, user=user)
+        user_course.save()
+        return user_course.id
+
+    def list_not_deleted_by_query(self, query):
+        result = super().get_queryset().filter(deleted_at=None)
+        if query.get('course_id'):
+            result = result.filter(course_id=query.get('course_id'))
+            print(f"##############{list(result.values())}")
+        if query.get('user_id'):
+            result = result.filter(user_id=query.get('user_id'))
+        result = result.values()
+        return {"result": result, "success": True, "message": ""}
+
+    def update_by_pk(self, pk, course_id, user_id):
+        result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
+        if len(result) > 0:
+            result = result[0]
+            result.course_id = course_id
+            result.user_id = user_id
+            result.save()
+            return {"success": True, "message": "Atualizado com sucesso"}
+        return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
+
+
+class Activity(models.Model):
+    class Admin:
+        pass
+    name = models.TextField(blank=False, null=False, verbose_name='Nome')
+    description = models.TextField(blank=False, null=False, verbose_name='Descrição')
+    created_at = models.DateTimeField(auto_now_add=True)
+    deleted_at = models.DateTimeField(blank=True, null=True)
+
+    objects = ActivityManager()
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'activity'
 
 
 class Course(models.Model):
@@ -197,6 +231,8 @@ class UserCourse(models.Model):
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, verbose_name='Curso', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
+
+    objects = UserCourseManager()
 
     def __str__(self):
         return f'{self.id}'

@@ -34,6 +34,13 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+    def get_instance_not_deleted_by_pk(self, pk):
+        result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
+        if len(result) > 0:
+            return result[0]
+        return {"result": "", "success": False, "message": "Não foi possível achar um resultado!"}
+
+
 
 # Utilização da classe TimeStampMixin para criação automática das colunas created_at e deleted_at
 class User(AbstractBaseUser):
