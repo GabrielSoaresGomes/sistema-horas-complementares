@@ -118,16 +118,16 @@ def detail_remove_update_course(request, pk):
             delete_result = Course.objects.delete_activity_by_pk(pk)
             return Response({"result": delete_result['message']}, status=status.HTTP_204_NO_CONTENT)
         except Exception as e:
-            full_message = f"[ ERRO ] Falha ao deletar atividade: {e}"
+            full_message = f"[ ERRO ] Falha ao deletar curso: {e}"
             print(full_message)
-            message = "Falha ao deletar atividade"
+            message = "Falha ao deletar curso"
             return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     elif request.method == 'PUT':
         try:
             name = request.data['name']
             code = request.data['code']
-            update_result = Course.objects.update_activity_by_pk(pk, name, code)
+            update_result = Course.objects.update_by_pk(pk, name, code)
             return Response({"result": update_result['message']}, status=status.HTTP_204_NO_CONTENT)
         except Exception as e:
             full_message = f"[ ERRO ] Falha ao atualizar curso: {e}"
@@ -171,23 +171,23 @@ def insert_list_activity_course(request):
 def detail_remove_update_activity_course(request, pk):
     if request.method == 'GET':
         try:
-            course_result = Course.objects.get_not_deleted_by_pk(pk)
-            if course_result['success']:
-                return Response({"result": course_result['result']}, status=status.HTTP_200_OK)
+            activity_course_result = ActivityCourse.objects.get_not_deleted_by_pk(pk)
+            if activity_course_result['success']:
+                return Response({"result": activity_course_result['result']}, status=status.HTTP_200_OK)
         except Exception as e:
-            full_message = f"[ ERRO ] Falha ao detalhar curso: {e}"
+            full_message = f"[ ERRO ] Falha ao detalhar atividade do curso: {e}"
             print(full_message)
-            message = "Falha ao detalhar curso"
+            message = "Falha ao detalhar atividade do curso"
             return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     elif request.method == 'DELETE':
         try:
-            delete_result = Course.objects.delete_activity_by_pk(pk)
-            return Response({"result": delete_result['message']}, status=status.HTTP_204_NO_CONTENT)
+            activity_course_result = ActivityCourse.objects.delete_activity_by_pk(pk)
+            return Response({"result": activity_course_result['message']}, status=status.HTTP_204_NO_CONTENT)
         except Exception as e:
-            full_message = f"[ ERRO ] Falha ao deletar atividade: {e}"
+            full_message = f"[ ERRO ] Falha ao deletar atividade do curso: {e}"
             print(full_message)
-            message = "Falha ao deletar atividade"
+            message = "Falha ao deletar atividade do curso"
             return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     elif request.method == 'PUT':

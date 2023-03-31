@@ -32,16 +32,6 @@ class BaseManager(models.Manager):
             return {"success": True, "message": "Deletado com sucesso"}
         return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
 
-    def update_by_pk(self, pk, name, description):
-        result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
-        if len(result) > 0:
-            result = result[0]
-            result.name = name
-            result.description = description
-            result.save()
-            return {"success": True, "message": "Atualizado com sucesso"}
-        return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
-
 
 class ActivityManager(models.Manager):
     def get_all_activities_not_deleted(self):
@@ -100,7 +90,15 @@ class Activity(models.Model):
 
 
 class CourseManager(BaseManager):
-    pass
+    def update_by_pk(self, pk, name, code):
+        result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
+        if len(result) > 0:
+            result = result[0]
+            result.name = name
+            result.code = code
+            result.save()
+            return {"success": True, "message": "Atualizado com sucesso"}
+        return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
 
 
 class ActivityCourseManager(BaseManager):
@@ -115,6 +113,7 @@ class ActivityCourseManager(BaseManager):
         activity_course = ActivityCourse(course=course, activity=activity, maximum_hours=maximum_hours)
         activity_course.save()
         return activity_course.id
+
     def list_not_deleted_by_query(self, query):
         result = super().get_queryset().filter(deleted_at=None)
         if query.get('course_id'):
@@ -124,6 +123,17 @@ class ActivityCourseManager(BaseManager):
             result = result.filter(activity_id=query.get('activity_id'))
         result = result.values()
         return {"result": result, "success": True, "message": ""}
+
+    def update_by_pk(self, pk, course_id, activity_id, maximum_hours):
+        result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
+        if len(result) > 0:
+            result = result[0]
+            result.course_id = course_id
+            result.activity_id = activity_id
+            result.maximum_hours = maximum_hours
+            result.save()
+            return {"success": True, "message": "Atualizado com sucesso"}
+        return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
 
 
 class Course(models.Model):
