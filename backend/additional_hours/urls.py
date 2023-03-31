@@ -10,4 +10,6 @@ urlpatterns = [
     path('activitycourse/<int:pk>', views.detail_remove_update_activity_course),
     path('usercourse/', views.insert_list_user_course),
     path('usercourse/<int:pk>', views.detail_remove_update_user_course),
+    path('useractivity/', views.insert_list_user_activity),
+    path('useractivity/<int:pk>', views.detail_remove_update_user_activity),
 ]

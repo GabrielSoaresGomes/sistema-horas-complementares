@@ -101,7 +101,6 @@ class ActivityCourseManager(BaseManager):
         result = super().get_queryset().filter(deleted_at=None)
         if query.get('course_id'):
             result = result.filter(course_id=query.get('course_id'))
-            print(f"##############{list(result.values())}")
         if query.get('activity_id'):
             result = result.filter(activity_id=query.get('activity_id'))
         result = result.values()
@@ -136,7 +135,6 @@ class UserCourseManager(BaseManager):
         result = super().get_queryset().filter(deleted_at=None)
         if query.get('course_id'):
             result = result.filter(course_id=query.get('course_id'))
-            print(f"##############{list(result.values())}")
         if query.get('user_id'):
             result = result.filter(user_id=query.get('user_id'))
         result = result.values()
@@ -148,6 +146,49 @@ class UserCourseManager(BaseManager):
             result = result[0]
             result.course_id = course_id
             result.user_id = user_id
+            result.save()
+            return {"success": True, "message": "Atualizado com sucesso"}
+        return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
+
+
+class UserActivityManager(BaseManager):
+
+    def insert_new_user_activity(self, data):
+        user_id = data['user_id']
+        activity_id = data['activity_id']
+        quantity = data['quantity']
+        hours_acc = data['hours_acc']
+        total_hours = data['total_hours']
+        is_valid = data['is_valid']
+
+        if not activity_id or not user_id:
+            return None
+        user = User.objects.get_instance_not_deleted_by_pk(user_id)
+        activity = Activity.objects.get_instance_not_deleted_by_pk(activity_id)
+        user_course = UserActivity(activity=activity, user=user, quantity=quantity, hours_acc=hours_acc,
+                                   total_hours=total_hours, is_valid=is_valid)
+        user_course.save()
+        return user_course.id
+
+    def list_not_deleted_by_query(self, query):
+        result = super().get_queryset().filter(deleted_at=None)
+        if query.get('activity_id'):
+            result = result.filter(activity_id=query.get('activity_id'))
+        if query.get('user_id'):
+            result = result.filter(user_id=query.get('user_id'))
+        result = result.values()
+        return {"result": result, "success": True, "message": ""}
+
+    def update_by_pk(self, pk, data):
+        result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
+        if len(result) > 0:
+            result = result[0]
+            result.activity_id = data['activity_id']
+            result.user_id = data['user_id']
+            result.quantity = data['quantity']
+            result.hours_acc = data['hours_acc']
+            result.total_hours = data['total_hours']
+            result.is_valid = data['is_valid']
             result.save()
             return {"success": True, "message": "Atualizado com sucesso"}
         return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
@@ -216,6 +257,8 @@ class UserActivity(models.Model):
     is_valid = models.BooleanField(verbose_name='É válido')
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
+
+    objects = UserActivityManager()
 
     def __str__(self):
         return f'{self.id}'
