@@ -38,6 +38,11 @@ if [[ ! -z "$1" ]]; then
     elif [ "$command" = "start-postgres" ]; then
         docker start postgres-horas-complementares
     elif [ "$command" = "fill-database" ]; then
-        psql -h localhost -U postgres horas_complementares -a -p 15433 -f fill_database.sql
+        docker exec -it postgres-horas-complementares psql -h localhost -U postgres horas_complementares -a -p 5432 -f code/fill_database.sql
     fi
+else
+   for i in "${!commands_map[@]}"
+        do
+            echo "${i}=${commands_map[$i]}"
+        done
 fi
