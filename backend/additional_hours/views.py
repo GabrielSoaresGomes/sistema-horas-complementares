@@ -1,9 +1,10 @@
-# from django.shortcuts import render
+import traceback
 from rest_framework import status
 from .models import Activity, ActivityCourse, Course, UserActivity, UserCourse
 # from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.shortcuts import render
 
 
 @api_view(['POST', 'GET'])
@@ -11,10 +12,13 @@ def insert_list_activity(request):
     if request.method == 'GET':
         try:
             activities = Activity.objects.get_all_activities_not_deleted()
-            return Response({"result": activities}, status=status.HTTP_200_OK)
+            context = {'activities': 'activities', 'title': 'Home', 'heading': 'Home', 'main_heading': 'Home'}
+            return render(request, 'index.html', context)
+            # Manter abaixo para quando usar react
+            # return Response({"result": activities}, status=status.HTTP_200_OK)
 
         except Exception as e:
-            full_message = f"[ ERRO ] Falha ao listar atividades: {e}"
+            full_message = f"[ ERRO ] Falha ao listar atividades: {traceback.format_exc()}"
             print(full_message)
             message = "Falha ao listar atividades"
             return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
