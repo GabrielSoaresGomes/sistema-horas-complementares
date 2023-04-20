@@ -193,6 +193,16 @@ class UserActivityManager(BaseManager):
             return {"success": True, "message": "Atualizado com sucesso"}
         return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
 
+    def append_file(self, pk, file):
+        result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
+        if len(result) > 0:
+            print(pk, file)
+            user_activity_object = result[0]
+            user_activity_object.file = file
+            user_activity_object.save()
+            return {"success": True, "message": "Arquivo inserido com sucesso!"}
+        return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
+
 
 class Activity(models.Model):
     class Admin:
@@ -251,6 +261,8 @@ class UserActivity(models.Model):
         pass
     user = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='Usuário', null=True)
     activity = models.ForeignKey(Activity, on_delete=models.SET_NULL, verbose_name='Atividade', null=True)
+    file = models.FileField(null=True, verbose_name="Arquivo")
+    file_data = models.BinaryField(null=True, verbose_name="Arquivo | Binário")
     quantity = models.IntegerField(verbose_name='Quantidade', default=0)
     hours_acc = models.IntegerField(verbose_name='Horas ACC', default=0)
     total_hours = models.IntegerField(verbose_name='Horas Totais', default=0)

@@ -7,71 +7,71 @@ from rest_framework.response import Response
 from django.shortcuts import render
 
 
-@api_view(['POST', 'GET'])
-def insert_list_activity(request):
-    if request.method == 'GET':
-        try:
-            activities = Activity.objects.get_all_activities_not_deleted()
-            context = {'activities': 'activities', 'title': 'Home', 'heading': 'Home', 'main_heading': 'Home'}
-            return render(request, 'index.html', context)
-            # Manter abaixo para quando usar react
-            # return Response({"result": activities}, status=status.HTTP_200_OK)
-
-        except Exception as e:
-            full_message = f"[ ERRO ] Falha ao listar atividades: {traceback.format_exc()}"
-            print(full_message)
-            message = "Falha ao listar atividades"
-            return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-    elif request.method == 'POST':
-        try:
-            name = request.data['name']
-            description = request.data['description']
-            new_activity = Activity(name=name, description=description)
-            new_activity.save()
-            new_activity_id = new_activity.id
-            return Response({"result": f"Inserido com sucesso com id {new_activity_id}"},
-                            status=status.HTTP_201_CREATED)
-        except Exception as e:
-            full_message = f"[ ERRO ] Falha ao adicionar atividade: {e}"
-            print(full_message)
-            message = "Falha ao adicionar atividades"
-            return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-@api_view(['GET', 'DELETE', 'PUT'])
-def detail_remove_update_activity(request, pk):
-    if request.method == 'GET':
-        try:
-            activity = Activity.objects.get_activity_not_deleted_by_pk(pk)
-            return Response({"result": activity}, status=status.HTTP_200_OK)
-        except Exception as e:
-            full_message = f"[ ERRO ] Falha ao detalhar atividade: {e}"
-            print(full_message)
-            message = "Falha ao detalhar atividade"
-            return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-    elif request.method == 'DELETE':
-        try:
-            delete_result = Activity.objects.delete_activity_by_pk(pk)
-            return Response({"result": delete_result['message']}, status=status.HTTP_204_NO_CONTENT)
-        except Exception as e:
-            full_message = f"[ ERRO ] Falha ao deletar atividade: {e}"
-            print(full_message)
-            message = "Falha ao deletar atividade"
-            return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-    elif request.method == 'PUT':
-        try:
-            name = request.data['name']
-            description = request.data['description']
-            update_result = Activity.objects.update_activity_by_pk(pk, name, description)
-            return Response({"result": update_result['message']}, status=status.HTTP_204_NO_CONTENT)
-        except Exception as e:
-            full_message = f"[ ERRO ] Falha ao atualizar atividade: {e}"
-            print(full_message)
-            message = "Falha ao atualizar atividade"
-            return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# @api_view(['POST', 'GET'])
+# def insert_list_activity(request):
+#     if request.method == 'GET':
+#         try:
+#             activities = Activity.objects.get_all_activities_not_deleted()
+#             context = {'activities': 'activities', 'title': 'Home', 'heading': 'Home', 'main_heading': 'Home'}
+#             return render(request, 'index.html', context)
+#             # Manter abaixo para quando usar react
+#             # return Response({"result": activities}, status=status.HTTP_200_OK)
+#
+#         except Exception as e:
+#             full_message = f"[ ERRO ] Falha ao listar atividades: {traceback.format_exc()}"
+#             print(full_message)
+#             message = "Falha ao listar atividades"
+#             return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+#
+#     elif request.method == 'POST':
+#         try:
+#             name = request.data['name']
+#             description = request.data['description']
+#             new_activity = Activity(name=name, description=description)
+#             new_activity.save()
+#             new_activity_id = new_activity.id
+#             return Response({"result": f"Inserido com sucesso com id {new_activity_id}"},
+#                             status=status.HTTP_201_CREATED)
+#         except Exception as e:
+#             full_message = f"[ ERRO ] Falha ao adicionar atividade: {e}"
+#             print(full_message)
+#             message = "Falha ao adicionar atividades"
+#             return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+#
+#
+# @api_view(['GET', 'DELETE', 'PUT'])
+# def detail_remove_update_activity(request, pk):
+#     if request.method == 'GET':
+#         try:
+#             activity = Activity.objects.get_activity_not_deleted_by_pk(pk)
+#             return Response({"result": activity}, status=status.HTTP_200_OK)
+#         except Exception as e:
+#             full_message = f"[ ERRO ] Falha ao detalhar atividade: {e}"
+#             print(full_message)
+#             message = "Falha ao detalhar atividade"
+#             return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+#
+#     elif request.method == 'DELETE':
+#         try:
+#             delete_result = Activity.objects.delete_activity_by_pk(pk)
+#             return Response({"result": delete_result['message']}, status=status.HTTP_204_NO_CONTENT)
+#         except Exception as e:
+#             full_message = f"[ ERRO ] Falha ao deletar atividade: {e}"
+#             print(full_message)
+#             message = "Falha ao deletar atividade"
+#             return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+#
+#     elif request.method == 'PUT':
+#         try:
+#             name = request.data['name']
+#             description = request.data['description']
+#             update_result = Activity.objects.update_activity_by_pk(pk, name, description)
+#             return Response({"result": update_result['message']}, status=status.HTTP_204_NO_CONTENT)
+#         except Exception as e:
+#             full_message = f"[ ERRO ] Falha ao atualizar atividade: {e}"
+#             print(full_message)
+#             message = "Falha ao atualizar atividade"
+#             return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @api_view(['POST', 'GET'])
@@ -341,4 +341,19 @@ def detail_remove_update_user_activity(request, pk):
             full_message = f"[ ERRO ] Falha ao atualizar usuário da atividade: {e}"
             print(full_message)
             message = "Falha ao atualizar usuário da atividade"
+            return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['POST'])
+def append_file_to_user_activity(request, pk):
+    if request.method == 'POST':
+        try:
+            file = request.data
+            print(f'------------------- DEPOIS FILE {file}')
+            result = UserActivity.objects.append_file(pk, file)
+            if result['success']:
+                return Response({"result": result['message']}, status=status.HTTP_200_OK)
+        except Exception as e:
+            full_message = f"[ ERRO ] Falha ao inserir arquivo: {e}"
+            print(full_message)
+            message = "Falha ao inserir arquivo"
             return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

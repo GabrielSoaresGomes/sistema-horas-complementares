@@ -1,0 +1,15 @@
+### GET
+GET http://127.0.0.1:8000/api/activity/
+
+### GET
+GET http://127.0.0.1:8000/api/activity/1/
+
+### POST
+POST http://127.0.0.1:8000/api/activity/
+Content-Type: application/json
+
+{
+  "name":  "Teste",
+  "description": "Teste"
+}
+

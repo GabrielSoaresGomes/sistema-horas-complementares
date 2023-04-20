@@ -10,12 +10,62 @@ class APIRootView(View):
         return {'request': request}
     def get(self, request, format=None):
         url_list = []
+        api_urls = {
+            "Listar todas Urls": {
+                "rota": "/",
+                "method": ["GET"]
+            },
+            "Accounts": {
+                "Registrar um novo usuário": {
+                    "rota": "/accounts/register/",
+                    "method": ["POST"]
+                },
+                "Logar um usuário": {
+                    "rota": "/accounts/login/",
+                    "method": ["POST"]
+                },
+                "Deslogar um usuário": {
+                    "rota": "/accounts/logout/",
+                    "method": ["POST"]
+                },
+                "Alterar senha": {
+                    "rota": "/accounts/change-password/",
+                    "method": ["POST"]
+                },
+                "Atualizar token": {
+                    "rota": "/accounts/token-refresh/",
+                    "method": ["POST"]
+                }
+            },
+            "Activity": {
+                "Listar todas atividades ou adicionar uma nova atividade": {
+                    "rota": "/activity/",
+                    "method": ["GET", "POST"]
+                },
+                "Detalhar uma atividade ou atualizar uma atividade ou apagar uma atividade": {
+                    "rota": "/activity/<int:pk>/",
+                    "method": ["GET", "PUT", "DELETE"]
+                }
+            },
+            "Course": {
+                "Listar todos cursos ou adicionar um novo curso": {
+                    "rota": "/course/",
+                    "method": ["GET", "POST"]
+                },
+                "Detalhar um curso ou atualizar um curso ou apagar um curso": {
+                    "rota": "/course/<int:pk>/",
+                    "method": ["GET", "PUT", "DELETE"]
+                }
+            }
+
+        }
         for url in get_urls():
             url_list.append({
                 'url': url[0],
                 'name': url[1]
             })
-        response = Response(url_list)
+        # response = Response(url_list)
+        response = Response(api_urls)
         response.accepted_renderer = JSONRenderer()
         response.accepted_media_type = 'application/json'
         response.renderer_context = self.get_context(request)

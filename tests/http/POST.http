@@ -1,0 +1,12 @@
+POST http://localhost:8000/api/useractivity/1/file/
+Content-Type: mimeType,
+
+--WebAppBoundary
+Content-Disposition: attachment; filename=./teste.png
+
+< ./teste.png
+--WebAppBoundary--
+
+
+
+
