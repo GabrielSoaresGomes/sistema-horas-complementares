@@ -1,0 +1,24 @@
+### GET
+GET http://127.0.0.1:8000/api/course/
+
+### GET
+GET http://127.0.0.1:8000/api/course/1/
+
+### POST
+POST http://127.0.0.1:8000/api/course/
+Content-Type: application/json
+
+{
+  "name":  "Teste"
+}
+
+### PUT
+PUT http://127.0.0.1:8000/api/course/1/
+Content-Type: application/json
+
+{
+  "name":  "Novo nome"
+}
+
+### DELETE
+DELETE http://127.0.0.1:8000/api/course/2/

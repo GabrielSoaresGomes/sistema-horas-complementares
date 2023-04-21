@@ -13,3 +13,14 @@ Content-Type: application/json
   "description": "Teste"
 }
 
+### PUT
+PUT http://127.0.0.1:8000/api/activity/1/
+Content-Type: application/json
+
+{
+  "name":  "Novo nome",
+  "description": "Nova descrição"
+}
+
+### DELETE
+DELETE http://127.0.0.1:8000/api/activity/2/

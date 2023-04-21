@@ -7,5 +7,5 @@ from additional_hours.models import Activity
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = ('name', 'description', 'created_at', 'deleted_at')
+        fields = ('id', 'name', 'description', 'created_at', 'deleted_at')
         
