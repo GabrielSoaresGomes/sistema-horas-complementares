@@ -266,7 +266,7 @@ class UserActivity(models.Model):
     quantity = models.IntegerField(verbose_name='Quantidade', default=0)
     hours_acc = models.IntegerField(verbose_name='Horas ACC', default=0)
     total_hours = models.IntegerField(verbose_name='Horas Totais', default=0)
-    is_valid = models.BooleanField(verbose_name='É válido')
+    is_valid = models.BooleanField(verbose_name='É válido', default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
