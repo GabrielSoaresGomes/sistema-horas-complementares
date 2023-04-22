@@ -47,7 +47,29 @@ urlsDict = {
         "activity_id": 1,
         "maximum_hours":  10
     },
-    'DELETE|http://127.0.0.1:8000/api/activitycourse/2/': {}
+    'DELETE|http://127.0.0.1:8000/api/activitycourse/2/': {},
+    'GET|http://127.0.0.1:8000/api/useractivity/': {},
+    'GET|http://127.0.0.1:8000/api/useractivity/?activity_id=1': {},
+    'GET|http://127.0.0.1:8000/api/useractivity/?user_id=2': {},
+    'GET|http://127.0.0.1:8000/api/useractivity/?activity_id=1&user_id=2': {},
+    'GET|http://127.0.0.1:8000/api/useractivity/1/': {},
+    'POST|http://127.0.0.1:8000/api/useractivity/': {
+        "activity_id": 2,
+        "user_id": 1,
+        "quantity":  "40",
+        "hours_acc":  "40",
+        "total_hours":  "40",
+        "is_valid": False
+    },
+    'PUT|http://127.0.0.1:8000/api/useractivity/1/': {
+        "activity_id": 1,
+        "user_id": 1,
+        "quantity":  "40",
+        "hours_acc":  "40",
+        "total_hours":  "40",
+        "is_valid": False
+    },
+    'DELETE|http://127.0.0.1:8000/api/useractivity/2/': {},
 }
 
 

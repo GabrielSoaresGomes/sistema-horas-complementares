@@ -1,8 +1,7 @@
 from django.db.models import fields
 from rest_framework import serializers
 
-from additional_hours.models import ActivityCourse, Activity, Course
-from additional_hours.serializers import ActivitySerializer, CourseSerializer
+from additional_hours.models import ActivityCourse
 
 
 class ActivityCourseSerializer(serializers.ModelSerializer):

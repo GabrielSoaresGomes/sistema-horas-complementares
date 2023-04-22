@@ -1,0 +1,43 @@
+### GET
+GET http://127.0.0.1:8000/api/useractivity/
+
+### GET
+GET http://127.0.0.1:8000/api/useractivity/?activity_id=1
+
+### GET
+GET http://127.0.0.1:8000/api/useractivity/?user_id=2
+
+### GET
+GET http://127.0.0.1:8000/api/useractivity/?activity_id=1&user_id=2
+
+### GET
+GET http://127.0.0.1:8000/api/useractivity/1/
+
+### POST
+POST http://127.0.0.1:8000/api/useractivity/
+Content-Type: application/json
+
+{
+  "activity_id": 2,
+  "user_id": 1,
+  "quantity":  "40",
+  "hours_acc":  "40",
+  "total_hours":  "40",
+  "is_valid": false
+}
+
+### PUT
+PUT http://127.0.0.1:8000/api/useractivity/1/
+Content-Type: application/json
+
+{
+  "activity_id": 1,
+  "user_id": 1,
+  "quantity":  "40",
+  "hours_acc":  "40",
+  "total_hours":  "40",
+  "is_valid": false
+}
+
+### DELETE
+DELETE http://127.0.0.1:8000/api/useractivity/2/

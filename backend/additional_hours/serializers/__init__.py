@@ -1,3 +1,4 @@
 from .activity_serializer import ActivitySerializer
 from .course_serializer import CourseSerializer
 from .activity_course_serializer import ActivityCourseSerializer
+from .user_activity_serializer import UserActivitySerializer

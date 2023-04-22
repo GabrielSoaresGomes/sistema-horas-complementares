@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import activity_view, course_view, activity_course_view
+from .views import activity_view, course_view, activity_course_view, user_activity_view
 from . import old_views
 
 urlpatterns = [
@@ -13,7 +13,8 @@ urlpatterns = [
 
     path('usercourse/', old_views.insert_list_user_course),
     path('usercourse/<int:pk>/', old_views.detail_remove_update_user_course),
-    path('useractivity/', old_views.insert_list_user_activity),
-    path('useractivity/<int:pk>/', old_views.detail_remove_update_user_activity),
-    path('useractivity/<int:pk>/file/', old_views.append_file_to_user_activity),
+
+    path('useractivity/', user_activity_view.insert_list_user_activity),
+    path('useractivity/<int:pk>/', user_activity_view.detail_remove_update_user_activity),
+    path('useractivity/<int:pk>/file/', user_activity_view.append_file_to_user_activity),
 ]
