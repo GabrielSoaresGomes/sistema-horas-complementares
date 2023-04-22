@@ -37,27 +37,28 @@ class APIRootView(View):
                     "method": ["POST"]
                 }
             },
-            "Activity": {
-                "Listar todas atividades ou adicionar uma nova atividade": {
-                    "rota": "/activity/",
-                    "method": ["GET", "POST"]
+            "Api": {
+                "Activity": {
+                    "Listar todas atividades ou adicionar uma nova atividade": {
+                        "rota": "/api/activity/",
+                        "method": ["GET", "POST"]
+                    },
+                    "Detalhar uma atividade ou atualizar uma atividade ou apagar uma atividade": {
+                        "rota": "/api/activity/<int:pk>/",
+                        "method": ["GET", "PUT", "DELETE"]
+                    }
                 },
-                "Detalhar uma atividade ou atualizar uma atividade ou apagar uma atividade": {
-                    "rota": "/activity/<int:pk>/",
-                    "method": ["GET", "PUT", "DELETE"]
-                }
-            },
-            "Course": {
-                "Listar todos cursos ou adicionar um novo curso": {
-                    "rota": "/course/",
-                    "method": ["GET", "POST"]
-                },
-                "Detalhar um curso ou atualizar um curso ou apagar um curso": {
-                    "rota": "/course/<int:pk>/",
-                    "method": ["GET", "PUT", "DELETE"]
+                "Course": {
+                    "Listar todos cursos ou adicionar um novo curso": {
+                        "rota": "/api/course/",
+                        "method": ["GET", "POST"]
+                    },
+                    "Detalhar um curso ou atualizar um curso ou apagar um curso": {
+                        "rota": "/api/course/<int:pk>/",
+                        "method": ["GET", "PUT", "DELETE"]
+                    }
                 }
             }
-
         }
         for url in get_urls():
             url_list.append({
