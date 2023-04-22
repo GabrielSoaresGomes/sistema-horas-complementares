@@ -47,8 +47,10 @@ def detail_remove_update_activity(request, pk):
     if request.method == 'GET':
         try:
             activity = Activity.objects.get_activity_not_deleted_by_pk(pk)
-            serialized_activitiy = ActivitySerializer(activity, many=False)
-            return Response({"result": serialized_activitiy.data}, status=status.HTTP_200_OK)
+            if activity['success']:
+                serialized_activitiy = ActivitySerializer(activity['result'], many=False)
+                return Response({"result": serialized_activitiy.data}, status=status.HTTP_200_OK)
+            return Response({"result": activity['message']}, status=status.HTTP_404_NOT_FOUND)
         except Exception:
             full_message = f"[ ERRO ] Falha ao detalhar atividade: {traceback.format_exc()}"
             print(full_message)
@@ -70,10 +72,11 @@ def detail_remove_update_activity(request, pk):
     elif request.method == 'PUT':
         try:
             activity = Activity.objects.get_instance_not_deleted_by_pk(pk)
-            activity_serialized = ActivitySerializer(instance=activity, data=request.data)
-            if activity_serialized.is_valid():
-                activity_serialized.save()
-                return Response(activity_serialized.data)
+            if activity['result']:
+                activity_serialized = ActivitySerializer(instance=activity, data=request.data)
+                if activity_serialized.is_valid():
+                    activity_serialized.save()
+                    return Response(activity_serialized.data)
             return Response({"result": f"Não foi possível editar uma atividade com os dados inseridos!"},
                             status=status.HTTP_400_BAD_REQUEST)
         except Exception:

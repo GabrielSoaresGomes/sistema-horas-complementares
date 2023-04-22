@@ -70,9 +70,10 @@ def detail_remove_update_course(request, pk):
     elif request.method == 'PUT':
         try:
             course = Course.objects.get_instance_not_deleted_by_pk(pk)
-            course_serialized = CourseSerializer(instance=course, data=request.data)
-            if course_serialized.is_valid():
-                return Response({"result": 'Atualizado com sucesso!'}, status=status.HTTP_202_ACCEPTED)
+            if (course['success']):
+                course_serialized = CourseSerializer(instance=course['result'], data=request.data)
+                if course_serialized.is_valid():
+                    return Response({"result": 'Atualizado com sucesso!'}, status=status.HTTP_202_ACCEPTED)
             return Response({"result": "Dados fornecidos são inválidos!"}, status=status.HTTP_400_BAD_REQUEST)
         except Exception:
             full_message = f"[ ERRO ] Falha ao atualizar curso: {traceback.format_exc()}"

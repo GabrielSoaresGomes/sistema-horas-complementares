@@ -13,10 +13,10 @@ def insert_list_activity_course(request):
     if request.method == 'GET':
         try:
             activity_course = ActivityCourse.objects.list_not_deleted_by_query(request.query_params)
-            if activity_course['success']:
+            if activity_course:
                 serialized_activity_course = ActivityCourseSerializer(activity_course['result'], many=True)
                 return Response({"result": serialized_activity_course.data}, status=status.HTTP_200_OK)
-            return Response({"result": activity_course['result'], "message": activity_course['message']},
+            return Response({"result": activity_course, "message": activity_course['message']},
                             status=status.HTTP_400_BAD_REQUEST)
         except Exception:
             full_message = f"[ ERRO ] Falha ao listar atividades de cursos: {traceback.format_exc()}"
@@ -26,7 +26,7 @@ def insert_list_activity_course(request):
 
     elif request.method == 'POST':
         try:
-            activity_course = ActivityCourseSerializer(request.data)
+            activity_course = ActivityCourseSerializer(data=request.data)
             if activity_course.is_valid():
                 activity_course.save()
                 activity_course_id = activity_course.data['id']
@@ -59,7 +59,7 @@ def detail_remove_update_activity_course(request, pk):
 
     elif request.method == 'DELETE':
         try:
-            activity_course = ActivityCourse.objects.delete_activity_by_pk(pk)
+            activity_course = ActivityCourse.objects.delete_by_pk(pk)
             if activity_course['success']:
                 return Response({"result": '', "message": activity_course['message']},
                                 status=status.HTTP_204_NO_CONTENT)
@@ -74,12 +74,13 @@ def detail_remove_update_activity_course(request, pk):
     elif request.method == 'PUT':
         try:
             activity_course = ActivityCourse.objects.get_instance_not_deleted_by_pk(pk)
-            serialized_activity_course = ActivityCourseSerializer(instance=activity_course)
-            course_id = request.data['course_id']
-            activity_id = request.data['activity_id']
-            maximum_hours = request.data['maximum_hours']
-            update_result = ActivityCourse.objects.update_by_pk(pk, course_id, activity_id, maximum_hours)
-            return Response({"result": update_result['message']}, status=status.HTTP_204_NO_CONTENT)
+            if activity_course['success']:
+                serialized_activity_course = ActivityCourseSerializer(instance=activity_course['result'], data=request.data)
+                if serialized_activity_course.is_valid():
+                    serialized_activity_course.save()
+                    return Response({"result": serialized_activity_course.data, "message": "Atualizado com sucesso"}, status=status.HTTP_204_NO_CONTENT)
+            return Response({"result": f"Não foi possível editar uma atividade de um curso com os dados inseridos!"},
+                            status=status.HTTP_400_BAD_REQUEST)
         except Exception:
             full_message = f"[ ERRO ] Falha ao atualizar atividade do curso: {traceback.format_exc()}"
             print(full_message)
