@@ -1,0 +1,37 @@
+### GET
+GET http://127.0.0.1:8000/api/activitycourse/
+
+### GET
+GET http://127.0.0.1:8000/api/activitycourse/?activity_id=1
+
+### GET
+GET http://127.0.0.1:8000/api/activitycourse/?course_id=1
+
+### GET
+GET http://127.0.0.1:8000/api/activitycourse/?activity_id=1&course_id=2
+
+### GET
+GET http://127.0.0.1:8000/api/activitycourse/1/
+
+### POST
+POST http://127.0.0.1:8000/api/activitycourse/
+Content-Type: application/json
+
+{
+  "course_id": 2,
+  "activity_id": 2,
+  "maximum_hours":  "40"
+}
+
+### PUT
+PUT http://127.0.0.1:8000/api/activitycourse/1/
+Content-Type: application/json
+
+{
+  "course_id": 2,
+  "activity_id": 1,
+  "maximum_hours":  10
+}
+
+### DELETE
+DELETE http://127.0.0.1:8000/api/activitycourse/2/
