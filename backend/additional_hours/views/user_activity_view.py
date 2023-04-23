@@ -86,12 +86,12 @@ def detail_remove_update_user_activity(request, pk):
             message = "Falha ao atualizar usuário da atividade"
             return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 @api_view(['POST'])
 def append_file_to_user_activity(request, pk):
     if request.method == 'POST':
         try:
-            file = request.data
-            print(f'------------------- DEPOIS FILE {file}')
+            file = request.FILES.get('teste')
             result = UserActivity.objects.append_file(pk, file)
             if result['success']:
                 return Response({"result": result['message']}, status=status.HTTP_200_OK)

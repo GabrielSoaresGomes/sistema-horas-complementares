@@ -1,6 +1,13 @@
-from datetime import datetime
+import base64
+import os
+import datetime
 from django.db import models
+from django.apps import apps
+from storages.backends.gcloud import GoogleCloudStorage
+
 from users.models import User
+
+storage = GoogleCloudStorage()
 
 
 class BaseManager(models.Manager):
@@ -193,12 +200,21 @@ class UserActivityManager(BaseManager):
             return {"success": True, "message": "Atualizado com sucesso"}
         return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
 
-    def append_file(self, pk, file):
-        result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
-        if len(result) > 0:
-            print(pk, file)
-            user_activity_object = result[0]
-            user_activity_object.file = file
+    def append_file(self, pk, file_uploaded):
+        UserActivity = apps.get_model('additional_hours', 'UserActivity')
+        user_activity_object = UserActivity.objects.get(pk=pk, deleted_at=None)
+        if user_activity_object:
+            old_file_name, extension = os.path.splitext(file_uploaded.name)
+
+            full_datetime_now = datetime.datetime.now()
+            year_now = str(full_datetime_now.year)
+            month_now = str(full_datetime_now.month)
+            day_now = str(full_datetime_now.day)
+            filename = f'user_activty_id={user_activity_object.id}{extension}'
+            target_path = os.path.join('comprovantes', year_now, month_now, day_now, filename)
+            path = storage.save(target_path, file_uploaded)
+            url_file = storage.url(path)
+            user_activity_object.file = url_file
             user_activity_object.save()
             return {"success": True, "message": "Arquivo inserido com sucesso!"}
         return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
@@ -261,8 +277,7 @@ class UserActivity(models.Model):
         pass
     user = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='Usuário', null=True)
     activity = models.ForeignKey(Activity, on_delete=models.SET_NULL, verbose_name='Atividade', null=True)
-    file = models.FileField(null=True, verbose_name="Arquivo")
-    file_data = models.BinaryField(null=True, verbose_name="Arquivo | Binário")
+    file = models.TextField(null=True, verbose_name="Arquivo")
     quantity = models.IntegerField(verbose_name='Quantidade', default=0)
     hours_acc = models.IntegerField(verbose_name='Horas ACC', default=0)
     total_hours = models.IntegerField(verbose_name='Horas Totais', default=0)

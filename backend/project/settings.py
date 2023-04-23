@@ -3,6 +3,7 @@ import json
 import datetime
 from pathlib import Path
 from dotenv import load_dotenv
+from google.oauth2 import service_account
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -152,3 +153,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_PROFILE_MODULE = 'users.User'
 
 AUTH_USER_MODEL = 'users.User'
+
+
+# storage
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR, 'crucial-oarlock-384600-58d68c374958.json')
+)
+DEFAULT_FILE_STORAGE = os.getenv('DEFAULT_FILE_STORAGE')
+GS_BUCKET_NAME = os.getenv('GS_BUCKET_NAME')
