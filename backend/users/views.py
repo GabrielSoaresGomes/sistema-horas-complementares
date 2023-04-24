@@ -1,11 +1,13 @@
+import traceback
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from rest_framework import status, generics
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import  Response
+from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view
 from .utils import get_tokens_for_user
 from .models import User
 from .serializers import RegistrationSerializer, PasswordChangeSerializer, UserListDetailSerializer
@@ -13,15 +15,45 @@ from .serializers import RegistrationSerializer, PasswordChangeSerializer, UserL
 
 # API Usuário
 class UserList(generics.ListAPIView):
-    permission_classes = [IsAuthenticated, ]
+    # permission_classes = [IsAuthenticated, ]
     queryset = User.objects.all()
     serializer_class = UserListDetailSerializer
 
 
-class UserDetail(generics.RetrieveAPIView):
-    permission_classes = [IsAuthenticated, ]
-    queryset = User.objects.all()
-    serializer_class = UserListDetailSerializer
+@api_view(['GET', 'PUT'])
+def detail_update(request, pk):
+    if request.method == 'PUT':
+        try:
+            user = User.objects.get(pk=pk, deleted_at=None)
+            if user:
+                user_serialized = UserListDetailSerializer(instance=user, data=request.data)
+                if user_serialized.is_valid():
+                    user_serialized.save()
+                    return Response({"result": user_serialized.data, "message": ""})
+            return Response({"result": None, "message": "Não foi possível editar o usuário com os dados inseridos!"},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        except Exception:
+            full_message = f"[ ERRO ] Falha ao atualizar usuário: {traceback.format_exc()}"
+            print(full_message)
+            message = "Falha ao atualizar usuário"
+            return Response({"result": None, "message": message},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    elif request.method == 'GET':
+        try:
+            user = User.objects.get(pk=pk, deleted_at=None)
+            if user:
+                user_serialized = UserListDetailSerializer(user, many=False)
+                return Response({"result": user_serialized.data, "message": ""},
+                                status=status.HTTP_200_OK)
+            return Response({"result": None, "message": "Não foi possível detalhar o usuário solicitado!"},
+                            status=status.HTTP_404_NOT_FOUND)
+        except Exception:
+            full_message = f"[ ERRO ] Falha ao detalhar usuário: {traceback.format_exc()}"
+            print(full_message)
+            message = "Falha ao detalhar usuário"
+            return Response({"result": None, "message": message},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # Autenticação

@@ -1,11 +1,11 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import RegistrationView, LoginView, LogoutView,ChangePasswordView, UserList, UserDetail
+from .views import RegistrationView, LoginView, LogoutView, ChangePasswordView, UserList, detail_update
 from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     path('', UserList.as_view()),
-    path('<int:pk>/', UserDetail.as_view()),
+    path('<int:pk>/', detail_update),
 
     path('accounts/register/', RegistrationView.as_view(), name='register'),
     path('accounts/login/', LoginView.as_view(), name='register'),

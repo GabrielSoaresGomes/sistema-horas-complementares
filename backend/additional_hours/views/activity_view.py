@@ -50,24 +50,29 @@ def detail_remove_update_activity(request, pk):
             if activity['success']:
                 serialized_activitiy = ActivitySerializer(activity['result'], many=False)
                 return Response({"result": serialized_activitiy.data}, status=status.HTTP_200_OK)
-            return Response({"result": activity['message']}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"result": activity['message']},
+                            status=status.HTTP_404_NOT_FOUND)
         except Exception:
             full_message = f"[ ERRO ] Falha ao detalhar atividade: {traceback.format_exc()}"
             print(full_message)
             message = "Falha ao detalhar atividade"
-            return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"result": message},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     elif request.method == 'DELETE':
         try:
             delete_result = Activity.objects.delete_activity_by_pk(pk)
             if delete_result['success']:
-                return Response({"result": delete_result['message']}, status=status.HTTP_202_ACCEPTED)
-            return Response({"result": delete_result['message']}, status=status.HTTP_404_NOT_FOUND)
+                return Response({"result": delete_result['message']},
+                                status=status.HTTP_202_ACCEPTED)
+            return Response({"result": delete_result['message']},
+                            status=status.HTTP_404_NOT_FOUND)
         except Exception:
             full_message = f"[ ERRO ] Falha ao deletar atividade: {traceback.format_exc()}"
             print(full_message)
             message = "Falha ao deletar atividade"
-            return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"result": message},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     elif request.method == 'PUT':
         try:
@@ -76,13 +81,14 @@ def detail_remove_update_activity(request, pk):
                 activity_serialized = ActivitySerializer(instance=activity, data=request.data)
                 if activity_serialized.is_valid():
                     activity_serialized.save()
-                    return Response(activity_serialized.data)
+                    return Response({"result": activity_serialized.data, "message": ""})
             return Response({"result": f"Não foi possível editar uma atividade com os dados inseridos!"},
-                            status=status.HTTP_400_BAD_REQUEST)
+                            status=status.HTTP_404_NOT_FOUND)
         except Exception:
             full_message = f"[ ERRO ] Falha ao atualizar atividade: {traceback.format_exc()}"
             print(full_message)
             message = "Falha ao atualizar atividade"
-            return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"result": message},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 

@@ -50,19 +50,20 @@ class User(AbstractBaseUser):
     email = models.EmailField(
         max_length=255,
         unique=True,
-        verbose_name='Email'
+        verbose_name='Email',
+        blank=True, null=True
     )
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     expiry_date = models.DateTimeField(null=True, blank=True)
-    registration = models.TextField(blank=False, null=False, verbose_name='Matrícula')
+    registration = models.TextField(blank=True, null=True, verbose_name='Matrícula')
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'registration']
+    REQUIRED_FIELDS = ['name']
 
     def __str__(self):
         return self.name
@@ -76,7 +77,6 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
-
 
     class Meta:
         db_table = 'user'
