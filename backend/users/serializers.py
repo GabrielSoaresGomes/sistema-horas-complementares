@@ -9,23 +9,24 @@ class UserListDetailSerializer(serializers.ModelSerializer):
         fields = ['id', 'last_login', 'name', 'email', 'is_admin', 'is_active', 'registration', 'created_at']
 
 
-
 class RegistrationSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(style={"input_type": "password"}, write_only=True)
-
     class Meta:
         model = User
-        fields = ['email', 'registration', 'password', 'password2']
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
+        fields = [
+                    'name',
+                    'email',
+                    'registration',
+                    # 'password'
+                  ]
+        # extra_kwargs = {
+        #     'password': {'write_only': True}
+        # }
 
     def save(self):
-        user = User(email=self.validated_data['email'], registration=self.validated_data['registration'])
-        password = self.validated_data['password']
-        password2 = self.validated_data['password2']
-        if password != password2:
-            raise serializers.ValidationError({'password': 'Senhas são diferentes.'})
+        user = User(name=self.validated_data.get('name'),email=self.validated_data.get('email'), registration=self.validated_data.get('registration'))
+        password = self.validated_data.get('password')
+        if not password:
+            password = '12345678'
         user.set_password(password)
         user.save()
         return user

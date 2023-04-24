@@ -41,8 +41,6 @@ class UserManager(BaseUserManager):
         return {"result": "", "success": False, "message": "Não foi possível achar um resultado!"}
 
 
-
-# Utilização da classe TimeStampMixin para criação automática das colunas created_at e deleted_at
 class User(AbstractBaseUser):
     class Admin:
         pass
@@ -54,7 +52,7 @@ class User(AbstractBaseUser):
         blank=True, null=True
     )
     is_admin = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     expiry_date = models.DateTimeField(null=True, blank=True)
     registration = models.TextField(blank=True, null=True, verbose_name='Matrícula')
     created_at = models.DateTimeField(auto_now_add=True)
