@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from "../interfaces/user-interfaces";
-import { GlobalVariable } from "../global";
+import { SharedService } from "../shared.service";
 
 @Component({
   selector: 'app-users',
@@ -9,7 +9,8 @@ import { GlobalVariable } from "../global";
 })
 export class UsersComponent implements OnInit{
 
-  GlobalVariable.pageActive = 'users';
+  constructor(private sharedService: SharedService) {}
+
   users: User[] = [
     {
       id: 1,
@@ -28,6 +29,7 @@ export class UsersComponent implements OnInit{
   }
   ngOnInit(): void {
     this.getUsers();
+    this.sharedService.setActiveComponent('users');
   }
 
 }
