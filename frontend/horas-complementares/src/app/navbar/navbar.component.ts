@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GlobalVariable } from "../global";
 
 @Component({
   selector: 'app-navbar',
