@@ -1,24 +1,13 @@
 import './App.css';
 
+import Routes from './pages/routes'
+import Navbar from "./components/Navbar/Navbar";
 function App() {
-
-    const userList = [
-        {
-            name: 'Admin',
-            registration: '000000000',
-            is_admin: true
-        }
-    ];
-
     return (
-    <div className="App">
-
-      <h1 style={{color: 'White'}}>Home</h1>
-
-        <UserList userList={userList} />
-
-    </div>
-    );
+        <>
+        <Routes />
+        </>
+    )
 }
 
 const User = (props) => {
