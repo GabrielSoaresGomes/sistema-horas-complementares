@@ -4,7 +4,9 @@ const Skeleton = ({children}) => {
     return (
         <>
             <Navbar />
-            {children}
+            <div className='container-fluid'>
+                {children}
+            </div>
         </>
     )
 }
