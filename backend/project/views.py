@@ -8,6 +8,7 @@ class APIRootView(View):
 
     def get_context(self, request):
         return {'request': request}
+
     def get(self, request, format=None):
         url_list = []
         api_urls = {
@@ -65,8 +66,8 @@ class APIRootView(View):
                 'url': url[0],
                 'name': url[1]
             })
-        # response = Response(url_list)
-        response = Response(api_urls)
+        response = Response(url_list)
+        # response = Response(api_urls)
         response.accepted_renderer = JSONRenderer()
         response.accepted_media_type = 'application/json'
         response.renderer_context = self.get_context(request)

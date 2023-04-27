@@ -51,6 +51,7 @@ class User(AbstractBaseUser):
         verbose_name='Email',
         blank=True, null=True
     )
+    course = models.ForeignKey('additional_hours.Course', on_delete=models.SET_NULL, verbose_name='Curso', null=True)
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     expiry_date = models.DateTimeField(null=True, blank=True)

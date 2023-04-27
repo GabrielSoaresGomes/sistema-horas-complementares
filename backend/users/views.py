@@ -21,6 +21,23 @@ class UserList(generics.ListAPIView):
     serializer_class = UserListDetailSerializer
 
 
+@api_view(['GET'])
+def list(request):
+    try:
+        users = User.objects.filter(deleted_at=None)
+        if users:
+            users_serialized = UserListDetailSerializer(users, many=True)
+            return Response(users_serialized.data,
+                            status=status.HTTP_200_OK,
+                            headers={"message": None})
+    except Exception:
+        full_message = f"[ ERRO ] Falha ao listar usuários: {traceback.format_exc()}"
+        print(full_message)
+        message = "Falha ao listar usuários"
+        return Response({},
+                        headers={"message": message},
+                        status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 @api_view(['GET', 'PUT', 'DELETE'])
 def detail_update(request, pk):
     if request.method == 'PUT':

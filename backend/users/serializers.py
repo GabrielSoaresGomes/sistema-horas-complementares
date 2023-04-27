@@ -3,10 +3,13 @@ from .models import User
 
 
 class UserListDetailSerializer(serializers.ModelSerializer):
+    course_name = serializers.CharField(source='course.name', read_only=True)
+    course_id = serializers.CharField(source='course.id', read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'last_login', 'name', 'email', 'is_admin', 'is_active', 'registration', 'created_at']
+        fields = ['id', 'last_login', 'name', 'email', 'is_admin', 'is_active', 'registration', 'created_at',
+                  'course_name', 'course_id']
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
