@@ -6,19 +6,17 @@ from dotenv import load_dotenv
 from google.oauth2 import service_account
 load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-SECRET_KEY = os.getenv('SECRET_KEY')
-
-DEBUG = os.getenv('DJANGO_DEBUG')
-
-csrf_trusted_origins_env = os.getenv('CSRF_TRUSTED_ORIGINS')
-CSRF_TRUSTED_ORIGINS = json.loads(csrf_trusted_origins_env)
-
-allowed_hosts_env = os.getenv('ALLOWED_HOSTS')
-ALLOWED_HOSTS = json.loads(allowed_hosts_env)
-
+try:
+    # Build paths inside the project like this: BASE_DIR / 'subdir'.
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    SECRET_KEY = os.getenv('SECRET_KEY')
+    DEBUG = os.getenv('DJANGO_DEBUG')
+    csrf_trusted_origins_env = os.getenv('CSRF_TRUSTED_ORIGINS')
+    CSRF_TRUSTED_ORIGINS = json.loads(csrf_trusted_origins_env)
+    allowed_hosts_env = os.getenv('ALLOWED_HOSTS')
+    ALLOWED_HOSTS = json.loads(allowed_hosts_env)
+except Exception:
+    print('Não foi possível carregar informações do .env para configuração do Django')
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -75,20 +73,22 @@ WSGI_APPLICATION = "project.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+try:
+    DATABASE_POSTGRES_HOST = os.getenv('DATABASE_POSTGRES_HOST')
 
-DATABASE_POSTGRES_HOST = os.getenv('DATABASE_POSTGRES_HOST')
+    DATABASE_POSTGRES_PORT = os.getenv('DATABASE_POSTGRES_PORT')
 
-DATABASE_POSTGRES_PORT = os.getenv('DATABASE_POSTGRES_PORT')
+    DATABASE_POSTGRES_PASSWORD = os.getenv('DATABASE_POSTGRES_PASSWORD')
 
-DATABASE_POSTGRES_PASSWORD = os.getenv('DATABASE_POSTGRES_PASSWORD')
+    DATABASE_POSTGRES_USER = os.getenv('DATABASE_POSTGRES_USER')
 
-DATABASE_POSTGRES_USER = os.getenv('DATABASE_POSTGRES_USER')
+    DATABASE_POSTGRES_NAME = os.getenv('DATABASE_POSTGRES_NAME')
 
-DATABASE_POSTGRES_NAME = os.getenv('DATABASE_POSTGRES_NAME')
+    CONN_MAX_AGE = 0
 
-CONN_MAX_AGE = 0
-
-IS_USING_SQLITE3 = json.loads(os.getenv('IS_USING_SQLITE3'))
+    IS_USING_SQLITE3 = json.loads(os.getenv('IS_USING_SQLITE3'))
+except Exception:
+    print('Não foi possível carregar informações do .env de credenciais de banco!')
 if not IS_USING_SQLITE3:
     DATABASES = {
         'default': {
@@ -166,8 +166,12 @@ AUTH_USER_MODEL = 'users.User'
 
 
 # storage
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.path.join(BASE_DIR, 'crucial-oarlock-384600-58d68c374958.json')
-)
-DEFAULT_FILE_STORAGE = os.getenv('DEFAULT_FILE_STORAGE')
-GS_BUCKET_NAME = os.getenv('GS_BUCKET_NAME')
+
+try:
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+        os.path.join(BASE_DIR, 'crucial-oarlock-384600-58d68c374958.json')
+    )
+    DEFAULT_FILE_STORAGE = os.getenv('DEFAULT_FILE_STORAGE')
+    GS_BUCKET_NAME = os.getenv('GS_BUCKET_NAME')
+except Exception:
+    print('Não foi possível obter informações da Google Cloud.')
