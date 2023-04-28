@@ -2,16 +2,31 @@ const {REACT_APP_BACKEND_BASE_URL} = process.env;
 
 class ApiUser {
     async get(url) {
+        try {
+            const fullUrl = `${REACT_APP_BACKEND_BASE_URL}${url}`;
+            const headers = this.headers();
+            const response = await fetch(fullUrl, {method: 'GET', headers});
+            if (response.ok) {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                }
+                throw new Error(response.headers.get('message'));
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async delete(url) {
         const fullUrl = `${REACT_APP_BACKEND_BASE_URL}${url}`;
         const headers = this.headers();
-        const response = await fetch(fullUrl, {method: 'GET', headers});
+        const response = await fetch(fullUrl, {method: 'DELETE', headers});
         if (response.ok) {
             if (response.status >= 200 && response.status < 300) {
                 return response.json();
             }
             throw new Error(response.headers.get('message'));
         }
-
     }
 
     headers(header={}) {

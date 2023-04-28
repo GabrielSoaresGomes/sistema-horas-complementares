@@ -1,12 +1,27 @@
 import Skeleton from "../../components/Skeleton/Skeleton";
-import {useEffect, useState} from "react";
-import {Table} from "antd";
+import {useCallback, useEffect, useState} from "react";
+import {Table, Popconfirm} from "antd";
 
 import ApiInstanceUser from '../../services/apiUser';
 
 const Users = () => {
 
     const [userList, setUserList] = useState([]);
+
+    const handleDelete = async (user) => {
+        try {
+            await ApiInstanceUser.delete(`/users/${user?.id}`);
+            if (user) {
+                const index = userList.indexOf(user);
+                if (index > -1) {
+                    setUserList(userList.splice(index, 1));
+                }
+            }
+
+        } catch (error) {
+
+        }
+    }
 
     const columns = [
         {
@@ -39,18 +54,31 @@ const Users = () => {
             title: '',
             dataIndex: '',
             key: '',
-            width: '15%',
+            width: '10%',
             ellipsis: true,
-            render: () => (
-                <>DELETAR | EXCLUIR</>
-            )
+            render: useCallback((user) => (
+                <div className={'d-flex'}>
+                    <><i className="bi bi-pencil-square fs-5 cursor-pointer"></i></>
+
+                    <Popconfirm
+                        title={'Certeza que deseja excluir esse usuário?'}
+                        placement={'topLeft'}
+                        onConfirm={async () => {await handleDelete(user); }}
+                        onCancel={() => {}}
+                        okText={'Sim'}
+                        cancelText={'Não'}
+                        data-tst={'delete_user_button'}
+                    >
+                        <i className="bi bi-trash-fill fs-5 cursor-pointer"></i>
+                    </Popconfirm>
+                </div>
+            ))
         }
     ]
 
     const getUsers = async () => {
         try {
             const result = await ApiInstanceUser.get('/users/');
-            console.log(result);
             setUserList(result);
         } catch (error) {
 
