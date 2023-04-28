@@ -39,7 +39,7 @@ def list(request):
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def detail_update(request, pk):
+def detail_update_delete(request, pk):
     if request.method == 'PUT':
         try:
             user = User.objects.get(pk=pk, deleted_at=None)

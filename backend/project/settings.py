@@ -43,10 +43,17 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:4444',
     'http://localhost:3000'
+]
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:4444',
+]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    'http://localhost:4444',
 ]
 
 
