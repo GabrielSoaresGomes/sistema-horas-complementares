@@ -1,14 +1,16 @@
+import axios from "axios";
+
 const {REACT_APP_BACKEND_BASE_URL} = process.env;
 
-class ApiUser {
+class Apis {
     async get(url) {
         try {
             const fullUrl = `${REACT_APP_BACKEND_BASE_URL}${url}`;
             const headers = this.headers();
-            const response = await fetch(fullUrl, {method: 'GET', headers});
-            if (response.ok) {
+            const response = await axios.get(fullUrl, {headers});
+            if (response.statusText === 'OK') {
                 if (response.status >= 200 && response.status < 300) {
-                    return response.json();
+                    return response.data;
                 }
                 throw new Error(response.headers.get('message'));
             }
@@ -20,10 +22,22 @@ class ApiUser {
     async delete(url) {
         const fullUrl = `${REACT_APP_BACKEND_BASE_URL}${url}`;
         const headers = this.headers();
-        const response = await fetch(fullUrl, {method: 'DELETE', headers});
-        if (response.ok) {
+        const response = await axios.delete(fullUrl, {headers});
+        if (response.statusText === 'OK') {
             if (response.status >= 200 && response.status < 300) {
-                return response.json();
+                return response.data;
+            }
+            throw new Error(response.headers.get('message'));
+        }
+    }
+
+    async put(url, userData) {
+        const fullUrl = `${REACT_APP_BACKEND_BASE_URL}${url}`;
+        const headers = this.headers();
+        const response = await axios.put(fullUrl, userData, {headers});
+        if (response.statusText === 'OK') {
+            if (response.status >= 200 && response.status < 300) {
+                return response.data;
             }
             throw new Error(response.headers.get('message'));
         }
@@ -40,5 +54,5 @@ class ApiUser {
     }
 }
 
-const ApiInstanceUser = new ApiUser();
-export default ApiInstanceUser;
+const ApiInstance = new Apis();
+export default ApiInstance;

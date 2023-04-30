@@ -30,6 +30,9 @@ def list(request):
             return Response(users_serialized.data,
                             status=status.HTTP_200_OK,
                             headers={"message": None})
+        return Response([],
+                        status=status.HTTP_204_NO_CONTENT,
+                        headers={"message": "Não foi encontrado nenhum resultado"})
     except Exception:
         full_message = f"[ ERRO ] Falha ao listar usuários: {traceback.format_exc()}"
         print(full_message)
@@ -37,6 +40,7 @@ def list(request):
         return Response({},
                         headers={"message": message},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def detail_update_delete(request, pk):

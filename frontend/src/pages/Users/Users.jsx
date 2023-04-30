@@ -2,15 +2,18 @@ import Skeleton from "../../components/Skeleton/Skeleton";
 import {useCallback, useEffect, useState} from "react";
 import {Table, Popconfirm} from "antd";
 
-import ApiInstanceUser from '../../services/apiUser';
+import DetailUserModal from "./modal/DetailUserModal";
+import ApiInstance from '../../services/apis';
 
 const Users = () => {
 
+    const [openModal, setOpenModal] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
     const [userList, setUserList] = useState([]);
 
     const handleDelete = async (user) => {
         try {
-            await ApiInstanceUser.delete(`/users/${user?.id}`);
+            await ApiInstance.delete(`users/${user?.id}`);
             if (user) {
                 const index = userList.indexOf(user);
                 if (index > -1) {
@@ -19,7 +22,16 @@ const Users = () => {
             }
 
         } catch (error) {
+            console.log(error)
+        }
+    }
 
+    const handleEdit = async (user) => {
+        try {
+            setSelectedUser(user);
+            setOpenModal(true);
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -35,6 +47,12 @@ const Users = () => {
             title: 'Nome',
             dataIndex: 'name',
             key: 'name',
+            ellipsis: true
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',
             ellipsis: true
         },
         {
@@ -57,8 +75,13 @@ const Users = () => {
             width: '10%',
             ellipsis: true,
             render: useCallback((user) => (
-                <div className={'d-flex'}>
-                    <><i className="bi bi-pencil-square fs-5 cursor-pointer"></i></>
+                <div className={'d-flex flex-around justify-content-around'}>
+                    <div onClick={async () => {
+                        await handleEdit(user);
+                    }}
+                    >
+                        <i className="bi bi-pencil-square fs-5 cursor-pointer"></i>
+                    </div>
 
                     <Popconfirm
                         title={'Certeza que deseja excluir esse usuário?'}
@@ -78,10 +101,11 @@ const Users = () => {
 
     const getUsers = async () => {
         try {
-            const result = await ApiInstanceUser.get('/users/');
+            const result = await ApiInstance.get('users/');
+            console.log(result)
             setUserList(result);
         } catch (error) {
-
+            console.log(error);
         }
     }
 
@@ -101,6 +125,19 @@ const Users = () => {
                     data-tst='table_users'
                     rowKey={'id'}
                     showSorterTooltip={false}
+                    onRow={(record) => ({
+                        onDoubleClick: () => {
+                            handleEdit(record).then(r => {return null});
+                        },
+                    })}
+                />
+                <DetailUserModal
+                    isModalVisible={openModal}
+                    handleCancel={() => {
+                        setOpenModal(false);
+                    }}
+                    selectedUser={selectedUser}
+                    setSelectedUser={setSelectedUser}
                 />
             </div>
         </Skeleton>
