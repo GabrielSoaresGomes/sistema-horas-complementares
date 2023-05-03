@@ -5,15 +5,24 @@ import {
 
 import ApiInstance from "../../../services/apis";
 
-const { REACT_APP_API_URL } = process.env;
+const { Option } = Select;
 
 const ModalUser = ({isModalVisible, handleCancel, selectedUser, setSelectedUser}) => {
 
     const [courses, setCourses] = useState([]);
     const [form] = Form.useForm();
 
+    const getCourses = React.useCallback(async () => {
+        try {
+            return await ApiInstance.get('api/course/');
+        } catch (error) {
+            console.log('Falha ao listar cursos');
+            message.error('Ocorreu um erro! 😢')
+        }
+    }, []);
+
     useEffect(() => {
-        getCourses().then(r => {return null});
+        getCourses().then(r => {setCourses(r)});
         form.resetFields();
         if (selectedUser) {
             form.setFieldsValue({
@@ -22,17 +31,9 @@ const ModalUser = ({isModalVisible, handleCancel, selectedUser, setSelectedUser}
         } else {
             form.resetFields();
         }
-    }, [selectedUser]);
+    }, [selectedUser, getCourses]);
 
-    const getCourses = React.useCallback(async () => {
-       try {
-            const courses = await ApiInstance.get('api/course/');
-            setCourses(courses);
-       } catch (error) {
-           console.log('Falha ao listar cursos');
-           message.error('Ocorreu um erro! 😢')
-       }
-    }, []);
+
 
     const onFinish = async () => {
         try {
@@ -41,6 +42,8 @@ const ModalUser = ({isModalVisible, handleCancel, selectedUser, setSelectedUser}
                 await update(userData);
                 selectedUser.name = userData.name;
                 selectedUser.registration = userData.registration;
+                selectedUser.email = userData.email;
+                selectedUser.course_id = userData.course;
                 setSelectedUser(null);
             }
             form.resetFields();
@@ -53,16 +56,10 @@ const ModalUser = ({isModalVisible, handleCancel, selectedUser, setSelectedUser}
 
     const update = async (user) => {
         try {
-            console.log(user)
             await ApiInstance.put(`users/${selectedUser?.id}/`, {
                 ...user,
                 id: selectedUser?.id
             });
-            // await changeTableRow('update', {
-            //     ...user,
-            //     user_password: '',
-            //     id: selectedUser?.id,
-            // });
             message.success('Atualizado com sucesso!');
         } catch (error) {
             message.error(error.message);
@@ -141,13 +138,22 @@ const ModalUser = ({isModalVisible, handleCancel, selectedUser, setSelectedUser}
                         </Col>
                         <Col span={12}>
                             <Form.Item
-                                name={'user_course_ids'}
+                                name={'course'}
                                 label={'Curso'}
                                 rules={[{required: !selectedUser?.is_admin, message: 'Selecione um curso!'}]}
                                 style={{ width: '500px' }}
                             >
-                                <Select placeholder={'Selecione'}>
-                                    Apenas
+                                <Select placeholder={'Selecione seu curso'}>
+                                    {
+                                        courses.map((course) => (
+                                            <Option
+                                                key={course.id}
+                                                value={course.id}
+                                            >
+                                                {course.name}
+                                            </Option>
+                                        ))
+                                    }
                                 </Select>
                             </Form.Item>
                         </Col>

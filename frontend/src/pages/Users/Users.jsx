@@ -102,7 +102,6 @@ const Users = () => {
     const getUsers = async () => {
         try {
             const result = await ApiInstance.get('users/');
-            console.log(result)
             setUserList(result);
         } catch (error) {
             console.log(error);

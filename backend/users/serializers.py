@@ -9,7 +9,7 @@ class UserListDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'last_login', 'name', 'email', 'is_admin', 'is_active', 'registration', 'created_at',
-                  'course_name', 'course_id']
+                  'course_name', 'course_id', 'course']
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
