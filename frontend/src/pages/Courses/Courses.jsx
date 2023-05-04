@@ -10,7 +10,7 @@ const Courses = () => {
     const [courseList, setCourseList] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const handleDelete = async (course) => {
+    const handleDelete = useCallback(async (course) => {
         try {
             await ApiInstance.delete(`api/course/${course?.id}`);
             if (course) {
@@ -24,16 +24,16 @@ const Courses = () => {
         } catch (error) {
             console.log(error)
         }
-    }
+    }, [courseList]);
 
-    const handleEdit = async (course) => {
+    const handleEdit = useCallback(async (course) => {
         try {
             setSelectedCourse(course);
             setOpenModal(true);
         } catch (error) {
             console.log(error);
         }
-    }
+    }, [])
 
     const columns = [
         {
@@ -82,9 +82,9 @@ const Courses = () => {
                         <i className="bi bi-trash-fill fs-5 cursor-pointer"></i>
                     </Popconfirm>
                 </div>
-            ), [])
+            ), [handleDelete, handleEdit])
         }
-    ]
+    ];
 
     const getCourses = async () => {
         try {
