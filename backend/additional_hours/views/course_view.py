@@ -92,6 +92,7 @@ def detail_remove_update_course(request, pk):
             if (course['success']):
                 course_serialized = CourseSerializer(instance=course['result'], data=request.data)
                 if course_serialized.is_valid():
+                    course_serialized.save()
                     return Response({},
                                     status=status.HTTP_202_ACCEPTED,
                                     headers={"message": "Atualizado com sucesso!"})

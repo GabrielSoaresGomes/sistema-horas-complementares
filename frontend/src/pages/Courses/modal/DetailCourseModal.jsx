@@ -1,79 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import {
-    Modal, Form, message, Button, Input, Row, Col, Select, Space, Spin
+    Modal, Form, message, Button, Input, Row, Col, Space, Spin
 } from "antd";
 
 import ApiInstance from "../../../services/apis";
 
-const { Option } = Select;
+const ModalCourse = ({isModalVisible, handleCancel, selectedCourse, setSelectedCourse}) => {
 
-const ModalUser = ({isModalVisible, handleCancel, selectedUser, setSelectedUser}) => {
-
-    const [courses, setCourses] = useState([]);
     const [isSaving, setIsSaving] = useState(false);
     const [form] = Form.useForm();
 
-    const getCourses = React.useCallback(async () => {
-        try {
-            return await ApiInstance.get('api/course/');
-        } catch (error) {
-            console.log('Falha ao listar cursos para os usuários');
-            message.error('Ocorreu um erro! 😢');
-        }
-    }, []);
-
     useEffect(() => {
-        getCourses().then(r => {setCourses(r)});
         form.resetFields();
-        if (selectedUser) {
+        if (selectedCourse) {
             form.setFieldsValue({
-                ...selectedUser
+                ...selectedCourse
             });
         } else {
             form.resetFields();
         }
-    }, [selectedUser, getCourses]);
-
-    const getCourseByIdAndSetToUser = async (user, courseId) => {
-        try {
-            const course = await ApiInstance.get(`api/course/${courseId}/`);
-            user.course_name = course.name;
-        } catch (error) {
-            console.log('Falha ao pegar e setar o curso para usuário!');
-            message.error('Ocorreu um erro! 😢');
-        }
-    }
+    }, [selectedCourse]);
 
     const onFinish = async () => {
         try {
             setIsSaving(true);
             const userData = await form.validateFields();
-            if (selectedUser) {
+            if (selectedCourse) {
                 await update(userData);
-                selectedUser.name = userData.name;
-                selectedUser.registration = userData.registration;
-                selectedUser.email = userData.email;
-                selectedUser.course = userData.course;
-                await getCourseByIdAndSetToUser(selectedUser, userData.course);
-                setSelectedUser(null);
+                selectedCourse.name = userData.name;
+                selectedCourse.code = userData.code;
+                setSelectedCourse(null);
             }
             message.success('Atualizado com sucesso!');
             setIsSaving(false)
             form.resetFields();
             handleCancel();
         } catch (error) {
-            console.log('Falha ao finalizar edição do usuário!');
+            console.log(error)
+            console.log('Falha ao atualizar o curso');
             form.resetFields();
             message.error('Ocorreu um erro! 😢');
             setIsSaving(false);
         }
     };
 
-    const update = async (user) => {
+    const update = async (course) => {
         try {
-            await ApiInstance.put(`users/${selectedUser?.id}/`, {
-                ...user,
-                id: selectedUser?.id
+            await ApiInstance.put(`api/course/${selectedCourse?.id}/`, {
+                ...course,
+                id: selectedCourse?.id
             });
         } catch (error) {
             message.error(error.message);
@@ -83,10 +58,10 @@ const ModalUser = ({isModalVisible, handleCancel, selectedUser, setSelectedUser}
 
     return (
         <Modal
-            title={'Editar Usuário'}
+            title={'Editar Curso'}
             open={isModalVisible}
             onCancel={handleCancel}
-            width={1200}
+            width={550}
             footer={[
                 <Button key='back' disabled={isSaving} onClick={handleCancel}>
                     Cancelar
@@ -104,72 +79,29 @@ const ModalUser = ({isModalVisible, handleCancel, selectedUser, setSelectedUser}
                     style={{width: '100%'}}
                     form={form}
                 >
-                    <Space.Compact block size={'large'}>
+                    <Space.Compact block size={'middle'}>
                         <Row>
                             <Col span={12}>
                                 <Form.Item
                                     label={'Nome'}
                                     name={'name'}
-                                    rules={[{ required: true, message: 'Preencha seu nome!' }]}
+                                    rules={[{ required: true, message: 'Preencha o nome do curso' }]}
                                     style={{ marginRight: '15px', width: '500px'}}
                                 >
                                     <Input style={{ height: '36px' }} />
                                 </Form.Item>
                             </Col>
-                            <Col span={12}>
-                                <Form.Item
-                                    label={'Email'}
-                                    name={'email'}
-                                    rules={[{required: true, message: 'Preencha seu email!'}, {type: 'email', message: 'Preencha um email válido!'}]}
-                                >
-                                    <Input style={{ height: '36px', width: '500px' }} />
-                                </Form.Item>
-                            </Col>
                         </Row>
                     </Space.Compact>
-                    <Space.Compact block size={'large'}>
+                    <Space.Compact block size={'middle'}>
                         <Row>
-                            {/*<Col span={8}>*/}
-                            {/*    <Form.Item*/}
-                            {/*        label={'Senha'}*/}
-                            {/*        name={'password'}*/}
-                            {/*        style={{ marginRight: '10px', width: '300px'  }}*/}
-                            {/*        rules={[{required: true, message: 'Preencha sua senha!'}]}*/}
-                            {/*    >*/}
-                            {/*        <Input.Password*/}
-                            {/*            iconRender={(visible) => (<></>)}*/}
-                            {/*        />*/}
-                            {/*    </Form.Item>*/}
-                            {/*</Col>*/}
                             <Col span={12}>
                                 <Form.Item
-                                    label={'Matrícula'}
-                                    name='registration'
-                                    style={{ marginRight: '10px', width: '500px'  }}
-                                    rules={[{required: !selectedUser?.is_admin, message: 'Preencha sua matrícula!'}]}
+                                    label={'Código'}
+                                    name={'code'}
+                                    rules={[{required: true, message: 'Preencha código do curso!'}]}
                                 >
-                                    <Input />
-                                </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                                <Form.Item
-                                    name={'course'}
-                                    label={'Curso'}
-                                    rules={[{required: !selectedUser?.is_admin, message: 'Selecione um curso!'}]}
-                                    style={{ width: '500px' }}
-                                >
-                                    <Select placeholder={'Selecione seu curso'}>
-                                        {
-                                            courses.map((course) => (
-                                                <Option
-                                                    key={course.id}
-                                                    value={course.id}
-                                                >
-                                                    {course.name}
-                                                </Option>
-                                            ))
-                                        }
-                                    </Select>
+                                    <Input style={{ height: '36px', width: '500px' }} />
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -183,4 +115,4 @@ const ModalUser = ({isModalVisible, handleCancel, selectedUser, setSelectedUser}
 
 }
 
-export default ModalUser;
+export default ModalCourse;

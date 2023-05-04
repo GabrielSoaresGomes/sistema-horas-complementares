@@ -1,6 +1,6 @@
 import Skeleton from "../../components/Skeleton/Skeleton";
 import {useCallback, useEffect, useState} from "react";
-import {Table, Popconfirm} from "antd";
+import {Table, Popconfirm, message} from "antd";
 
 import DetailUserModal from "./modal/DetailUserModal";
 import ApiInstance from '../../services/apis';
@@ -10,6 +10,7 @@ const Users = () => {
     const [openModal, setOpenModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [userList, setUserList] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const handleDelete = async (user) => {
         try {
@@ -95,21 +96,25 @@ const Users = () => {
                         <i className="bi bi-trash-fill fs-5 cursor-pointer"></i>
                     </Popconfirm>
                 </div>
-            ))
+            ), [])
         }
     ]
 
     const getUsers = async () => {
         try {
+            setLoading(true);
             const result = await ApiInstance.get('users/');
             setUserList(result);
+            setLoading(false);
         } catch (error) {
-            console.log(error);
+            setLoading(false);
+            console.log('Falha ao listar usuários');
+            message.error('Ocorreu um erro! 😢');
         }
     }
 
     useEffect(() => {
-        getUsers();
+        getUsers().then();
     }, []);
 
 
@@ -120,13 +125,14 @@ const Users = () => {
             <div>
                 <Table
                     columns={columns}
-                    dataSource={userList}
+                    dataSource={[...userList]}
                     data-tst='table_users'
                     rowKey={'id'}
+                    loading={loading}
                     showSorterTooltip={false}
                     onRow={(record) => ({
                         onDoubleClick: () => {
-                            handleEdit(record).then(r => {return null});
+                            handleEdit(record).then();
                         },
                     })}
                 />

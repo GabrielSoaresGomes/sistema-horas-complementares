@@ -7,5 +7,5 @@ from additional_hours.models import Course
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('id', 'name', 'created_at', 'deleted_at')
+        fields = ('id', 'name', 'code', 'created_at', 'deleted_at')
         

@@ -34,7 +34,7 @@ class BaseManager(models.Manager):
         result = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
         if len(result) > 0:
             result = result[0]
-            result.deleted_at = datetime.now()
+            result.deleted_at = datetime.datetime.now()
             result.save()
             return {"success": True, "message": "Deletado com sucesso"}
         return {"success": False, "message": "Não foi encontrado nenhum resultado com essa pk!"}
