@@ -32,7 +32,7 @@ const ModalUser = ({isModalVisible, handleCancel, selectedUser, setSelectedUser}
         } else {
             form.resetFields();
         }
-    }, [selectedUser, getCourses]);
+    }, [selectedUser, getCourses, form]);
 
     const getCourseByIdAndSetToUser = async (user, courseId) => {
         try {
