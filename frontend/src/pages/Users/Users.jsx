@@ -104,10 +104,11 @@ const Users = () => {
         try {
             setLoading(true);
             const result = await ApiInstance.get('users/');
-            setUserList(result);
+            result ? setUserList(result) : setUserList([]);
             setLoading(false);
         } catch (error) {
             setLoading(false);
+            setUserList([]);
             console.log('Falha ao listar usuários');
             message.error('Ocorreu um erro! 😢');
         }

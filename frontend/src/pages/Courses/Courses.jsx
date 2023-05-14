@@ -17,7 +17,7 @@ const Courses = () => {
                 const objWithIdIndex = courseList.findIndex((obj) => obj.id === course.id);
                 console.log(objWithIdIndex)
                 if (objWithIdIndex > -1) {
-                    setCourseList(courseList.filter((obj) => obj.id !== course.id));
+                    setCourseList(courseList.filter((obj) => obj.id !== course.id) || []);
                 }
             }
 
@@ -90,7 +90,7 @@ const Courses = () => {
         try {
             setLoading(true);
             const result = await ApiInstance.get('api/course/');
-            setCourseList(result);
+            setCourseList(result || []);
             setLoading(false);
         } catch (error) {
             setLoading(false);
@@ -110,7 +110,7 @@ const Courses = () => {
                 <Table
                     columns={columns}
                     dataSource={[...courseList]}
-                    data-tst='table_users'
+                    data-tst='table_courses'
                     rowKey={'id'}
                     loading={loading}
                     showSorterTooltip={false}

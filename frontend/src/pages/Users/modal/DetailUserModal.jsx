@@ -23,7 +23,7 @@ const ModalUser = ({isModalVisible, handleCancel, selectedUser, setSelectedUser}
     }, []);
 
     useEffect(() => {
-        getCourses().then(r => {setCourses(r)});
+        getCourses().then(r => {setCourses(r||[])});
         form.resetFields();
         if (selectedUser) {
             form.setFieldsValue({

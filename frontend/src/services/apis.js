@@ -10,12 +10,12 @@ class Apis {
             const response = await axios.get(fullUrl, {headers});
             if (response.statusText === 'OK') {
                 if (response.status >= 200 && response.status < 300) {
-                    return response.data;
+                    return response.data?.result || response.data ;
                 }
-                throw new Error(response.headers.get('message'));
+                throw new Error(response.data?.message || response.headers.get('message'));
             }
         } catch (error) {
-            console.log(error);
+            console.log(`Falha ao realisar requisição GET para a url ${url}, erro: ${error}`);
         }
     }
 
