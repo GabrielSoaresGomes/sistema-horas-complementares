@@ -18,47 +18,81 @@ class APIRootView(View):
             },
             "Accounts": {
                 "Registrar um novo usuário": {
-                    "rota": "/accounts/register/",
+                    "rota": "/users/accounts/register/",
                     "method": ["POST"]
                 },
                 "Logar um usuário": {
-                    "rota": "/accounts/login/",
+                    "rota": "/users/accounts/login/",
                     "method": ["POST"]
                 },
                 "Deslogar um usuário": {
-                    "rota": "/accounts/logout/",
+                    "rota": "/users/accounts/logout/",
                     "method": ["POST"]
                 },
                 "Alterar senha": {
-                    "rota": "/accounts/change-password/",
+                    "rota": "/users/accounts/change-password/",
                     "method": ["POST"]
                 },
                 "Atualizar token": {
-                    "rota": "/accounts/token-refresh/",
+                    "rota": "/users/accounts/token-refresh/",
                     "method": ["POST"]
                 }
             },
             "Api": {
                 "Activity": {
-                    "Listar todas atividades ou adicionar uma nova atividade": {
+                    "Listar ou adicionar atividades": {
                         "rota": "/api/activity/",
                         "method": ["GET", "POST"]
                     },
-                    "Detalhar uma atividade ou atualizar uma atividade ou apagar uma atividade": {
+                    "Detalhar, atualizar ou apagar uma atividade": {
                         "rota": "/api/activity/<int:pk>/",
                         "method": ["GET", "PUT", "DELETE"]
                     }
                 },
                 "Course": {
-                    "Listar todos cursos ou adicionar um novo curso": {
+                    "Listar ou adicionar cursos": {
                         "rota": "/api/course/",
                         "method": ["GET", "POST"]
                     },
-                    "Detalhar um curso ou atualizar um curso ou apagar um curso": {
+                    "Detalhar, atualizar ou apagar um curso": {
                         "rota": "/api/course/<int:pk>/",
                         "method": ["GET", "PUT", "DELETE"]
                     }
-                }
+                },
+                "UserCourse": {
+                    "Listar ou adicionar relação entre usuários e cursos": {
+                        "rota": "/api/usercourse/",
+                        "method": ["GET", "POST"]
+                    },
+                    "Detalhar, atualizar ou apagar uma relação entre usuários e cursos": {
+                        "rota": "/api/usercourse/<int:pk>/",
+                        "method": ["GET", "PUT", "DELETE"]
+                    }
+                },
+                "UserActivity": {
+                    "Listar ou adicionar relação entre usuários e atividades": {
+                        "rota": "/api/useractivity/",
+                        "method": ["GET", "POST"]
+                    },
+                    "Detalhar, atualizar ou apagar uma relação entre usuários e atividades": {
+                        "rota": "/api/useractivity/<int:pk>/",
+                        "method": ["GET", "PUT", "DELETE"]
+                    },
+                    "Adicionar um comprovante para uma atividade de um aluno": {
+                        "rota": "/api/useractivity/file/",
+                        "method": ["POST"]
+                    }
+                },
+                "ActivityCourse": {
+                    "Listar ou adicionar relação entre atividades e cursos": {
+                        "rota": "/api/activitycourse/",
+                        "method": ["GET", "POST"]
+                    },
+                    "Detalhar, atualizar ou apagar uma relação entre atividades e cursos": {
+                        "rota": "/api/activitycourse/<int:pk>/",
+                        "method": ["GET", "PUT", "DELETE"]
+                    }
+                },
             }
         }
         for url in get_urls():
@@ -66,8 +100,8 @@ class APIRootView(View):
                 'url': url[0],
                 'name': url[1]
             })
-        response = Response(url_list)
-        # response = Response(api_urls)
+        # response = Response(url_list)
+        response = Response(api_urls)
         response.accepted_renderer = JSONRenderer()
         response.accepted_media_type = 'application/json'
         response.renderer_context = self.get_context(request)
