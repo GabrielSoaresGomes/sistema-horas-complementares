@@ -45,21 +45,23 @@ def insert_list_activity(request):
 
 
 @api_view(['GET', 'DELETE', 'PUT'])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def detail_remove_update_activity(request, pk):
     if request.method == 'GET':
         try:
             activity = Activity.objects.get_activity_not_deleted_by_pk(pk)
             if activity['success']:
                 serialized_activitiy = ActivitySerializer(activity['result'], many=False)
-                return Response({"result": serialized_activitiy.data}, status=status.HTTP_200_OK)
+                return Response({"result": serialized_activitiy.data}, status=status.HTTP_200_OK,
+                                template_name='detail_activity.html')
             return Response({"result": activity['message']},
-                            status=status.HTTP_404_NOT_FOUND)
+                            status=status.HTTP_404_NOT_FOUND, template_name='detail_activity.html')
         except Exception:
             full_message = f"[ ERRO ] Falha ao detalhar atividade: {traceback.format_exc()}"
             print(full_message)
             message = "Falha ao detalhar atividade"
             return Response({"result": message},
-                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR, template_name='error.html')
 
     elif request.method == 'DELETE':
         try:
@@ -83,9 +85,9 @@ def detail_remove_update_activity(request, pk):
                 activity_serialized = ActivitySerializer(instance=activity, data=request.data)
                 if activity_serialized.is_valid():
                     activity_serialized.save()
-                    return Response({"result": activity_serialized.data, "message": ""})
+                    return Response({"result": activity_serialized.data, "message": ""},  template_name='detail_activity.html')
             return Response({"result": f"Não foi possível editar uma atividade com os dados inseridos!"},
-                            status=status.HTTP_404_NOT_FOUND)
+                            status=status.HTTP_404_NOT_FOUND,  template_name='error.html')
         except Exception:
             full_message = f"[ ERRO ] Falha ao atualizar atividade: {traceback.format_exc()}"
             print(full_message)
