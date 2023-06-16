@@ -9,7 +9,7 @@ echoFormatted() {
 }
 
 echoFormatted '### Iniciando execução! ###'
-cp .env-local .env
+cp ./backend/.env-local .env
 
 echoFormatted '### Conteúdo do .env ###'
 cat .env

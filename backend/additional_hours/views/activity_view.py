@@ -1,6 +1,7 @@
 import traceback
 from rest_framework import status, serializers
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 from rest_framework.response import Response
 from django.shortcuts import render
 
@@ -9,6 +10,7 @@ from additional_hours.serializers import ActivitySerializer
 
 
 @api_view(['POST', 'GET'])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def insert_list_activity(request):
     if request.method == 'GET':
         try:
@@ -17,7 +19,7 @@ def insert_list_activity(request):
             context = {'activities': 'activities', 'title': 'Home', 'heading': 'Home', 'main_heading': 'Home'}
             #return render(request, 'index.html', context)
             # Manter abaixo para quando usar react
-            return Response({"result": serialized_activities.data}, status=status.HTTP_200_OK)
+            return Response({"result": serialized_activities.data}, status=status.HTTP_200_OK, template_name='base.html')
 
         except Exception:
             full_message = f"[ ERRO ] Falha ao listar atividades: {traceback.format_exc()}"
