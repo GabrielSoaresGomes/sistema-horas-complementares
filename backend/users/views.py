@@ -43,6 +43,8 @@ def list(request):
                         headers={"message": message},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+def login(request):
+    render(request, template_name='login.html')
 
 @api_view(['GET', 'POST', 'DELETE'])
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
@@ -129,6 +131,7 @@ class RegistrationView(APIView):
                         headers={"message": "Não foi possível realizar o registro"})
 
 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 class LoginView(APIView):
     def post(self, request):
         if 'email' not in request.data or 'password' not in request.data:
@@ -143,7 +146,8 @@ class LoginView(APIView):
             auth_data = get_tokens_for_user(request.user)
             return Response({**auth_data},
                             status=status.HTTP_200_OK,
-                            headers={"message": "Sucesso no Login"})
+                            headers={"message": "Sucesso no Login"},
+                            template_name='index.html')
         return Response({},
                         status=status.HTTP_401_UNAUTHORIZED,
                         headers={"message": "Credenciais Inválidas"})
