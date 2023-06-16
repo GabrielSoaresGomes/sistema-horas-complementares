@@ -4,9 +4,9 @@ from .views import activity_view, course_view, activity_course_view, user_activi
 from . import old_views
 
 urlpatterns = [
-    path('activity/', activity_view.insert_list_activity),
+    path('activity/', activity_view.insert_list_activity, name='activities'),
     path('activity/<int:pk>/', activity_view.detail_remove_update_activity),
-    path('course/', course_view.insert_list_course),
+    path('course/', course_view.insert_list_course, name='courses'),
     path('course/<int:pk>/', course_view.detail_remove_update_course),
     path('activitycourse/', activity_course_view.insert_list_activity_course),
     path('activitycourse/<int:pk>/', activity_course_view.detail_remove_update_activity_course),

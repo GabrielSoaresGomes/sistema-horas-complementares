@@ -19,13 +19,13 @@ def insert_list_activity(request):
             context = {'activities': 'activities', 'title': 'Home', 'heading': 'Home', 'main_heading': 'Home'}
             #return render(request, 'index.html', context)
             # Manter abaixo para quando usar react
-            return Response({"result": serialized_activities.data}, status=status.HTTP_200_OK, template_name='base.html')
+            return Response({"result": serialized_activities.data}, status=status.HTTP_200_OK, template_name='get_activities.html')
 
         except Exception:
             full_message = f"[ ERRO ] Falha ao listar atividades: {traceback.format_exc()}"
             print(full_message)
             message = "Falha ao listar atividades"
-            return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR, template_name='error.html')
 
     elif request.method == 'POST':
         try:
@@ -34,9 +34,9 @@ def insert_list_activity(request):
                 activity.save()
                 new_activity_id = activity.data['id']
                 return Response({"result": f"Inserido com sucesso com id {new_activity_id}"},
-                                status=status.HTTP_201_CREATED)
+                                status=status.HTTP_201_CREATED, template_name='success_activity.html')
             return Response({"result": f"Não foi possível inserir uma nova atividade com os dados inseridos!"},
-                            status=status.HTTP_400_BAD_REQUEST)
+                            status=status.HTTP_400_BAD_REQUEST, template_name='error.html')
         except Exception:
             full_message = f"[ ERRO ] Falha ao adicionar atividade: {traceback.format_exc()}"
             print(full_message)
