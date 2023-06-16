@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-SUCCESS
+    <div class="m-5">
+        <h1>Success in creating the activity!</h1>
+        <a class="btn btn-primary" href="{% url 'activities' %}">Return to list</a>
+    </div>
+
 {% endblock content %}

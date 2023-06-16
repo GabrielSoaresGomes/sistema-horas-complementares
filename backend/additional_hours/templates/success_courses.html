@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-SUCCESS
-    <a href="{% url 'courses' %}">Courses</a>
+    <div class="m-5">
+        <p>Success in creating the course!</p>
+        <a class="btn btn-primary" href="{% url 'courses' %}">Return to list</a>
+    </div>
+
 {% endblock content %}

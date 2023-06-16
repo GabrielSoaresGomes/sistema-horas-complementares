@@ -10,7 +10,7 @@
             <p class="card-text"><strong>Name:</strong> {{ result.name }}</p>
             <p class="card-text"><strong>Class Code:</strong> {{ result.code }}</p>
             <p class="card-text"><strong>Id:</strong> {{ result.id }}</p>
-            <button id="course-activity" onclick="deleteCourse('{% url 'course_detail' pk=result.id %}')">Delete</button>
+            <button class="btn btn-danger" id="course-activity" onclick="deleteCourse('{% url 'course_detail' pk=result.id %}')">Delete</button>
         </div>
 
         <div class="w-75 p-5 my-5 shadow rounded m-auto">
@@ -27,7 +27,7 @@
                 <label for="code" class="form-label">Class Code</label>
                 <input type="text" class="form-control" name="code" value="{{ result.code }}" id="code" required>
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>

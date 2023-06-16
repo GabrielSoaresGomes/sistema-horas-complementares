@@ -10,7 +10,7 @@
             <p class="card-text"><strong>Name:</strong> {{ result.name }}</p>
             <p class="card-text"><strong>Description:</strong> {{ result.description }}</p>
             <p class="card-text"><strong>Id:</strong> {{ result.id }}</p>
-            <button id="delete-activity" onclick="deleteActivity('{% url 'activity_detail' pk=result.id %}')">Delete</button>
+            <button class="btn btn-danger" id="delete-activity" onclick="deleteActivity('{% url 'activity_detail' pk=result.id %}')">Delete</button>
         </div>
 
         <div class="w-75 p-5 my-5 shadow rounded m-auto">
@@ -27,7 +27,7 @@
                 <label for="description" class="form-label">Description</label>
                 <input type="text" class="form-control" name="description" placeholder="{{ result.description }}" id="description">
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
