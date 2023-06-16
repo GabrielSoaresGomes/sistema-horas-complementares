@@ -6,6 +6,7 @@
             <p class="card-text"><strong>Name:</strong> {{ result.name }}</p>
             <p class="card-text"><strong>Description:</strong> {{ result.description }}</p>
             <p class="card-text"><strong>Id:</strong> {{ result.id }}</p>
+            <button id="delete-activity" onclick="deleteActivity('{% url 'activity_detail' pk=result.id %}')">Delete</button>
         </div>
 
         <div class="w-75 p-5 my-5 shadow rounded m-auto">

@@ -1,0 +1,12 @@
+<script>
+const deleteActivity = (url) => {
+    const httpRequest = new XMLHttpRequest();
+    $.ajax({
+        url: url,
+        method: 'DELETE',
+        success: (result) => {
+            console.log(result);
+        }
+    });
+}
+</script>

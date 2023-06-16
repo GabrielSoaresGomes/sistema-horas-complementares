@@ -57,7 +57,7 @@ class ActivityManager(models.Manager):
         activity = super().get_queryset().filter(pk=pk).filter(deleted_at=None)
         if len(activity) > 0:
             activity = activity[0]
-            activity.deleted_at = datetime.now()
+            activity.deleted_at = datetime.datetime.now()
             activity.save()
             return {"success": True, "message": "Deletado com sucesso"}
         return {"success": False, "message": "Não foi encontrado nenhuma atividade com essa pk!"}
