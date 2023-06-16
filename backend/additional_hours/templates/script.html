@@ -20,4 +20,15 @@ const deleteCourse = (url) => {
         }
     });
 }
+
+const deleteUser = (url) => {
+    const httpRequest = new XMLHttpRequest();
+    $.ajax({
+        url: url,
+        method: 'DELETE',
+        success: (result) => {
+            window.location.href="/users";
+        }
+    });
+}
 </script>

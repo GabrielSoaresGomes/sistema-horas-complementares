@@ -11,7 +11,7 @@
             <p class="card-text"><strong>Email:</strong> {{ result.email }}</p>
             <p class="card-text"><strong>Registration:</strong> {{ result.registration }}</p>
             <p class="card-text"><strong>Id:</strong> {{ result.id }}</p>
-            <button class="btn btn-danger" id="course-activity" onclick="deleteCourse('{% url 'user_detail' pk=result.id %}')">Delete</button>
+            <button class="btn btn-danger" id="course-activity" onclick="deleteUser('{% url 'user_detail' pk=result.id %}')">Delete</button>
         </div>
 
         <div class="w-75 p-5 my-5 shadow rounded m-auto">

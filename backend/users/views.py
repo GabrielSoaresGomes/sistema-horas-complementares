@@ -96,9 +96,10 @@ def detail_update_delete(request, pk):
             if user:
                 user.deleted_at = datetime.datetime.now()
                 user.save()
-                return Response({},
+                return Response({"result":{"id":pk}},
                                 status=status.HTTP_204_NO_CONTENT,
-                                headers={"message": "Deletado com sucesso!"})
+                                headers={"message": "Deletado com sucesso!"},
+                                    template_name='detail_user.html')
             return Response({},
                             status=status.HTTP_404_NOT_FOUND,
                             headers={"message": "Não foi possível deletar o usuário solicitado!"})
