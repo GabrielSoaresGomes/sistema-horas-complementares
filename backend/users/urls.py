@@ -4,12 +4,12 @@ from .views import RegistrationView, LoginView, LogoutView, ChangePasswordView, 
 from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
-    path('', list),
+    path('', list, name='list_user'),
     path('<int:pk>/', detail_update_delete),
 
-    path('accounts/register/', RegistrationView.as_view(), name='register'),
-    path('accounts/login/', LoginView.as_view(), name='register'),
-    path('accounts/logout/', LogoutView.as_view(), name='register'),
+    path('accounts/register/', RegistrationView.as_view(), name='register_user'),
+    path('accounts/login/', LoginView.as_view(), name='login_user'),
+    path('accounts/logout/', LogoutView.as_view(), name='logout_user'),
     path('accounts/change-password/', ChangePasswordView.as_view(), name='register'),
     path('accounts/token-refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]

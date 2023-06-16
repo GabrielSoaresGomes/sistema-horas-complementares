@@ -8,7 +8,8 @@ from rest_framework import status, generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
+from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
+from rest_framework.decorators import api_view, renderer_classes
 from .utils import get_tokens_for_user
 from .models import User
 from .serializers import RegistrationSerializer, PasswordChangeSerializer, UserListDetailSerializer
@@ -22,14 +23,15 @@ class UserList(generics.ListAPIView):
 
 
 @api_view(['GET'])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def list(request):
     try:
         users = User.objects.filter(deleted_at=None)
         if users:
             users_serialized = UserListDetailSerializer(users, many=True)
-            return Response(users_serialized.data,
+            return Response({"result":users_serialized.data},
                             status=status.HTTP_200_OK,
-                            headers={"message": None})
+                            headers={"message": None}, template_name='users.html')
         return Response([],
                         status=status.HTTP_204_NO_CONTENT,
                         headers={"message": "Não foi encontrado nenhum resultado"})
