@@ -7,7 +7,7 @@ urlpatterns = [
     path('activity/', activity_view.insert_list_activity, name='activities'),
     path('activity/<int:pk>/', activity_view.detail_remove_update_activity, name='activity_detail'),
     path('course/', course_view.insert_list_course, name='courses'),
-    path('course/<int:pk>/', course_view.detail_remove_update_course),
+    path('course/<int:pk>/', course_view.detail_remove_update_course, name='course_detail'),
     path('activitycourse/', activity_course_view.insert_list_activity_course),
     path('activitycourse/<int:pk>/', activity_course_view.detail_remove_update_activity_course),
 

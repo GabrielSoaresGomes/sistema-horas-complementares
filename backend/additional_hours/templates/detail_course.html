@@ -1,35 +1,34 @@
 {% extends 'base.html' %}
 
 {% block home %}{% endblock home %}
-{% block activity %}active{% endblock activity %}
-{% block course %}{% endblock course %}
+{% block activity %}{% endblock activity %}
+{% block course %}active{% endblock course %}
 
 {% block content %}
     <div class="container">
         <div class="card w-25 p-3 m-5">
             <p class="card-text"><strong>Name:</strong> {{ result.name }}</p>
-            <p class="card-text"><strong>Description:</strong> {{ result.description }}</p>
+            <p class="card-text"><strong>Class Code:</strong> {{ result.code }}</p>
             <p class="card-text"><strong>Id:</strong> {{ result.id }}</p>
-            <button id="delete-activity" onclick="deleteActivity('{% url 'activity_detail' pk=result.id %}')">Delete</button>
+            <button id="course-activity" onclick="deleteCourse('{% url 'course_detail' pk=result.id %}')">Delete</button>
         </div>
 
         <div class="w-75 p-5 my-5 shadow rounded m-auto">
-            <form method="POST" action="{% url 'activity_detail' pk=result.id %}">
+            <form method="POST" action="{% url 'course_detail' pk=result.id %}">
               {% csrf_token %}
               <div class="mb-3">
-                  <h2>Update Activity</h2>
+                  <h2>Update Course</h2>
               </div>
               <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" name="name" class="form-control" placeholder="{{ result.name }}" id="name">
+                <input type="text" name="name" class="form-control" value="{{ result.name }}" id="name" required>
               </div>
               <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <input type="text" class="form-control" name="description" placeholder="{{ result.description }}" id="description">
+                <label for="code" class="form-label">Class Code</label>
+                <input type="text" class="form-control" name="code" value="{{ result.code }}" id="code" required>
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
-
 {% endblock content %}

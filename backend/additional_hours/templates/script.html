@@ -5,7 +5,18 @@ const deleteActivity = (url) => {
         url: url,
         method: 'DELETE',
         success: (result) => {
-            console.log(result);
+            window.location.href="/api/activity";
+        }
+    });
+}
+
+const deleteCourse = (url) => {
+    const httpRequest = new XMLHttpRequest();
+    $.ajax({
+        url: url,
+        method: 'DELETE',
+        success: (result) => {
+            window.location.href="/api/course";
         }
     });
 }

@@ -44,7 +44,7 @@ def insert_list_activity(request):
             return Response({"result": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(['GET', 'DELETE', 'PUT'])
+@api_view(['GET', 'DELETE', 'POST'])
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def detail_remove_update_activity(request, pk):
     if request.method == 'GET':
@@ -67,8 +67,8 @@ def detail_remove_update_activity(request, pk):
         try:
             delete_result = Activity.objects.delete_activity_by_pk(pk)
             if delete_result['success']:
-                return Response({"result": delete_result['message']},
-                                status=status.HTTP_202_ACCEPTED)
+                return Response({"result":{"id":pk}},
+                                status=status.HTTP_202_ACCEPTED, template_name='success_activity.html')
             return Response({"result": delete_result['message']},
                             status=status.HTTP_404_NOT_FOUND)
         except Exception:
@@ -78,11 +78,11 @@ def detail_remove_update_activity(request, pk):
             return Response({"result": message},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    elif request.method == 'PUT':
+    elif request.method == 'POST':
         try:
             activity = Activity.objects.get_instance_not_deleted_by_pk(pk)
             if activity['result']:
-                activity_serialized = ActivitySerializer(instance=activity, data=request.data)
+                activity_serialized = ActivitySerializer(instance=activity.get('result'), data=request.data)
                 if activity_serialized.is_valid():
                     activity_serialized.save()
                     return Response({"result": activity_serialized.data, "message": ""},  template_name='detail_activity.html')
