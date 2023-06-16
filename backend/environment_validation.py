@@ -36,8 +36,6 @@ class EnvironmentValidation:
                     errors_list.append(data)
             if len(errors_list):
                 print(f'Os seguintes dados estão inválidos no .env: {errors_list}!')
-            else:
-                print('Todos dados no .env estão certo!')
         except Exception as error:
             print(f"Erro ao pegar os dados da env: {error}")
 

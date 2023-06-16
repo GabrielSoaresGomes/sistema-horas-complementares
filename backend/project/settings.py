@@ -184,5 +184,5 @@ try:
     )
     DEFAULT_FILE_STORAGE = env.get('DEFAULT_FILE_STORAGE')
     GS_BUCKET_NAME = env.get('GS_BUCKET_NAME')
-except Exception:
-    print('Não foi possível obter informações da Google Cloud.')
+except Exception as error:
+    print(f'Não foi possível obter informações da Google Cloud: {error}')
