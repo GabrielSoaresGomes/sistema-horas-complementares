@@ -44,18 +44,20 @@ def list(request):
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'POST', 'DELETE'])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def detail_update_delete(request, pk):
-    if request.method == 'PUT':
+    if request.method == 'POST':
         try:
             user = User.objects.get(pk=pk, deleted_at=None)
             if user:
                 user_serialized = UserListDetailSerializer(instance=user, data=request.data)
                 if user_serialized.is_valid():
                     user_serialized.save()
-                    return Response(user_serialized.data,
+                    return Response({"result":user_serialized.data},
                                     headers={"message": None},
-                                    status=status.HTTP_204_NO_CONTENT)
+                                    status=status.HTTP_204_NO_CONTENT,
+                                    template_name='detail_user.html')
             return Response({},
                             headers={"message": "Não foi possível editar o usuário com os dados inseridos!"},
                             status=status.HTTP_404_NOT_FOUND)
@@ -67,14 +69,15 @@ def detail_update_delete(request, pk):
             return Response({},
                             headers={"message": message},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     elif request.method == 'GET':
         try:
             user = User.objects.get(pk=pk, deleted_at=None)
             if user:
                 user_serialized = UserListDetailSerializer(user, many=False)
-                return Response(user_serialized.data,
+                return Response({"result": user_serialized.data},
                                 status=status.HTTP_200_OK,
-                                headers={"message": None})
+                                template_name='detail_user.html')
             return Response({},
                             status=status.HTTP_404_NOT_FOUND,
                             headers={"message": "Não foi possível detalhar o usuário solicitado!"})
@@ -111,6 +114,7 @@ def detail_update_delete(request, pk):
 
 
 # Autenticação
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 class RegistrationView(APIView):
     def post(self, request):
         serializer = RegistrationSerializer(data=request.data)
@@ -118,7 +122,7 @@ class RegistrationView(APIView):
             serializer.save()
             return Response(serializer.data,
                             status=status.HTTP_201_CREATED,
-                            headers={"message": None})
+                            headers={"message": None}, template_name='success_user.html')
         return Response(serializer.errors,
                         status=status.HTTP_400_BAD_REQUEST,
                         headers={"message": "Não foi possível realizar o registro"})

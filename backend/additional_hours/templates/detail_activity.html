@@ -21,11 +21,11 @@
               </div>
               <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" name="name" class="form-control" placeholder="{{ result.name }}" id="name">
+                <input type="text" name="name" class="form-control" value="{{ result.name }}" id="name" required>
               </div>
               <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <input type="text" class="form-control" name="description" placeholder="{{ result.description }}" id="description">
+                <input type="text" class="form-control" name="description" value="{{ result.description }}" id="description" required>
               </div>
               <button type="submit" class="btn btn-success">Submit</button>
             </form>

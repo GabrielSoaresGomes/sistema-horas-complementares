@@ -35,7 +35,7 @@
                     <h5 class="card-title">{{ item.name }}</h5>
                     <p class="card-text">{{ item.email }}</p>
                     <p class="card-text">{{ item.registration }}</p>
-                    <a href="{% url 'activity_detail' pk=item.id %}" class="btn btn-primary">More</a>
+                    <a href="{% url 'user_detail' pk=item.id %}" class="btn btn-primary">More</a>
                 </div>
             {% endfor %}
         </div>

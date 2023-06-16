@@ -5,7 +5,7 @@ from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     path('', list, name='list_user'),
-    path('<int:pk>/', detail_update_delete),
+    path('<int:pk>/', detail_update_delete, name='user_detail'),
 
     path('accounts/register/', RegistrationView.as_view(), name='register_user'),
     path('accounts/login/', LoginView.as_view(), name='login_user'),
