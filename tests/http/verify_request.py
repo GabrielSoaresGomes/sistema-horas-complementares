@@ -10,50 +10,52 @@ yellowText = '\033[1;33m'
 blueText = '\033[1;34m'
 cyanText = '\033[1;36m'
 
+PORT = 8002  # Local = 8000 | Docker = 8002
+
 # Dicionário contendo as urls, os métodos e os bodys
 urlsDict = {
-    'GET|http://127.0.0.1:8000/api/activity/': {},
-    'GET|http://127.0.0.1:8000/api/activity/1/': {},
-    'POST|http://127.0.0.1:8000/api/activity/': {
+    f'GET|http://127.0.0.1:{PORT}/api/activity/': {},
+    f'GET|http://127.0.0.1:{PORT}/api/activity/1/': {},
+    f'POST|http://127.0.0.1:{PORT}/api/activity/': {
         "name":  "Teste",
         "description": "Teste"
     },
-    'PUT|http://127.0.0.1:8000/api/activity/1/': {
+    f'PUT|http://127.0.0.1:{PORT}/api/activity/1/': {
         "name":  "Novo nome",
         "description": "Nova descrição"
     },
-    'DELETE|http://127.0.0.1:8000/api/activity/2/': {},
-    'GET|http://127.0.0.1:8000/api/course/': {},
-    'GET|http://127.0.0.1:8000/api/course/1/': {},
-    'POST|http://127.0.0.1:8000/api/course/': {
+    f'DELETE|http://127.0.0.1:{PORT}/api/activity/2/': {},
+    f'GET|http://127.0.0.1:{PORT}/api/course/': {},
+    f'GET|http://127.0.0.1:{PORT}/api/course/1/': {},
+    f'POST|http://127.0.0.1:{PORT}/api/course/': {
         "name":  "Teste"
     },
-    'PUT|http://127.0.0.1:8000/api/course/1/': {
+    f'PUT|http://127.0.0.1:{PORT}/api/course/1/': {
         "name":  "Novo nome"
     },
-    'DELETE|http://127.0.0.1:8000/api/course/2/': {},
-    'GET|http://127.0.0.1:8000/api/activitycourse/': {},
-    'GET|http://127.0.0.1:8000/api/activitycourse/?activity_id=1': {},
-    'GET|http://127.0.0.1:8000/api/activitycourse/?course_id=1': {},
-    'GET|http://127.0.0.1:8000/api/activitycourse/?activity_id=1&course_id=2': {},
-    'GET|http://127.0.0.1:8000/api/activitycourse/1/': {},
-    'POST|http://127.0.0.1:8000/api/activitycourse/': {
+    f'DELETE|http://127.0.0.1:{PORT}/api/course/2/': {},
+    f'GET|http://127.0.0.1:{PORT}/api/activitycourse/': {},
+    f'GET|http://127.0.0.1:{PORT}/api/activitycourse/?activity_id=1': {},
+    f'GET|http://127.0.0.1:{PORT}/api/activitycourse/?course_id=1': {},
+    f'GET|http://127.0.0.1:{PORT}/api/activitycourse/?activity_id=1&course_id=2': {},
+    f'GET|http://127.0.0.1:{PORT}/api/activitycourse/1/': {},
+    f'POST|http://127.0.0.1:{PORT}/api/activitycourse/': {
         "course_id": 2,
         "activity_id": 2,
         "maximum_hours":  "40"
     },
-    'PUT|http://127.0.0.1:8000/api/activitycourse/1/': {
+    f'PUT|http://127.0.0.1:{PORT}/api/activitycourse/1/': {
         "course_id": 2,
         "activity_id": 1,
         "maximum_hours":  10
     },
-    'DELETE|http://127.0.0.1:8000/api/activitycourse/2/': {},
-    'GET|http://127.0.0.1:8000/api/useractivity/': {},
-    'GET|http://127.0.0.1:8000/api/useractivity/?activity_id=1': {},
-    'GET|http://127.0.0.1:8000/api/useractivity/?user_id=2': {},
-    'GET|http://127.0.0.1:8000/api/useractivity/?activity_id=1&user_id=2': {},
-    'GET|http://127.0.0.1:8000/api/useractivity/1/': {},
-    'POST|http://127.0.0.1:8000/api/useractivity/': {
+    f'DELETE|http://127.0.0.1:{PORT}/api/activitycourse/2/': {},
+    f'GET|http://127.0.0.1:{PORT}/api/useractivity/': {},
+    f'GET|http://127.0.0.1:{PORT}/api/useractivity/?activity_id=1': {},
+    f'GET|http://127.0.0.1:{PORT}/api/useractivity/?user_id=2': {},
+    f'GET|http://127.0.0.1:{PORT}/api/useractivity/?activity_id=1&user_id=2': {},
+    f'GET|http://127.0.0.1:{PORT}/api/useractivity/1/': {},
+    f'POST|http://127.0.0.1:{PORT}/api/useractivity/': {
         "activity_id": 2,
         "user_id": 1,
         "quantity":  "40",
@@ -61,7 +63,7 @@ urlsDict = {
         "total_hours":  "40",
         "is_valid": False
     },
-    'PUT|http://127.0.0.1:8000/api/useractivity/1/': {
+    f'PUT|http://127.0.0.1:{PORT}/api/useractivity/1/': {
         "activity_id": 1,
         "user_id": 1,
         "quantity":  "40",
@@ -69,7 +71,7 @@ urlsDict = {
         "total_hours":  "40",
         "is_valid": False
     },
-    'DELETE|http://127.0.0.1:8000/api/useractivity/2/': {},
+    f'DELETE|http://127.0.0.1:{PORT}/api/useractivity/2/': {},
 }
 
 
