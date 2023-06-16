@@ -26,13 +26,13 @@ declare -A commands_map=(
 if [[ ! -z "$1" ]]; then
     command=${commands_map[$1]}
     if [ "$command" == "logs" ]; then
-        docker logs --follow sistema-horas-complementares_web_1
+        docker logs --follow sistema-horas-complementares-web-1
     elif [ "$command" == "terminal" ]; then
-        docker exec -it sistema-horas-complementares_web_1 bash
+        docker exec -it sistema-horas-complementares-web-1 bash
     elif [ "$command" == "stop" ]; then
-        docker stop sistema-horas-complementares_web_1
+        docker stop sistema-horas-complementares-web-1
     elif [ "$command" == "start" ]; then
-        docker start sistema-horas-complementares_web_1
+        docker start sistema-horas-complementares-web-1
     elif [ "$command" = "stop-postgres" ]; then
         docker stop postgres-horas-complementares
     elif [ "$command" = "start-postgres" ]; then
