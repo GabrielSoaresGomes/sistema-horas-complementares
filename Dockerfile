@@ -9,8 +9,8 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 
 # Instalando dependências
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+COPY ./backend/requirements.txt ./backend/requirements.txt
+RUN pip install -r ./backend/requirements.txt
 
 # Copiando projeto
-COPY . .
+COPY ./backend ./backend
