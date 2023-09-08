@@ -9,10 +9,10 @@ echoFormatted() {
 }
 
 echoFormatted '### Iniciando execução! ###'
-cp ./backend/.env-local ./backend/.env
+cp ./backend-node/.env-local ./backend/.env
 
 echoFormatted '### Conteúdo do .env ###'
-cat ./backend/.env
+cat ./backend-node/.env
 
 echoFormatted '### Iniciando build ###'
 docker build . -t my:horas_complementares
