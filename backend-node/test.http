@@ -1,2 +1,36 @@
 ### Listar todos usuários
-GET localhost:2004/user
+GET localhost:2004/users
+
+### Adicionar um novo usuário aluno sem curso e com matricula
+POST localhost:2004/users
+Content-Type: application/json
+
+{
+  "course_id": null,
+  "name": "Usuário teste",
+  "password": "Senha123@",
+  "is_coordinator": false,
+  "registration": "matricula123"
+}
+
+### Adicionar um novo usuário coordenador só com nome e senha
+POST localhost:2004/users
+Content-Type: application/json
+
+{
+  "name": "Usuário teste coordenanor",
+  "password": "Senha123@",
+  "is_coordinator": true
+}
+
+### Atualizar um usuário
+PUT localhost:2004/users/1
+Content-Type: application/json
+
+{
+  "course_id": null,
+  "name": "Usuário teste",
+  "password": "Senha123@",
+  "is_coordinator": false,
+  "registration": "matricula123"
+}
