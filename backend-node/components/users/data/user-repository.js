@@ -43,6 +43,21 @@ class UserRepository {
             return response.rows[0];
         }
         return null;
+   }
+
+    async destroyUser(userId) {
+        const connection = await this.databaseConnetor.generateConnection();
+        const response = await connection.query(`
+            UPDATE users
+            SET deleted_at = now()
+            WHERE id = $1
+            AND deleted_at is null
+            RETURNING id
+        `, [userId]);
+        if (response?.rows?.length) {
+            return response.rows[0];
+        }
+        return null;
     }
 }
 

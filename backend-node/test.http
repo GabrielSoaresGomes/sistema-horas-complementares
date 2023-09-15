@@ -34,3 +34,6 @@ Content-Type: application/json
   "is_coordinator": false,
   "registration": "matricula123"
 }
+
+### Apagar um usuário
+DELETE localhost:2004/users/1

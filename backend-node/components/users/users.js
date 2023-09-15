@@ -1,5 +1,5 @@
 const ResultValidation = require('./entity/result-validation');
-const env = require('../../environment-validation');
+require('../../environment-validation');
 
 
 class Users {
@@ -35,7 +35,6 @@ class Users {
                 console.log(`Ocorreu um erro ao tentar adicionar um usuário com os seguintes dados: ${JSON.stringify(userData)}`);
                 resultValidation.addError('CREATE_ERROR', 'Houve uma falha ao adicionar um usuário', false);
             }
-            resultValidation.setResult(response);
         } catch (error) {
             console.log(`Falha ao criar um novo usuário com os seguintes dados: ${JSON.stringify(userData)}, error: ${error}`);
             resultValidation.addError('CREATE_ERROR', 'Falha ao criar um novo usuário', true);
@@ -60,7 +59,6 @@ class Users {
                 console.log(`Ocorreu um erro ao tentar atualizar o usuário de id ${userId} com os seguintes dados: ${JSON.stringify(userData)}`);
                 resultValidation.addError('CREATE_ERROR', 'Houve uma falha ao atualizar o usuário', false);
             }
-            resultValidation.setResult(response);
         } catch (error) {
             console.log(`Falha ao atualizar um o usuário de id ${userId} com os seguintes dados: ${JSON.stringify(userData)}, error: ${error}`);
             resultValidation.addError('UPDATE_ERROR', 'Falha ao atualizar usuário', true);
@@ -78,6 +76,28 @@ class Users {
             console.log('É necessário informar a senha para realizar a criação do usuário');
         }
         return hasError;
+    }
+
+    async deleteUser(userId) {
+        const resultValidation = new ResultValidation();
+        try {
+            if (!userId) {
+                console.log(`Id ${userId} é inválido para apagar um usuário!`);
+                resultValidation.addError('PARAMS_FAILED', `O id ${userId} não é válido para apagar um usuário`, false);
+            }
+            const response = await this.userRepository.destroyUser(userId);
+            if (response) {
+                console.log(`Usuário de id ${userId} apagado com sucesso`);
+                resultValidation.setResult(response);
+            } else {
+                console.log(`Ocorreu um erro ao tentar apagar o usuário de id ${userId}`);
+                resultValidation.addError('DELETE_ERROR', 'Houve uma falha ao apagar o usuário', false);
+            }
+        } catch (error) {
+            console.log(`Falha ao apagar usuário com id ${userId}`);
+            resultValidation.addError('DELETE_ERROR', `Falha ao tentar apagar usuário com id ${userId}, error: ${error}`);
+        }
+        return resultValidation;
     }
 }
 
