@@ -1,8 +1,9 @@
 const ResultValidation = require('./entity/result-validation');
 const env = require('../../environment-validation');
+const { Buffer } = require('node:buffer');
 
 
-class Users {
+class User {
     constructor(usersRepository) {
         this.userRepository = usersRepository;
     }
@@ -25,8 +26,9 @@ class Users {
                 resultValidation.addError('PARAMS_FAILED', 'Parâmetro senha ou nome faltando para adicionar um usuário', false);
                 return resultValidation;
             }
-            // TODO - Criptografar a senha antes de salvar no banco, para que quando for realizado o login,
-            //  possa ser comparada com a senha informada do usuário
+
+            userData.password = Buffer.from(userData.password).toString('base64');
+
             const response = await this.userRepository.addUser(userData);
             if (response) {
                 console.log(`Usuário adicionado com sucesso, com os seguintes dados: ${JSON.stringify(response)}`);
@@ -50,8 +52,14 @@ class Users {
                 resultValidation.addError('PARAMS_FAILED', 'Parâmetro senha ou nome faltando para atualizar um usuário', false);
                 return resultValidation;
             }
-            // TODO - Criptografar a senha antes de salvar no banco, para que quando for realizado o login,
-            //  possa ser comparada com a senha informada do usuário
+
+            const user = this.userRepository.getUser(userId);
+            const oldPassword = Buffer.from(user.password, 'base64').toString('utf8');
+
+            if (userData.password !== oldPassword){
+                userData.password = Buffer.from(userData.password).toString('base64');
+            }
+
             const response = await this.userRepository.editUser(userData, userId);
             if (response) {
                 console.log(`Usuário atualizado com sucesso, com os seguintes dados: ${JSON.stringify(response)}`);
@@ -81,4 +89,4 @@ class Users {
     }
 }
 
-module.exports = Users;
+module.exports = User;

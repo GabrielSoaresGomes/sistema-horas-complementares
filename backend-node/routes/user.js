@@ -1,7 +1,7 @@
 const express = require('express');
 
-const UserComponent = require('../components/users/users');
-const UserRepository = require('../components/users/data/user-repository');
+const UserComponent = require('../components/user/user');
+const UserRepository = require('../components/user/data/user-repository');
 
 const router = express.Router();
 
