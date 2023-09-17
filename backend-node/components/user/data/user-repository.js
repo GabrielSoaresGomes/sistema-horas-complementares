@@ -13,6 +13,17 @@ class UserRepository {
             FROM users
             WHERE deleted_at is null
         `);
+        return response.rows;
+    }
+
+    async getUser(userId) {
+        const connection = await this.databaseConnetor.generateConnection();
+        const response = await connection.query(`
+            SELECT id, course_id, name, password, is_coordinator, registration, created_at
+            FROM users
+            WHERE deleted_at is null
+            AND id = $1
+        `, [userId]);
 
         return response.rows;
     }
