@@ -7,7 +7,7 @@ Criação de um serviço que facilite o registro e o monitoramento de horas comp
 - Gabriel Soares Gomes, 202110116
 - Junior Nascimento Guimarães, 202110323
 - Mizael Lucas Pardal Gonçalves Ribeiro, 202120339
-- João de Oliveira Barbosa, 202120479
+- Bernardo de Andrade Peçanha, 202110271
 
 ## Configuração Ambiente
 
