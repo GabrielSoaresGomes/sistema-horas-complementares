@@ -1,7 +1,9 @@
 const express = require('express');
 require('dotenv').config();
 
-const router = require('./routes/routes');
+const routerUser = require('./routes/user');
+const routerAuth = require('./routes/auth');
+
 
 const app = express();
 
@@ -9,6 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Rotas
-app.use('/', router);
+app.use('/', routerUser);
+app.use('/auth', routerAuth);
 
 module.exports = app;
