@@ -41,4 +41,10 @@ router.put('/users/:userId', async (req, res) => {
     applyResult(result, res, 200);
 });
 
+router.delete('/users/:userId', async (req, res) => {
+    const userComponent = new UserComponent(new UserRepository());
+    const result = await userComponent.deleteUser(req?.params?.userId);
+    applyResult(result, res, 202);
+});
+
 module.exports = router;

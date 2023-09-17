@@ -87,6 +87,28 @@ class User {
         }
         return hasError;
     }
+
+    async deleteUser(userId) {
+        const resultValidation = new ResultValidation();
+        try {
+            if (!userId) {
+                console.log(`Id ${userId} é inválido para apagar um usuário!`);
+                resultValidation.addError('PARAMS_FAILED', `O id ${userId} não é válido para apagar um usuário`, false);
+            }
+            const response = await this.userRepository.destroyUser(userId);
+            if (response) {
+                console.log(`Usuário de id ${userId} apagado com sucesso`);
+                resultValidation.setResult(response);
+            } else {
+                console.log(`Ocorreu um erro ao tentar apagar o usuário de id ${userId}`);
+                resultValidation.addError('DELETE_ERROR', 'Houve uma falha ao apagar o usuário', false);
+            }
+        } catch (error) {
+            console.log(`Falha ao apagar usuário com id ${userId}`);
+            resultValidation.addError('DELETE_ERROR', `Falha ao tentar apagar usuário com id ${userId}, error: ${error}`);
+        }
+        return resultValidation;
+    }
 }
 
 module.exports = User;
