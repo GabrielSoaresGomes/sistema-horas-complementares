@@ -35,10 +35,10 @@ if [ -v commands_map["$1"] ]; then
     elif [ "$command" == "start" ]; then
         docker-compose up -d
     elif [ "$command" == "build" ]; then
-        if [ "$2" == "dev"]; then
+        if [ "$2" == "dev" ]; then
             # cp .env-dev .env
             cp .env-local .env
-        elif [ "$2" == "prod"]; then
+        elif [ "$2" == "prod" ]; then
             # cp .env-prod .env
             cp .env-local .env
         else
