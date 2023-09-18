@@ -13,14 +13,24 @@ class Auth {
         const resultValidation = new ResultValidation();
         try {
             const user = await this.userRepository.getUser(userData?.email, userData?.password);
-            const passwordEncoded = Buffer.from(user.password, 'base64').toString('utf8');
+            if (!user) {
+                resultValidation.addError('SEARCH_FAILED', 'Não foi possível encontrar o usuário pelo email', false);
+                console.log(`Não foi possível encontrar o usuário com email: ${userData?.email}`);
+                return resultValidation;
+            }
+            const passwordDecoded = Buffer.from(user.password, 'base64').toString('utf8');
 
-            if (user?.email === userData?.email && passwordEncoded === userData?.password) {
+            if (user?.email === userData?.email && passwordDecoded === userData?.password) {
                 const token = jwt.sign({
                     email: userData?.email,
                     password: userData?.password
-                }, this.jwtKey)
+                }, this.jwtKey);
                 await this.userRepository.setStatusUser(true, user?.id);
+                await this.userRepository.setToken(token, user?.id);
+                resultValidation.setResult({token});
+            } else {
+                resultValidation.addError('AUTH_FAILED', 'Senha inserida está incorreta');
+                console.log('A senha inserida não está correta!');
             }
         } catch (error) {
             console.log(`Falha ao fazer login, error: ${error}`);
@@ -32,11 +42,27 @@ class Auth {
     async logout(userId) {
         const resultValidation = new ResultValidation();
         try {
-            const user = await this.userRepository.getUser(email, password);
+            if (!userId) {
+                console.log(`Id do usuário ${userId} não é válido!`);
+                resultValidation.addError("PARAMS_FAILED", 'O id informando para o usuário não é válido');
+                return resultValidation;
+            }
+            const user = await this.userRepository.getUserById(userId);
+            if (!user) {
+                console.log(`Não foi possível encontrar um usuário com o id ${userId}`);
+                resultValidation.addError("SEARCH_FAILED", 'Não foi possível encontrar um usuário com o id informado');
+                return resultValidation;
+            }
 
-            if (user.status === 0) {
-                const status = await this.userRepository.setStatusUser(0, userId);
-            };
+            if (user?.is_logged === true) {
+                await this.userRepository.setStatusUser(false, userId);
+                await this.userRepository.setToken(null, userId);
+                resultValidation.setResult({ message: 'Usuário deslogado com sucesso' });
+            } else {
+                console.log(`Usuário de id ${userId} já está deslogado`);
+                resultValidation.addError("LOGOUT_FAILED", 'Usuário já esta deslogado');
+                return resultValidation;
+            }
             
         } catch (error) {
             console.log(`Falha ao fazer logout, error: ${error}`);

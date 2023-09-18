@@ -15,13 +15,16 @@ declare -A commands_map=(
     ["s"]="start"
     ["start"]="start"
 
+    ["start-database"]="start-database"
+    ["sd"]="start-database"
+
     ["stop"]="stop"
 
     ["b"]="build"
     ["build"]="build"
 )
 
-ordered_keys=("l" "log" "logs" "|" "t" "terminal" "|" "s" "start" "|" "stop" "|" "b" "build")
+ordered_keys=("l" "log" "logs" "|" "t" "terminal" "|" "s" "start" "|" "s-d" "start-database" "|" "stop" "|" "b" "build")
 
 if [ -v commands_map["$1"] ]; then
     command=${commands_map[$1]}
@@ -34,6 +37,8 @@ if [ -v commands_map["$1"] ]; then
         docker-compose stop shc-db
     elif [ "$command" == "start" ]; then
         docker-compose up -d
+    elif [ "$command" == "start-database" ];then
+        docker-compose up -d shc-db
     elif [ "$command" == "build" ]; then
         if [ "$2" == "dev" ]; then
             # cp .env-dev .env

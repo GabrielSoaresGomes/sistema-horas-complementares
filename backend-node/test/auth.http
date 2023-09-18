@@ -1,0 +1,16 @@
+### Logar um usuário com email e senha
+POST localhost:2004/auth/login
+Content-Type: application/json
+
+{
+  "email": "gabrielsoares221@gmail.com",
+  "password": "Senha123@"
+}
+
+### Deslogar um usuário
+POST localhost:2004/auth/logout
+Content-Type: application/json
+
+{
+  "id": 1
+}
