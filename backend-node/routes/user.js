@@ -5,7 +5,6 @@ const UserRepository = require('../components/user/data/user-repository');
 
 const router = express.Router();
 
-
 const applyResult = (result, res, successStatusCode) => {
     if (result.hasError()) {
         if (result.hasCriticalError()) {

@@ -23,7 +23,14 @@ class User {
         const resultValidation = new ResultValidation();
         try {
             if (this.#verifyUserParams(userData)) {
-                resultValidation.addError('PARAMS_FAILED', 'Parâmetro senha ou nome faltando para adicionar um usuário', false);
+                resultValidation.addError('PARAMS_FAILED', 'Parâmetro senha, nome ou email faltando para adicionar um usuário', false);
+                return resultValidation;
+            }
+
+            const userEmailAlreadyUsed = await this.userRepository.verifyIfEmailAlreadyUsed(userData?.email);
+            if (userEmailAlreadyUsed) {
+                console.log(`O email ${userData?.email} já está sendo utilizado!`);
+                resultValidation.addError('PARAMS_FAILED', 'O email inserido já está sendo utilizado!');
                 return resultValidation;
             }
 
@@ -49,11 +56,24 @@ class User {
         const resultValidation = new ResultValidation();
         try {
             if (this.#verifyUserParams(userData)) {
-                resultValidation.addError('PARAMS_FAILED', 'Parâmetro senha ou nome faltando para atualizar um usuário', false);
+                resultValidation.addError('PARAMS_FAILED', 'Parâmetro senha, nome ou email faltando para atualizar um usuário', false);
                 return resultValidation;
             }
 
-            const user = this.userRepository.getUser(userId);
+            const userEmailAlreadyUsed = await this.userRepository.verifyIfEmailAlreadyUsedForOtherUser(userData?.email, userId);
+            if (userEmailAlreadyUsed) {
+                console.log(`O email ${userData?.email} já está sendo utilizado!`);
+                resultValidation.addError('PARAMS_FAILED', 'O email inserido já está sendo utilizado!');
+                return resultValidation;
+            }
+
+            const user = await this.userRepository.getUser(userId);
+            if (!user) {
+                resultValidation.addError('SEARCH_FAILED', 'Não foi possível encontrar o usuário com o id inserido', false);
+                console.log(`Não foi possível encontrar o usuário com id: ${userId}`);
+                return resultValidation;
+            }
+
             const oldPassword = Buffer.from(user.password, 'base64').toString('utf8');
 
             if (userData.password !== oldPassword){
@@ -80,10 +100,13 @@ class User {
         let hasError = false;
         if (userData?.name == null) {
             hasError = true;
-            console.log('É necessário informar o nome do usuário para realizar a criação');
+            console.log('É necessário informar o nome para o usuário');
         } else if(userData?.password == null) {
             hasError = true;
-            console.log('É necessário informar a senha para realizar a criação do usuário');
+            console.log('É necessário informar a senha para o usuário');
+        } else if(userData?.email == null) {
+            hasError = true;
+            console.log('É necessário informar um email para o usuário');
         }
         return hasError;
     }
