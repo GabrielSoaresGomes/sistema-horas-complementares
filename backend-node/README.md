@@ -8,15 +8,24 @@ Criação de um serviço que facilite o registro e o monitoramento de horas comp
 - Luis Felipe -
 - Bernardo de Andrade Peçanha - 202110271
 
+## Executar o projeto local
+
+1. Vá para a raiz da aplicação (backend-node)
+2. Execute o comando: bash shc.sh build || bash shc.sh b
+3. Agora o projeto está sendo executado, para ver os logs execute o comando: bash shc.sh logs || bash shc.sh l
+
 ## Explicação da estrutura do projeto (Para os devs)
 
 ### Arquivos na raiz
 
 - .envs: Utilizados para manter segura informações / credenciais utilizadas no projeto
+- docker-compose.yml: Arquivo utilizado para colocar o projeto e o banco em um container
+- Dockerfile: Arquivo onde está a configuração do Container que usamos para o projeto
 - environment-validation.js: É o arquivo onde visa validar se o .env contêm todas as informações necessárias para a execução do projeto
 - main.js: Arquivo onde contêm a aplicação instânciada, onde se reúne no final toda a lógica do projeto, incluindo as rotas
 - package.json: Arquivo padrão de projetos nodejs, nele é listado algumas informações do projeto e também a listagem de dependências
 - server.js: Arquivo que importa a aplicação do main.js e executa ela em um servidor local com uma porta pré-definida
+- shc.sh: Arquivo onde tem comandos que facilitam a execução do projeto
 - test.http: Arquivo onde irá ser executados os testes para as apis do projeto
 
 ### Components
