@@ -1,5 +1,5 @@
 const ResultValidation = require('./entity/result-validation');
-const env = require('../../environment-validation');
+require('../../environment-validation');
 const { Buffer } = require('node:buffer');
 
 
