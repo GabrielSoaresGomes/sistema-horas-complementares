@@ -6,11 +6,12 @@ COPY package.json ./
 RUN npm install
 
 # Copiando arquivos do projeto
-COPY ./components ./components
+COPY ./server.js ./server.js
+COPY ./main.js ./main.js
 COPY ./routes ./routes
 COPY ./environment-validation.js ./environment-validation.js
-COPY ./main.js ./main.js
-COPY ./server.js ./server.js
+COPY ./components ./components
+COPY ./.env ./.env
 
 # Escolhendo a porta que o projeto vai rodar
 EXPOSE 2004

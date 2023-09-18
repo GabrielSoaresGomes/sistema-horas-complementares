@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  shc-db:
+    image: postgres:11
+    ports:
+      - "5432:5432"
+    container_name: shc-database
+    environment:
+      POSTGRES_DB: ${DATABASE_POSTGRES_NAME}
+      POSTGRES_USER: ${DATABASE_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${DATABASE_POSTGRES_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+    volumes:
+      - ./config/sql/01-create-tables.sql:/docker-entrypoint-initdb.d/01-create-tables.sql
+      - ./config/sql/02-insert-data.sql:/docker-entrypoint-initdb.d/02-insert-data.sql
+  shc-app:
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shc-app
+    depends_on:
+      - shc-db
+    env_file:
+      - .env
+    ports:
+      - "2004:2004"
+    command: node server.js
