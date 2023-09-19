@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Rotas
-app.use('/', routerUser);
+app.use('/users', routerUser);
 app.use('/auth', routerAuth);
 
 module.exports = app;

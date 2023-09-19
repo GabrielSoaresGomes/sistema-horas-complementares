@@ -22,25 +22,25 @@ const applyResult = (result, res, successStatusCode) => {
     }
 }
 
-router.get('/users', async (req, res) => {
+router.get('/', async (req, res) => {
     const userComponent = new UserComponent(new UserRepository());
     const result = await userComponent.listAllUsers();
     applyResult(result, res, 200);
 });
 
-router.post('/users', async (req, res) => {
+router.post('/', async (req, res) => {
     const userComponent = new UserComponent(new UserRepository());
     const result = await userComponent.createUser(req?.body);
     applyResult(result, res, 200);
 });
 
-router.put('/users/:userId', async (req, res) => {
+router.put('/:userId', async (req, res) => {
     const userComponent = new UserComponent(new UserRepository());
     const result = await userComponent.updateUser(req?.body, req?.params?.userId);
     applyResult(result, res, 200);
 });
 
-router.delete('/users/:userId', async (req, res) => {
+router.delete('/:userId', async (req, res) => {
     const userComponent = new UserComponent(new UserRepository());
     const result = await userComponent.deleteUser(req?.params?.userId);
     applyResult(result, res, 202);

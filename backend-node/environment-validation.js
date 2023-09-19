@@ -7,6 +7,8 @@ class EnvironmentValidation {
             DATABASE_POSTGRES_HOST: process.env.DATABASE_POSTGRES_HOST,
             DATABASE_POSTGRES_PORT: process.env.DATABASE_POSTGRES_PORT,
             DATABASE_POSTGRES_CONNECTION_LIMIT: process.env.DATABASE_POSTGRES_CONNECTION_LIMIT,
+            POSTGRES_HOST: process.env.POSTGRES_HOST,
+            JWT_KEY: process.env.JWT_KEY,
             PORT: process.env.PORT || 2004
         });
         this.#validateEnv();
