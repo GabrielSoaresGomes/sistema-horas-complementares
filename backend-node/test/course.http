@@ -1,0 +1,23 @@
+### Listar todos cursos
+GET localhost:2004/courses
+
+### Adicionar um novo curso
+POST localhost:2004/courses
+Content-Type: application/json
+
+{
+  "name": "Engenharia de Software",
+  "code": "code_123_456"
+}
+
+### Atualizar um curso
+PUT localhost:2004/courses/1
+Content-Type: application/json
+
+{
+  "name": "Novo nome",
+  "code": "novo_code"
+}
+
+### Apagar um curso
+DELETE localhost:2004/courses/1
