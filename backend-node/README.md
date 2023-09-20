@@ -32,9 +32,10 @@ Criação de um serviço que facilite o registro e o monitoramento de horas comp
 
 - Pasta onde estão localizadas as classes que mantêm a regra de negócio e a lógica do projeto
 - Dentro de cada componente possuímos os seguintes itens:
-  - data/: Pasta onde estão os arquivos que não envolvem regra de negócios, como queries para banco ou usar libs externas
+  - data/: Pasta onde estão os arquivos que não envolvem regra de negócios, como consultas para o banco ou usar libs externas
       - connector: Pasta onde ficam localizados arquivos de conexões com banco  
   - entity/: Pasta onde tem arquivos de entidades, usadas no componente
+  - test/: Pasta onde ficam os testes de unidade, utilizado para garantir a funcionalidade dos métodos do arquivo principal
   - Arquivo principal: Arquivo onde importa os repositórios, e também realiza as tratativas necessárias de regra de negócio, principalmente as tratativas de erro
 
 ### Routes
