@@ -29,8 +29,8 @@ class Auth {
                 await this.userRepository.setToken(token, user?.id);
                 resultValidation.setResult({token});
             } else {
-                resultValidation.addError('AUTH_FAILED', 'Senha inserida está incorreta');
-                console.log('A senha inserida não está correta!');
+                resultValidation.addError('AUTH_FAILED', 'Credencias inválidas');
+                console.log('As credencias inseridas estão inválidas!');
             }
         } catch (error) {
             console.log(`Falha ao fazer login, error: ${error}`);
