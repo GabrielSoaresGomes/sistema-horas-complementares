@@ -42,10 +42,10 @@ htmlcov/
 .tox/
 .nox/
 .coverage
-./backend-node/coverage
-./backend/coverage
-./backend-node/package-lock.json
-./backend/package-lock.json
+backend-node/coverage
+backend/coverage
+backend-node/package-lock.json
+backend/package-lock.json
 .coverage.*
 .cache
 nosetests.xml
