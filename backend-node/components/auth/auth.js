@@ -1,4 +1,4 @@
-const ResultValidation = require('./entity/result-validation');
+const ResultValidation = require('../../entity/result-validation');
 const jwt = require('jsonwebtoken');
 const { Buffer } = require('node:buffer');
 
