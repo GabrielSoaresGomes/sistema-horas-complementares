@@ -70,6 +70,43 @@ class Auth {
         }
         return resultValidation;
     }
+
+    async authenticate(token) {
+        const resultValidation = new ResultValidation();
+        try {
+            const userData = await this.userRepository.getUserByToken(token);
+            if (!userData) {
+                resultValidation.addError('INVALID_TOKEN', 'Não foi possível encontrar dados com o token informado');
+                console.log(`Não foi possível encontrar dados com o token ${token}`);
+                return resultValidation;
+            }
+
+            const isTokenValid = this.userRepository.validateToken(token);
+            if (!isTokenValid) {
+                resultValidation.addError('INVALID_TOKEN', 'O token informando não é válido!');
+                console.log(`O token ${token} não é válido`);
+
+                await this.userRepository.setStatusUser(false, userData?.id);
+                await this.userRepository.setToken(null, userData?.id);
+                return resultValidation;
+            }
+
+            const tokenData = this.userRepository.getTokenData(token);
+            const tokenOwnerEmail = tokenData?.email;
+
+            if (tokenOwnerEmail !== userData?.email) {
+                resultValidation.addError('VALIDATE_ERROR', 'Credenciais do token não conferem com dados do usuário');
+                console.log(`O email do token: ${tokenOwnerEmail} é diferente do email no banco: ${userData?.email}`);
+                return resultValidation;
+            }
+            resultValidation.setResult(userData);
+
+        } catch (error) {
+            console.log(`Falha ao autenticar token. Error: ${error}`);
+            resultValidation.addError('VALIDATE_ERROR', 'Falha ao validar token', true);
+        }
+        return resultValidation;
+    }
 }
 
 module.exports = Auth;

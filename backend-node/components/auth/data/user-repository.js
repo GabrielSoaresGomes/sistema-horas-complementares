@@ -1,4 +1,5 @@
 const DatabaseConnector = require('./connector/database-connector');
+const jwt = require('jsonwebtoken');
 
 
 class UserRepository {
@@ -58,6 +59,28 @@ class UserRepository {
             AND id = $2
         `, [token, userId]);
         return response?.rows;
+    }
+
+    validateToken(token) {
+        return jwt.verify(token);
+    }
+
+    getTokenData(token) {
+        return jwt.decode(token, {json: true});
+    }
+
+    async getUserByToken(token) {
+        const connection = await this.databaseConnetor.generateConnection();
+        const response = await connection.query(`
+            SELECT id, course_id, name, email, token, is_logged, is_coordinator, registration, created_at
+            FROM users
+            WHERE token = $1
+            AND deleted_at is null
+        `, [token]);
+        if (response?.rows?.length) {
+            return response?.rows?.[this.FIRST_ELEMENT_ARRAY];
+        }
+        return false;
     }
 }
 
