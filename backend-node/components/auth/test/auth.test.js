@@ -20,13 +20,13 @@ describe('Testes para a classe Auth', () => {
             process.env.JWT_KEY = '12345';
             const auth = new Auth(userRepositoryMock);
             const userData = {
-                email: "junior@email.com",
-                password: "123"
+                email: 'junior@email.com',
+                password: '123'
             };
 
             userRepositoryMock.getUser.mockReturnValue({
-                email: "junior@email.com",
-                password: "MTIz"
+                email: 'junior@email.com',
+                password: 'MTIz'
             });
 
             const result = await auth.login(userData);
@@ -38,8 +38,8 @@ describe('Testes para a classe Auth', () => {
             process.env.JWT_KEY = '12345';
             const auth = new Auth(userRepositoryMock);
             const userData = {
-                email: "junior@email.com",
-                password: "123"
+                email: 'junior@email.com',
+                password: '123'
             };
 
             userRepositoryMock.getUser.mockReturnValue(false);
@@ -48,8 +48,8 @@ describe('Testes para a classe Auth', () => {
 
             expect(result.getResult()).toBeFalsy();
             expect(result.getErrorList()).toStrictEqual([{
-                "message": "Não foi possível encontrar o usuário pelo email",
-                "tag": "SEARCH_FAILED"
+                'message': 'Não foi possível encontrar o usuário pelo email',
+                'tag': 'SEARCH_FAILED'
             }]);
         });
 
@@ -57,21 +57,21 @@ describe('Testes para a classe Auth', () => {
             process.env.JWT_KEY = '12345';
             const auth = new Auth(userRepositoryMock);
             const userData = {
-                email: "junior@email.com",
-                password: "123"
+                email: 'junior@email.com',
+                password: '123'
             };
 
             userRepositoryMock.getUser.mockReturnValue({
-                email: "bernardo@email.com",
-                password: "MTIz"
+                email: 'bernardo@email.com',
+                password: 'MTIz'
             });
 
             const result = await auth.login(userData);
 
             expect(result.getResult()).toBeFalsy();
             expect(result.getErrorList()).toStrictEqual([{
-                "message": "Credencias inválidas",
-                "tag": "AUTH_FAILED"
+                'message': 'Credencias inválidas',
+                'tag': 'AUTH_FAILED'
             }]);
         });
 
@@ -79,21 +79,21 @@ describe('Testes para a classe Auth', () => {
             process.env.JWT_KEY = '12345';
             const auth = new Auth(userRepositoryMock);
             const userData = {
-                email: "junior@email.com",
-                password: "123"
+                email: 'junior@email.com',
+                password: '123'
             };
 
             userRepositoryMock.getUser.mockReturnValue({
-                email: "junior@email.com",
-                password: "MTIzNA=="
+                email: 'junior@email.com',
+                password: 'MTIzNA=='
             });
 
             const result = await auth.login(userData);
 
             expect(result.getResult()).toBeFalsy();
             expect(result.getErrorList()).toStrictEqual([{
-                "message": "Credencias inválidas",
-                "tag": "AUTH_FAILED"
+                'message': 'Credencias inválidas',
+                'tag': 'AUTH_FAILED'
             }]);
         });
 
@@ -101,8 +101,8 @@ describe('Testes para a classe Auth', () => {
             process.env.JWT_KEY = '12345';
             const auth = new Auth(userRepositoryMock);
             const userData = {
-                email: "junior@email.com",
-                password: "123"
+                email: 'junior@email.com',
+                password: '123'
             };
 
             userRepositoryMock.getUser.mockImplementation(() => {
@@ -113,8 +113,8 @@ describe('Testes para a classe Auth', () => {
 
             expect(result.getResult()).toBeFalsy();
             expect(result.getErrorList()).toStrictEqual([{
-                "message": "Falha ao logar",
-                "tag": "LOGIN_ERROR"
+                'message': 'Falha ao logar',
+                'tag': 'LOGIN_ERROR'
             }]);
         });
 
@@ -132,7 +132,7 @@ describe('Testes para a classe Auth', () => {
             const result = await auth.logout(2);
 
             expect(result.getResult()).toStrictEqual({
-                "message": "Usuário deslogado com sucesso"
+                'message': 'Usuário deslogado com sucesso'
             });
         });
 
@@ -147,8 +147,8 @@ describe('Testes para a classe Auth', () => {
             const result = await auth.logout();
 
             expect(result.getErrorList()).toStrictEqual([{
-                "tag": "PARAMS_FAILED",
-                "message": "O id informando para o usuário não é válido"
+                'tag': 'PARAMS_FAILED',
+                'message': 'O id informando para o usuário não é válido'
             }]);
         });
 
@@ -161,8 +161,8 @@ describe('Testes para a classe Auth', () => {
             const result = await auth.logout(2);
 
             expect(result.getErrorList()).toStrictEqual([{
-                "tag": "SEARCH_FAILED",
-                "message": "Não foi possível encontrar um usuário com o id informado"
+                'tag': 'SEARCH_FAILED',
+                'message': 'Não foi possível encontrar um usuário com o id informado'
             }]);
         });
 
@@ -177,8 +177,8 @@ describe('Testes para a classe Auth', () => {
             const result = await auth.logout(2);
 
             expect(result.getErrorList()).toStrictEqual([{
-                "tag": "LOGOUT_FAILED",
-                "message": "Usuário já esta deslogado"
+                'tag': 'LOGOUT_FAILED',
+                'message': 'Usuário já esta deslogado'
             }]);
         });
 
@@ -186,15 +186,15 @@ describe('Testes para a classe Auth', () => {
             process.env.JWT_KEY = '12345';
             const auth = new Auth(userRepositoryMock);
 
-            userRepositoryMock.getUserById.mockImplementation(() =>{
-                throw new Error("erro");
+            userRepositoryMock.getUserById.mockImplementation(() => {
+                throw new Error('erro');
             });
 
             const result = await auth.logout(2);
 
             expect(result.getErrorList()).toStrictEqual([{
-                "tag": "LOGOUT_ERROR",
-                "message": "Falha ao fazer logout"
+                'tag': 'LOGOUT_ERROR',
+                'message': 'Falha ao fazer logout'
             }]);
         });
     });

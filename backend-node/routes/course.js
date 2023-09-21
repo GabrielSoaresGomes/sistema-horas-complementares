@@ -1,7 +1,7 @@
 const express = require('express');
 
 const CourseComponent = require('../components/course/course');
-const CourseRepository = require('../components/course/data/course-repository')
+const CourseRepository = require('../components/course/data/course-repository');
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ const applyResult = (result, res, successStatusCode) => {
         res.status(successStatusCode);
         res.send(result.getResult());
     }
-}
+};
 
 router.get('/', async (req, res) => {
     const couseComponent = new CourseComponent(new CourseRepository());

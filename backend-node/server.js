@@ -1,6 +1,6 @@
 const app = require('./main');
-const env = require("./environment-validation");
-const http = require("http");
+const env = require('./environment-validation');
+const http = require('http');
 const debug = require('debug');
 
 const PORT = env.getVar('PORT');

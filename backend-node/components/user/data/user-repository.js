@@ -57,7 +57,7 @@ class UserRepository {
             return response.rows[0];
         }
         return null;
-   }
+    }
 
     async destroyUser(userId) {
         const connection = await this.databaseConnetor.generateConnection();

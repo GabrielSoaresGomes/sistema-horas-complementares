@@ -21,7 +21,7 @@ const applyResult = (result, res, successStatusCode) => {
         res.status(successStatusCode);
         res.send(result.getResult());
     }
-}
+};
 
 router.post('/login', async (req, res) => {
     const authComponent = new AuthComponent(new UserRepository());

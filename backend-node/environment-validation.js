@@ -12,7 +12,7 @@ class EnvironmentValidation {
             PORT: process.env.PORT || 2004
         });
         this.#validateEnv();
-        console.log(`.env foi carregado com sucesso:  `, this.envVars);
+        console.log('.env foi carregado com sucesso:  ', this.envVars);
     }
 
     #validateEnv() {

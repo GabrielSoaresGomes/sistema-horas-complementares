@@ -20,7 +20,7 @@ const applyResult = (result, res, successStatusCode) => {
         res.status(successStatusCode);
         res.send(result.getResult());
     }
-}
+};
 
 router.get('/', async (req, res) => {
     const userComponent = new UserComponent(new UserRepository());

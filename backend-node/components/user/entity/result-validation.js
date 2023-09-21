@@ -10,7 +10,7 @@ class ResultValidation {
     }
 
     addError(tag, message, isCritical = false) {
-        this.errorList.push({"tag": tag, "message": message, "critical": isCritical});
+        this.errorList.push({'tag': tag, 'message': message, 'critical': isCritical});
     }
 
     setResult(result) {
@@ -26,7 +26,9 @@ class ResultValidation {
     }
 
     getErrorList() {
-        return this.errorList.map(error => { return { "tag": error.tag, "message": error.message } });
+        return this.errorList.map(error => {
+            return { 'tag': error.tag, 'message': error.message }; 
+        });
     }
 
     isResultEmpty() {
