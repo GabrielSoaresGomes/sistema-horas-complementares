@@ -4,6 +4,7 @@ const DatabaseConnector = require('./connector/database-connector');
 class UserRepository {
     constructor() {
         this.databaseConnetor = new DatabaseConnector();
+        this.FIRST_ELEMENT_ARRAY = 0;
     }
 
     async getUser(email) {
@@ -15,7 +16,7 @@ class UserRepository {
             AND email = $1
         `, [email]);
         if (response?.rows?.length) {
-            return response.rows[0];
+            return response.rows[this.FIRST_ELEMENT_ARRAY];
         }
         return false;
     }
@@ -29,7 +30,7 @@ class UserRepository {
             AND id = $1
         `, [userId]);
         if (response?.rows?.length) {
-            return response.rows[0];
+            return response.rows[this.FIRST_ELEMENT_ARRAY];
         }
         return false;
     }
@@ -43,7 +44,7 @@ class UserRepository {
             AND id = $2
         `, [status, userId]);
         if (response?.rows?.length) {
-            return response.rows[0];
+            return response.rows[this.FIRST_ELEMENT_ARRAY];
         }
         return null;
     }

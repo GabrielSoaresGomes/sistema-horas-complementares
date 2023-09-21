@@ -4,6 +4,7 @@ const DatabaseConnector = require('./connector/database-connector');
 class UserRepository {
     constructor() {
         this.databaseConnetor = new DatabaseConnector();
+        this.FIRST_ELEMENT_ARRAY = 0;
     }
 
     async getAllUsers() {
@@ -26,7 +27,7 @@ class UserRepository {
         `, [userId]);
 
         if (response?.rows?.length) {
-            return response.rows[0];
+            return response.rows[this.FIRST_ELEMENT_ARRAY];
         }
         return false;
     }
@@ -39,7 +40,7 @@ class UserRepository {
             RETURNING id, course_id, name, email, password, is_coordinator, registration, created_at
         `, [userData?.course_id, userData?.name, userData?.password, userData?.is_coordinator, userData?.registration, userData?.email]);
         if (response?.rows?.length) {
-            return response.rows[0];
+            return response.rows[this.FIRST_ELEMENT_ARRAY];
         }
         return null;
     }
@@ -54,7 +55,7 @@ class UserRepository {
             RETURNING id, course_id, name, password, is_coordinator, registration, created_at
         `, [userData?.name, userData?.password, userData?.course_id, userData?.is_coordinator, userData?.registration, userData?.email, userId]);
         if (response?.rows?.length) {
-            return response.rows[0];
+            return response.rows[this.FIRST_ELEMENT_ARRAY];
         }
         return null;
     }
@@ -69,7 +70,7 @@ class UserRepository {
             RETURNING id
         `, [userId]);
         if (response?.rows?.length) {
-            return response.rows[0];
+            return response.rows[this.FIRST_ELEMENT_ARRAY];
         }
         return null;
     }

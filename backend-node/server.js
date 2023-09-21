@@ -19,14 +19,15 @@ function onError(error) {
         : 'Port ' + PORT;
 
     // handle specific listen errors with friendly messages
+    const EXIT_CODE = 1;
     switch (error.code) {
         case 'EACCES':
             console.error(bind + ' requires elevated privileges');
-            process.exit(1);
+            process.exit(EXIT_CODE);
             break;
         case 'EADDRINUSE':
             console.error(bind + ' is already in use');
-            process.exit(1);
+            process.exit(EXIT_CODE);
             break;
         default:
             throw error;

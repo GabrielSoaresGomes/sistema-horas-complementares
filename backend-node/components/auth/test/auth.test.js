@@ -128,8 +128,8 @@ describe('Testes para a classe Auth', () => {
             userRepositoryMock.getUserById.mockReturnValue({
                 is_logged: true
             });
-
-            const result = await auth.logout(2);
+            const userId = 2;
+            const result = await auth.logout(userId);
 
             expect(result.getResult()).toStrictEqual({
                 'message': 'Usuário deslogado com sucesso'
@@ -158,7 +158,8 @@ describe('Testes para a classe Auth', () => {
 
             userRepositoryMock.getUserById.mockReturnValue(false);
 
-            const result = await auth.logout(2);
+            const userId = 2;
+            const result = await auth.logout(userId);
 
             expect(result.getErrorList()).toStrictEqual([{
                 'tag': 'SEARCH_FAILED',
@@ -174,7 +175,8 @@ describe('Testes para a classe Auth', () => {
                 is_logged: false
             });
 
-            const result = await auth.logout(2);
+            const userId = 2;
+            const result = await auth.logout(userId);
 
             expect(result.getErrorList()).toStrictEqual([{
                 'tag': 'LOGOUT_FAILED',
@@ -190,7 +192,8 @@ describe('Testes para a classe Auth', () => {
                 throw new Error('erro');
             });
 
-            const result = await auth.logout(2);
+            const userId = 2;
+            const result = await auth.logout(userId);
 
             expect(result.getErrorList()).toStrictEqual([{
                 'tag': 'LOGOUT_ERROR',
