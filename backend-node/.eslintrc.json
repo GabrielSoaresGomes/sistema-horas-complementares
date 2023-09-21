@@ -1,0 +1,59 @@
+{
+    "env": {
+        "commonjs": true,
+        "es2021": true,
+        "node": true,
+        "jest": true
+    },
+    "extends": [
+        "eslint:recommended"
+    ],
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "rules": {
+        "indent": [ // Identação ser feita usando 4 espaços
+            "error",
+            4,
+            {"SwitchCase":  1}
+        ],
+        "linebreak-style": [ // Quebras de linhas ser no formato unix
+            "error",
+            "unix"
+        ],
+        "quotes": [ // Usar aspas simples (') para 'strings'
+            "error",
+            "single"
+        ],
+        "semi": [ // Ter ponto e vírgula (;) em finais de expressões
+            "error",
+            "always"
+        ],
+        "camelcase": [ // Variáveis ser em camelCase (exceto dentro de objetos)
+            "error",
+            {
+                "ignoreDestructuring":  true,
+                "ignoreGlobals":  true,
+                "properties": "never"
+            }
+        ],
+        "curly": ["error", "all"], // Não ter if sem chaves, pode if ternário, mas não pode: if (condição) expressao
+        "default-case-last": ["error"], // Case default do switch ser sempre o último
+        "id-length": ["warn"], // Nome de variável ter ao menos 2 caracteres
+        "no-empty-function": ["warn"], // Não ter métodos vazios, exceto caso tenha um comentário dentro
+        "no-magic-numbers": ["warn"], // Não poder colocar um valor numérico do nada, sempre definir como variável antes
+        "no-multi-assign": ["warn"], // Não poder definir várias variáveis recebendo valores simultaneamente
+        "no-var": ["warn"], // Não poder usar var para declarar variáveis, usar let ou const
+
+        // Layout & Formatting
+        "arrow-spacing": ["warn", // Ter espaço antes e depois de => em 'arrow function'
+            { "before": true, "after": true }],
+        "block-spacing": ["warn"], // Ter espaço dentro das {} de um método, ex: function () { a + b }
+        "brace-style": ["error"], // Obriga que não tenha quebra de linha quando abrir um novo bloco
+        "comma-spacing": ["error", { "before": false, "after": true }], // Exige espaço após virgula para valores e parametros
+        "func-call-spacing": ["warn"] // Exige que quando chamar um método, os () fiquem colados
+
+    }
+}

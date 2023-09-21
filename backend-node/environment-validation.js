@@ -1,5 +1,6 @@
 class EnvironmentValidation {
     constructor() {
+        this.DEFAULT_POST = 2004;
         this.envVars = Object.freeze({
             DATABASE_POSTGRES_NAME: process.env.DATABASE_POSTGRES_NAME,
             DATABASE_POSTGRES_USER: process.env.DATABASE_POSTGRES_USER,
@@ -9,10 +10,10 @@ class EnvironmentValidation {
             DATABASE_POSTGRES_CONNECTION_LIMIT: process.env.DATABASE_POSTGRES_CONNECTION_LIMIT,
             POSTGRES_HOST: process.env.POSTGRES_HOST,
             JWT_KEY: process.env.JWT_KEY,
-            PORT: process.env.PORT || 2004
+            PORT: process.env.PORT || this.DEFAULT_POST
         });
         this.#validateEnv();
-        console.log(`.env foi carregado com sucesso:  `, this.envVars);
+        console.log('.env foi carregado com sucesso:  ', this.envVars);
     }
 
     #validateEnv() {

@@ -4,6 +4,7 @@ const DatabaseConnector = require('./connector/database-connector');
 class CourseRepository {
     constructor() {
         this.databaseConnector = new DatabaseConnector();
+        this.FIRST_ELEMENT_ARRAY = 0;
     }
 
     async getCourses() {
@@ -24,7 +25,7 @@ class CourseRepository {
             WHERE id = $1 
             AND deleted_at IS NULL
         `, [id]);
-        return response?.rows?.[0];
+        return response?.rows?.[this.FIRST_ELEMENT_ARRAY];
     }
 
     async addCourse(courseData) {
@@ -34,7 +35,7 @@ class CourseRepository {
             VALUES ($1, $2)
             RETURNING id, name, code, created_at
         `, [courseData?.name, courseData?.code]);
-        return response?.rows?.[0];
+        return response?.rows?.[this.FIRST_ELEMENT_ARRAY];
     }
 
     async updateCourseById(courseData, courseId) {
@@ -46,7 +47,7 @@ class CourseRepository {
             AND deleted_at IS NULL
             RETURNING id, name, code, created_at
         `, [courseData?.name, courseData?.code, courseId]);
-        return response?.rows?.[0];
+        return response?.rows?.[this.FIRST_ELEMENT_ARRAY];
     }
 
     async deleteCourseById(courseId){
@@ -58,7 +59,7 @@ class CourseRepository {
             AND deleted_at IS NULL
             RETURNING id
         `, [courseId]);
-        return response?.rows?.[0];
+        return response?.rows?.[this.FIRST_ELEMENT_ARRAY];
     }
 }
 

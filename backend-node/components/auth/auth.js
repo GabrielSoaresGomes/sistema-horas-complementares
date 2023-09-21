@@ -1,4 +1,4 @@
-const ResultValidation = require('./entity/result-validation');
+const ResultValidation = require('../../entity/result-validation');
 const jwt = require('jsonwebtoken');
 const { Buffer } = require('node:buffer');
 
@@ -44,13 +44,13 @@ class Auth {
         try {
             if (!userId) {
                 console.log(`Id do usuário ${userId} não é válido!`);
-                resultValidation.addError("PARAMS_FAILED", 'O id informando para o usuário não é válido');
+                resultValidation.addError('PARAMS_FAILED', 'O id informando para o usuário não é válido');
                 return resultValidation;
             }
             const user = await this.userRepository.getUserById(userId);
             if (!user) {
                 console.log(`Não foi possível encontrar um usuário com o id ${userId}`);
-                resultValidation.addError("SEARCH_FAILED", 'Não foi possível encontrar um usuário com o id informado');
+                resultValidation.addError('SEARCH_FAILED', 'Não foi possível encontrar um usuário com o id informado');
                 return resultValidation;
             }
 
@@ -60,7 +60,7 @@ class Auth {
                 resultValidation.setResult({ message: 'Usuário deslogado com sucesso' });
             } else {
                 console.log(`Usuário de id ${userId} já está deslogado`);
-                resultValidation.addError("LOGOUT_FAILED", 'Usuário já esta deslogado');
+                resultValidation.addError('LOGOUT_FAILED', 'Usuário já esta deslogado');
                 return resultValidation;
             }
             

@@ -1,4 +1,4 @@
-const ResultValidation = require('./entity/result-validation');
+const ResultValidation = require('../../entity/result-validation');
 require('../../environment-validation');
 
 
@@ -23,13 +23,13 @@ class Course {
         const resultValidation = new ResultValidation();
         try {
             if (!courseId) {
-                resultValidation.addError('PARAMS_ERROR', `O id inserido é inválido!`);
+                resultValidation.addError('PARAMS_ERROR', 'O id inserido é inválido!');
                 console.log(`O id ${courseId} não é um id válido de curso`);
             }
             const response = await this.couseRepository.getCourseById(courseId);
             if (!response) {
                 resultValidation.addError('GET_ERROR', 'Não foi possível ecnontrar um curso com o id informado', false);
-                console.log(`Não foi possível ecnontrar um curso com o id ${courseId}`)
+                console.log(`Não foi possível ecnontrar um curso com o id ${courseId}`);
             }
             resultValidation.setResult(response);
         } catch (error) {
@@ -50,7 +50,7 @@ class Course {
             const response = await this.couseRepository.addCourse(courseData);
 
             if (response) {
-                console.log(`Curso adicionado com sucesso, com os seguintes dados`, courseData);
+                console.log('Curso adicionado com sucesso, com os seguintes dados', courseData);
                 resultValidation.setResult(response);
             } else {
                 resultValidation.addError('CREATE_ERROR', 'Não foi possível adicionar o curso', false);
@@ -73,14 +73,14 @@ class Course {
             }
 
             if (!courseId) {
-                resultValidation.addError('PARAMS_ERROR', `O id inserido é inválido!`);
+                resultValidation.addError('PARAMS_ERROR', 'O id inserido é inválido!');
                 console.log(`O id ${courseId} não é um id válido de curso`);
                 return resultValidation;
             }
 
             const response = await this.couseRepository.updateCourseById(courseData, courseId);
             if (response) {
-                console.log(`Curso atualizado com sucesso, com os seguintes dados`, courseData);
+                console.log('Curso atualizado com sucesso, com os seguintes dados', courseData);
                 resultValidation.setResult(response);
             } else {
                 resultValidation.addError('UPDATE_ERROR', 'Não foi possível atualizar o curso', false);
@@ -110,7 +110,7 @@ class Course {
         try {
             if (!courseId) {
                 console.log(`Id ${courseId} do curso é obrigatório`);
-                resultValidation.addError('PARAMS_FAILED', `O id ${courseId} não é válido para apagar um usuário`, false)
+                resultValidation.addError('PARAMS_FAILED', `O id ${courseId} não é válido para apagar um usuário`, false);
             }
 
             const response = await this.couseRepository.deleteCourseById(courseId);

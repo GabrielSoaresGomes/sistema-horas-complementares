@@ -3,6 +3,7 @@ class ResultValidation {
     constructor() {
         this.errorList = [];
         this.result = null;
+        this.MIN_LENGTH = 0;
     }
 
     concatErrors(resultValidation) {
@@ -10,7 +11,7 @@ class ResultValidation {
     }
 
     addError(tag, message, isCritical = false) {
-        this.errorList.push({"tag": tag, "message": message, "critical": isCritical});
+        this.errorList.push({'tag': tag, 'message': message, 'critical': isCritical});
     }
 
     setResult(result) {
@@ -18,19 +19,21 @@ class ResultValidation {
     }
 
     hasError() {
-        return this.errorList.length > 0;
+        return this.errorList.length > this.MIN_LENGTH;
     }
 
     hasCriticalError() {
-        return this.errorList.filter(error => error.critical).length > 0;
+        return this.errorList.filter(error => error.critical).length > this.MIN_LENGTH;
     }
 
     getErrorList() {
-        return this.errorList.map(error => { return { "tag": error.tag, "message": error.message } });
+        return this.errorList.map(error => {
+            return { 'tag': error.tag, 'message': error.message }; 
+        });
     }
 
     isResultEmpty() {
-        return this.result === undefined || !this.result || this.result.length === 0;
+        return this.result === undefined || !this.result || this.result.length === this.MIN_LENGTH;
     }
 
     getResult() {
@@ -38,7 +41,7 @@ class ResultValidation {
     }
 
     findErrorByTags(tagList) {
-        return this.errorList.filter(error => tagList.includes(error.tag)).length > 0;
+        return this.errorList.filter(error => tagList.includes(error.tag)).length > this.MIN_LENGTH;
     }
 }
 
