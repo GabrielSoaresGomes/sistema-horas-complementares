@@ -6,6 +6,7 @@ class UserRepository {
     constructor() {
         this.databaseConnetor = new DatabaseConnector();
         this.FIRST_ELEMENT_ARRAY = 0;
+        this.jwtKey = process.env.JWT_KEY;
     }
 
     async getUser(email) {
@@ -62,7 +63,7 @@ class UserRepository {
     }
 
     validateToken(token) {
-        return jwt.verify(token);
+        return jwt.verify(token, this.jwtKey);
     }
 
     getTokenData(token) {

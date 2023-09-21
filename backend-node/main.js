@@ -1,7 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const logger = require('morgan');
-require('./environment-validation');
+require('./entity/environment-validation');
 
 const routerUser = require('./routes/user');
 const routerAuth = require('./routes/auth');

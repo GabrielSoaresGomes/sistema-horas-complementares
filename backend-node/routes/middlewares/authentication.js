@@ -3,8 +3,8 @@ const AuthRepository = require('../../components/auth/data/user-repository');
 const responseStatusCode = require('../../entity/response-status-code');
 
 const Authentication = async (req, res, next) => {
-    const firstElement = 0;
-    const token = req?.headers?.authorization?.split(' ')[firstElement];
+    const secondElement = 1;
+    const token = req?.headers?.authorization?.split(' ')[secondElement];
 
     if (!token) {
         return res.status(responseStatusCode.UNAUTHORIZED).json({ message:  'Token não foi informado' });

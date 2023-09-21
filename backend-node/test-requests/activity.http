@@ -1,0 +1,37 @@
+### Cadastrar uma atividade
+POST localhost:2004/activity/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxzb2FyZXMyMjFAZ21haWwuY29tIiwicGFzc3dvcmQiOiJTZW5oYTEyM0AiLCJpYXQiOjE2OTUzMTc1MjZ9.HIIHXOAVBjxnZhug-XgGIvE4_YYnRkaQ8BoQrME0LN0
+
+{
+  "name": "Padrões de Software",
+  "description": "APENAS",
+  "type": "FAÇA",
+  "hours_added": "1"
+}
+
+### Atualizar uma atividade única
+PUT localhost:2004/activity/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxzb2FyZXMyMjFAZ21haWwuY29tIiwicGFzc3dvcmQiOiJTZW5oYTEyM0AiLCJpYXQiOjE2OTUzMTc1MjZ9.HIIHXOAVBjxnZhug-XgGIvE4_YYnRkaQ8BoQrME0LN0
+Content-Type: application/json
+
+{
+  "name": "Engenharia_2",
+  "description": "Somente engenheiros",
+  "type": "eng",
+  "hours_added": "130"
+}
+
+### Pegar todas as atividades
+GET localhost:2004/activity/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxzb2FyZXMyMjFAZ21haWwuY29tIiwicGFzc3dvcmQiOiJTZW5oYTEyM0AiLCJpYXQiOjE2OTUzMTc1MjZ9.HIIHXOAVBjxnZhug-XgGIvE4_YYnRkaQ8BoQrME0LN0
+
+
+### Pegar atividade única
+GET localhost:2004/activity/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxzb2FyZXMyMjFAZ21haWwuY29tIiwicGFzc3dvcmQiOiJTZW5oYTEyM0AiLCJpYXQiOjE2OTUzMTc1MjZ9.HIIHXOAVBjxnZhug-XgGIvE4_YYnRkaQ8BoQrME0LN0
+
+
+### Apagar uma atividade
+DELETE localhost:2004/activity/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxzb2FyZXMyMjFAZ21haWwuY29tIiwicGFzc3dvcmQiOiJTZW5oYTEyM0AiLCJpYXQiOjE2OTUzMTc1MjZ9.HIIHXOAVBjxnZhug-XgGIvE4_YYnRkaQ8BoQrME0LN0
