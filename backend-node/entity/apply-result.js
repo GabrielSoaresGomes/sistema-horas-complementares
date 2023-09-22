@@ -9,7 +9,7 @@ const applyResult = (result, res, successStatusCode) => {
         }
         res.send(result.getErrorList());
     } else if (result.isResultEmpty()) {
-        res.status(responseStatusCode.BAD_REQUEST);
+        res.status(responseStatusCode.NO_CONTENT);
         res.send([]);
     } else {
         res.status(successStatusCode);

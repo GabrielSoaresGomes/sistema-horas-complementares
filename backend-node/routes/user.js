@@ -32,4 +32,18 @@ router.delete('/:userId', authentication, async (req, res) => {
     applyResult(result, res, responseStatusCode.ACCEPTED);
 });
 
+router.get('/activity', authentication, async (req, res) => {
+    const userComponent = new UserComponent(new UserRepository());
+    const result = await userComponent.getAllUserActivites(req?.user);
+    applyResult(result, res, responseStatusCode.OK);
+});
+
+router.get('/:userId/activity', authentication, async (req, res) => {
+    const userComponent = new UserComponent(new UserRepository());
+    const result = await userComponent.getUserActivitiesByUserId(req?.params?.userId, req?.user);
+    applyResult(result, res, responseStatusCode.OK);
+});
+
+//  user/1/activity/ - aluno / coordenador -> ver de um aluno especifico
+//  user/activity - coordenador -> ver de todos os alunos
 module.exports = router;

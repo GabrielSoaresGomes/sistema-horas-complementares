@@ -1,6 +1,14 @@
 ### Listar todos usuários
 GET localhost:2004/users
 
+### Listar todas atividades dos usuários ( Ser coordenador )
+GET localhost:2004/users/activity
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxzb2FyZXMyMjFAZ21haWwuY29tIiwicGFzc3dvcmQiOiJTZW5oYTEyM0AiLCJpYXQiOjE2OTUzOTcxMDB9.fMOTJuXYtbN-Rau2xIVA7JNH3lNvBgMn6VycgJ0v0Go
+
+### Listar todas atividades se um usuário específico
+GET localhost:2004/users/1/activity
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxzb2FyZXMyMjFAZ21haWwuY29tIiwicGFzc3dvcmQiOiJTZW5oYTEyM0AiLCJpYXQiOjE2OTUzOTcxMDB9.fMOTJuXYtbN-Rau2xIVA7JNH3lNvBgMn6VycgJ0v0Go
+
 ### Adicionar um novo usuário aluno sem curso e com matricula
 POST localhost:2004/users
 Content-Type: application/json
@@ -28,13 +36,14 @@ Content-Type: application/json
 ### Atualizar um usuário
 PUT localhost:2004/users/1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxzb2FyZXMyMjFAZ21haWwuY29tIiwicGFzc3dvcmQiOiJTZW5oYTEyM0AiLCJpYXQiOjE2OTUzOTcxMDB9.fMOTJuXYtbN-Rau2xIVA7JNH3lNvBgMn6VycgJ0v0Go
 
 {
   "course_id": null,
-  "name": "Usuário teste",
+  "name": "Usuário SoSo",
   "password": "Senha123@",
-  "email": "novo@email.com",
-  "is_coordinator": false,
+  "email": "gabrielsoares221@gmail.com",
+  "is_coordinator": true,
   "registration": "matricula123"
 }
 

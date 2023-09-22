@@ -8,8 +8,8 @@ RUN npm install
 # Copiando arquivos do projeto
 COPY ./server.js ./server.js
 COPY ./main.js ./main.js
+COPY ./entity ./entity
 COPY ./routes ./routes
-COPY ./environment-validation.js ./environment-validation.js
 COPY ./components ./components
 COPY ./.env ./.env
 

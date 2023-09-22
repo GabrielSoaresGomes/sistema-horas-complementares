@@ -22,6 +22,9 @@ declare -A commands_map=(
 
     ["b"]="build"
     ["build"]="build"
+
+    ["rd"]="remove-data"
+    ["remove-data"]="remove-data"
 )
 
 ordered_keys=("l" "log" "logs" "|" "t" "terminal" "|" "s" "start" "|" "s-d" "start-database" "|" "stop" "|" "b" "build")
@@ -49,7 +52,9 @@ if [ -v commands_map["$1"] ]; then
         else
             cp .env-local .env
         fi
-        docker-compose up --build -d
+        docker-compose up --build -d --remove-orphans
+    elif [ "$command" == "remove-data" ];then
+        docker-compose down --volumes
     fi
 else
     echo -e "$VERMELHO""Comando não encontrado, utilize alguns dos comandos abaixo: $NC\n"

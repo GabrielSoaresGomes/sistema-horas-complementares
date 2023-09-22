@@ -6,6 +6,7 @@ require('./entity/environment-validation');
 const routerUser = require('./routes/user');
 const routerAuth = require('./routes/auth');
 const routerActivity = require('./routes/activity');
+const routerCourse = require('./routes/course');
 
 
 const app = express();
@@ -18,5 +19,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/users', routerUser);
 app.use('/auth', routerAuth);
 app.use('/activity', routerActivity);
+app.use('/course', routerCourse);
 
 module.exports = app;

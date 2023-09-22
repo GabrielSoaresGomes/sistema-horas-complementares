@@ -1,11 +1,12 @@
 const ResultValidation = require('../../entity/result-validation');
-const { Buffer } = require('node:buffer');
+const {Buffer} = require('node:buffer');
 
 
 class User {
     constructor(usersRepository) {
         this.userRepository = usersRepository;
     }
+
     async listAllUsers() {
         const resultValidation = new ResultValidation();
         try {
@@ -73,11 +74,7 @@ class User {
                 return resultValidation;
             }
 
-            const oldPassword = Buffer.from(user.password, 'base64').toString('utf8');
-
-            if (userData.password !== oldPassword){
-                userData.password = Buffer.from(userData.password).toString('base64');
-            }
+            userData.password = Buffer.from(userData.password).toString('base64');
 
             const response = await this.userRepository.editUser(userData, userId);
             if (response) {
@@ -100,10 +97,10 @@ class User {
         if (userData?.name == null) {
             hasError = true;
             console.log('É necessário informar o nome para o usuário');
-        } else if(userData?.password == null) {
+        } else if (userData?.password == null) {
             hasError = true;
             console.log('É necessário informar a senha para o usuário');
-        } else if(userData?.email == null) {
+        } else if (userData?.email == null) {
             hasError = true;
             console.log('É necessário informar um email para o usuário');
         }
@@ -128,6 +125,61 @@ class User {
         } catch (error) {
             console.log(`Falha ao apagar usuário com id ${userId}`);
             resultValidation.addError('DELETE_ERROR', `Falha ao tentar apagar usuário com id ${userId}, error: ${error}`);
+        }
+        return resultValidation;
+    }
+
+    async getAllUserActivites(userData) {
+        const resultValidation = new ResultValidation();
+        try {
+            if (!userData || !userData?.id ) {
+                resultValidation.addError('PARAMS_FAILED', 'Id inválido ao tentar listar todas atividades dos usuários');
+                console.log(`Id ${userData?.id} inválido ao tentar listar todas atividades dos usuários`);
+                return resultValidation;
+            }
+
+            if (!userData?.is_coordinator) {
+                resultValidation.addError('PERMISSION_FAILED', 'Usuário não possui permissão de listar todas atividades dos alunos');
+                console.log(`Usuário com id ${userData?.id} não possui permissão de listar atividades dos alunos`);
+                return resultValidation;
+            }
+
+            const activities = await this.userRepository.getAllUserActivites();
+            resultValidation.setResult(activities);
+        } catch (error) {
+            console.log(`Falha ao usuário de id ${userData?.id} listar atividades de todos alunos`);
+            resultValidation.addError('GET_ERROR', 'Falha listar atividades de todos alunos');
+        }
+        return resultValidation;
+    }
+
+    async getUserActivitiesByUserId(activityUserId, requestingUser) {
+        const resultValidation = new ResultValidation();
+        try {
+            if (!activityUserId) {
+                console.log(`Id ${activityUserId} do usuário da atividade é inválido!`);
+                resultValidation.addError('PARAMS_FAILED', 'Id do usuário da atividade é inválido');
+                return resultValidation;
+            }
+            if (!requestingUser || !requestingUser?.id) {
+                console.log(`Id ${requestingUser.id} solicitando é inválido`);
+                resultValidation.addError('PARAMS_FAILED', 'Id do usuário solicitante é inválido');
+                return resultValidation;
+            }
+
+            const userHavePermission = requestingUser?.is_coordinator || activityUserId === requestingUser?.id;
+            if (!userHavePermission) {
+                resultValidation.addError('PERMISSION_FAILED', 'O usuário não tem permissão para listar atividades do usuário');
+                console.log(`Usuário de id ${requestingUser?.id} não tem permmissão para listar atividades do usuário ${activityUserId}`);
+                return resultValidation;
+            }
+
+            const activities = await this.userRepository.getUserActivitiesByUserId(activityUserId);
+            resultValidation.setResult(activities);
+
+        } catch (error) {
+            resultValidation.addError('GET_ERROR', 'Falhas ao listar atividades do usuário!');
+            console.log(`Falha ao listar atividades do usuário de id ${activityUserId} solicitado pelo usuário de id ${requestingUser?.id}!`);
         }
         return resultValidation;
     }

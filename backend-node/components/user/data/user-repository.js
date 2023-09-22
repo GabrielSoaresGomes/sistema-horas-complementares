@@ -99,6 +99,29 @@ class UserRepository {
 
         return response?.rows?.length;
     }
+
+    async getAllUserActivites() {
+        const connection = await this.databaseConnetor.generateConnection();
+        const response = await connection.query(`
+            SELECT id, user_id, activity_id, quantity, total_hours
+            FROM users_activities
+            WHERE deleted_at is null
+        `);
+
+        return response?.rows;
+    }
+
+    async getUserActivitiesByUserId(userId) {
+        const connection = await this.databaseConnetor.generateConnection();
+        const response = await connection.query(`
+            SELECT id, user_id, activity_id, quantity, total_hours
+            FROM users_activities
+            WHERE user_id = $1
+            AND deleted_at is null
+        `, [userId]);
+
+        return response?.rows;
+    }
 }
 
 module.exports = UserRepository;
