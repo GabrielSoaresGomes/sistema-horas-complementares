@@ -85,7 +85,7 @@ class User {
                 resultValidation.setResult(response);
             } else {
                 console.log(`Ocorreu um erro ao tentar atualizar o usuário de id ${userId} com os seguintes dados: ${JSON.stringify(userData)}`);
-                resultValidation.addError('CREATE_ERROR', 'Houve uma falha ao atualizar o usuário', false);
+                resultValidation.addError('UPDATE_ERROR', 'Houve uma falha ao atualizar o usuário', false);
             }
             resultValidation.setResult(response);
         } catch (error) {
