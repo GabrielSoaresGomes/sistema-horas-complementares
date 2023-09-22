@@ -145,7 +145,8 @@ describe('Testes para a classe User', () => {
                 email: 'junior@email.com'
             };
 
-            userRepositoryMock.verifyIfEmailAlreadyUsed.mockReturnValue(1);
+            const numberMock = 1;
+            userRepositoryMock.verifyIfEmailAlreadyUsed.mockReturnValue(numberMock);
 
             userRepositoryMock.addUser.mockReturnValue({
                 name: 'junior',
@@ -236,7 +237,8 @@ describe('Testes para a classe User', () => {
                 email: 'junior@email.com'
             });
 
-            const result = await user.updateUser(userData, 2);
+            const numberMock = 2;
+            const result = await user.updateUser(userData, numberMock);
 
             expect(result.getResult()).toStrictEqual({
                 name: 'junior',
@@ -266,7 +268,8 @@ describe('Testes para a classe User', () => {
                 email: 'junior@email.com'
             });
 
-            const result = await user.updateUser(userData, 2);
+            const numberMock = 2;
+            const result = await user.updateUser(userData, numberMock);
 
             expect(result.getErrorList()).toStrictEqual([{
                 tag: 'PARAMS_FAILED',
@@ -294,7 +297,8 @@ describe('Testes para a classe User', () => {
                 email: 'junior@email.com'
             });
 
-            const result = await user.updateUser(userData, 2);
+            const numberMock = 2;
+            const result = await user.updateUser(userData, numberMock);
 
             expect(result.getErrorList()).toStrictEqual([{
                 tag: 'SEARCH_FAILED',
@@ -313,7 +317,8 @@ describe('Testes para a classe User', () => {
                 email: 'junior@email.com'
             };
 
-            userRepositoryMock.verifyIfEmailAlreadyUsedForOtherUser.mockReturnValue(1);
+            const numberMock1 = 1;
+            userRepositoryMock.verifyIfEmailAlreadyUsedForOtherUser.mockReturnValue(numberMock1);
 
             userRepositoryMock.getUser.mockReturnValue({
                 password: 'MTIz'
@@ -324,7 +329,8 @@ describe('Testes para a classe User', () => {
                 email: 'junior@email.com'
             });
 
-            const result = await user.updateUser(userData, 2);
+            const numberMock2 = 2;
+            const result = await user.updateUser(userData, numberMock2);
 
             expect(result.getErrorList()).toStrictEqual([{
                 tag: 'PARAMS_FAILED',
@@ -354,7 +360,8 @@ describe('Testes para a classe User', () => {
                 email: 'junior@email.com'
             });
 
-            const result = await user.updateUser(userData, 2);
+            const numberMock = 2;
+            const result = await user.updateUser(userData, numberMock);
 
             expect(result.getResult()).toStrictEqual({
                 'email': 'junior@email.com',
@@ -381,7 +388,8 @@ describe('Testes para a classe User', () => {
 
             userRepositoryMock.editUser.mockReturnValue();
 
-            const result = await user.updateUser(userData, 2);
+            const numberMock = 2;
+            const result = await user.updateUser(userData, numberMock);
 
             expect(result.getErrorList()).toStrictEqual([{
                 tag: 'UPDATE_ERROR',
@@ -413,7 +421,8 @@ describe('Testes para a classe User', () => {
                 email: 'junior@email.com'
             });
 
-            const result = await user.updateUser(userData, 2);
+            const numberMock = 2;
+            const result = await user.updateUser(userData, numberMock);
 
             expect(result.getErrorList()).toStrictEqual([{
                 tag: 'UPDATE_ERROR',
@@ -426,17 +435,21 @@ describe('Testes para a classe User', () => {
         it('Deletando um usuário com sucesso, fluxo normal', async () => {
             const user = new User(userRepositoryMock);
 
-            userRepositoryMock.destroyUser.mockReturnValue(1);
+            const numberMock1 = 1;
+            userRepositoryMock.destroyUser.mockReturnValue(numberMock1);
 
-            const result = await user.deleteUser(2);
+            const numberMock2 = 2;
+            const result = await user.deleteUser(numberMock2);
 
-            expect(result.getResult()).toStrictEqual(1);
+            const numberExpected = 1;
+            expect(result.getResult()).toStrictEqual(numberExpected);
         });
 
         it('Tentando deletar um usuário que não foi encontrado, fluxo alternativo', async () => {
             const user = new User(userRepositoryMock);
 
-            userRepositoryMock.destroyUser.mockReturnValue(1);
+            const numberMock = 1;
+            userRepositoryMock.destroyUser.mockReturnValue(numberMock);
 
             const result = await user.deleteUser();
 
@@ -451,7 +464,8 @@ describe('Testes para a classe User', () => {
 
             userRepositoryMock.destroyUser.mockReturnValue();
 
-            const result = await user.deleteUser(2);
+            const numberMock = 2;
+            const result = await user.deleteUser(numberMock);
 
             expect(result.getErrorList()).toStrictEqual([{
                 tag: 'DELETE_ERROR',
@@ -466,7 +480,8 @@ describe('Testes para a classe User', () => {
                 throw new Error('erro');
             });
 
-            const result = await user.deleteUser(2);
+            const numberMock = 2;
+            const result = await user.deleteUser(numberMock);
 
             expect(result.getErrorList()).toStrictEqual([{
                 tag: 'DELETE_ERROR',
