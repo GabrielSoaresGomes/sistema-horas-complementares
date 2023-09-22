@@ -1,5 +1,5 @@
 const app = require('./main');
-const env = require('./environment-validation');
+const env = require('./entity/environment-validation');
 const http = require('http');
 const debug = require('debug');
 
