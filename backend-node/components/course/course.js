@@ -1,5 +1,4 @@
 const ResultValidation = require('../../entity/result-validation');
-require('../../environment-validation');
 
 
 class Course {
@@ -43,7 +42,7 @@ class Course {
         const resultValidation = new ResultValidation();
         try {
             if(this.#verifyCourseParams(courseData)) {
-                resultValidation.addError('PARAMS_ERROR', 'Os parâmetros nome é código são obrigatórios');
+                resultValidation.addError('PARAMS_ERROR', 'Os parâmetros nome e código são obrigatórios');
                 return resultValidation;
             }
 
@@ -123,6 +122,7 @@ class Course {
             }
         } catch (error) {
             console.log(`Falha ao apagar curso com id ${courseId}`);
+            resultValidation.addError('DELETE_ERROR', 'Falha ao deletar curso', true);
         }
         return resultValidation;
     }
