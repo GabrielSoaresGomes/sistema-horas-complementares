@@ -12,8 +12,6 @@ const userRepositoryMock = {
     setToken: jest.fn()
 };
 
-//falta só adicionar o JWT_KEY que é passado no construtor como crls passo isso aqui
-
 describe('Testes para a classe Auth', () => {
     describe('Testes para o método login', () => {
         it('Login efetuado com sucesso retornando token, fluxo normal', async () => {
@@ -48,8 +46,8 @@ describe('Testes para a classe Auth', () => {
 
             expect(result.getResult()).toBeFalsy();
             expect(result.getErrorList()).toStrictEqual([{
-                'message': 'Não foi possível encontrar o usuário pelo email',
-                'tag': 'SEARCH_FAILED'
+                tag: 'SEARCH_FAILED',
+                message: 'Não foi possível encontrar o usuário pelo email'
             }]);
         });
 
@@ -70,8 +68,8 @@ describe('Testes para a classe Auth', () => {
 
             expect(result.getResult()).toBeFalsy();
             expect(result.getErrorList()).toStrictEqual([{
-                'message': 'Credencias inválidas',
-                'tag': 'AUTH_FAILED'
+                tag: 'AUTH_FAILED',
+                message: 'Credencias inválidas'
             }]);
         });
 
@@ -92,8 +90,8 @@ describe('Testes para a classe Auth', () => {
 
             expect(result.getResult()).toBeFalsy();
             expect(result.getErrorList()).toStrictEqual([{
-                'message': 'Credencias inválidas',
-                'tag': 'AUTH_FAILED'
+                tag: 'AUTH_FAILED',
+                message: 'Credencias inválidas'
             }]);
         });
 
@@ -113,8 +111,8 @@ describe('Testes para a classe Auth', () => {
 
             expect(result.getResult()).toBeFalsy();
             expect(result.getErrorList()).toStrictEqual([{
-                'message': 'Falha ao logar',
-                'tag': 'LOGIN_ERROR'
+                tag: 'LOGIN_ERROR',
+                message: 'Falha ao logar'
             }]);
         });
 
@@ -147,8 +145,8 @@ describe('Testes para a classe Auth', () => {
             const result = await auth.logout();
 
             expect(result.getErrorList()).toStrictEqual([{
-                'tag': 'PARAMS_FAILED',
-                'message': 'O id informando para o usuário não é válido'
+                tag: 'PARAMS_FAILED',
+                message: 'O id informando para o usuário não é válido'
             }]);
         });
 
@@ -162,12 +160,12 @@ describe('Testes para a classe Auth', () => {
             const result = await auth.logout(userId);
 
             expect(result.getErrorList()).toStrictEqual([{
-                'tag': 'SEARCH_FAILED',
-                'message': 'Não foi possível encontrar um usuário com o id informado'
+                tag: 'SEARCH_FAILED',
+                message: 'Não foi possível encontrar um usuário com o id informado'
             }]);
         });
 
-        it('Verifica se usuário com o id passado existe, fluxo alternativo', async () => {
+        it('Verifica se usuário está logado, fluxo alternativo', async () => {
             process.env.JWT_KEY = '12345';
             const auth = new Auth(userRepositoryMock);
 
@@ -179,12 +177,12 @@ describe('Testes para a classe Auth', () => {
             const result = await auth.logout(userId);
 
             expect(result.getErrorList()).toStrictEqual([{
-                'tag': 'LOGOUT_FAILED',
-                'message': 'Usuário já esta deslogado'
+                tag: 'LOGOUT_FAILED',
+                message: 'Usuário já esta deslogado'
             }]);
         });
 
-        it('Verifica se usuário com o id passado existe, fluxo alternativo', async () => {
+        it('Erro no logout, fluxo exceção', async () => {
             process.env.JWT_KEY = '12345';
             const auth = new Auth(userRepositoryMock);
 
@@ -196,8 +194,8 @@ describe('Testes para a classe Auth', () => {
             const result = await auth.logout(userId);
 
             expect(result.getErrorList()).toStrictEqual([{
-                'tag': 'LOGOUT_ERROR',
-                'message': 'Falha ao fazer logout'
+                tag: 'LOGOUT_ERROR',
+                message: 'Falha ao fazer logout'
             }]);
         });
     });
