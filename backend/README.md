@@ -5,7 +5,7 @@ Criação de um serviço que facilite o registro e o monitoramento de horas comp
 - Gabriel Soares Gomes - 202110116
 - Junior Nascimento Guimarães - 202110323
 - Luiz Henrique -
-- Luis Felipe -
+- Luis Felipe - 202111316
 - Bernardo de Andrade Peçanha - 202110271
 
 ## Executar o projeto local
