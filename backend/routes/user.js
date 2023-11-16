@@ -20,6 +20,12 @@ router.post('/', authentication, async (req, res) => {
     applyResult(result, res, responseStatusCode.OK);
 });
 
+router.post('/activity/:activityId', authentication, async (req, res) => {
+    const userComponent = new UserComponent(new UserRepository());
+    const result = await userComponent.createActivityUser(req?.body, req?.user);
+    applyResult(result, res, responseStatusCode.CREATED);
+});
+
 router.put('/:userId', authentication, async (req, res) => {
     const userComponent = new UserComponent(new UserRepository());
     const result = await userComponent.updateUser(req?.body, req?.params?.userId);

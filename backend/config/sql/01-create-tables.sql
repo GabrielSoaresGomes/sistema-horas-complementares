@@ -39,8 +39,7 @@ CREATE TABLE IF NOT EXISTS users_activities (
     id SERIAL PRIMARY KEY NOT NULL,
     user_id INT4 REFERENCES users(id),
     activity_id INT4 REFERENCES activities(id),
-    quantity INT4 DEFAULT 0,
-    total_hours INT4 DEFAULT 0,
+    certificate_url TEXT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     deleted_at TIMESTAMPTZ NULL
 );

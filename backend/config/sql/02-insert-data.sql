@@ -10,4 +10,4 @@ INSERT INTO users (name, course_id, password, email)
 VALUES ('Gabriel', 1, 'U2VuaGExMjNA', 'gabrielsoares221@gmail.com');
 
 INSERT INTO users_activities (user_id, activity_id, quantity, total_hours)
-VALUES (1, 1, 1, 40);
+VALUES (1, 1);

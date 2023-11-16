@@ -183,6 +183,29 @@ class User {
         }
         return resultValidation;
     }
+
+    async createActivityUser(userActivityData, userData) {
+        const resultValidation = new ResultValidation();
+        try {
+            if (!userData?.id) {
+                console.log(`Id ${userData?.id} do usuário é inválido!`);
+                resultValidation.addError('PARAMS_FAILED', 'Id do usuário é inválido');
+                return resultValidation;
+            }
+
+            if (userData?.is_coordinator) {
+                console.log('Usuário não pode ser coordenador para adicionar uma nova atividade realizada pelo usuário');
+                resultValidation.addError('PERMISSION_FAILED', `Usuário de id ${userData?.id} não pode ser coordenanor ao inserir uma atividade realizada`);
+                return resultValidation;
+            }
+
+
+        } catch (error) {
+            resultValidation.addError('CREATE_ERROR', 'Falha ao adicionar uma atividade para o usuário');
+            console.log(`Falha ao adicionar atividade ${JSON.stringify(userActivityData)} para o usuário de id ${userData?.id}`);
+        }
+        return resultValidation;
+    }
 }
 
 module.exports = User;
