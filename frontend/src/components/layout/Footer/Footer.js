@@ -1,21 +1,20 @@
-import {Box, Container} from "@mui/material";
+import './footer.css';
+
+import facebook from '../../../assets/img/facebook.png';
+import instagram from '../../../assets/img/instagram.png';
+import twitter from '../../../assets/img/x.png';
 
 const Footer = () => {
     return (
-        <>
-            <Box sx={{
-                backgroundColor: '#676767',
-                p: 6
-            }}
-            component={"footer"}
-            >
-
-                <Container maxWidth={'sm'}>
-                    Footer
-                </Container>
-
-            </Box>
-        </>
+        <footer>
+            <h2>CODEPLUS</h2>
+            <div>
+                <img src={facebook}/>
+                <img src={instagram}/>
+                <img src={twitter}/>
+            </div>
+            <p>2023 all Right Reserved Term of use CODE+</p>
+        </footer>
     );
 }
 

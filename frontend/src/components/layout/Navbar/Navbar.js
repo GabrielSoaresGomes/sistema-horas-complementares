@@ -1,41 +1,40 @@
-import {AppBar, Toolbar, IconButton, Stack, Button} from "@mui/material";
+import './navbar.css'
+
 import { NavLink } from 'react-router-dom';
 
-import logo from '../../../assets/img/logo.png';
+import person from '../../../assets/img/person.png';
+import filter from '../../../assets/img/FilterRight.png';
 
 const Navbar = () => {
     return (
-       <AppBar position='static'>
-            <Toolbar>
-                <IconButton size={'large'} edge={'start'} color={'inherit'}>
-                    <NavLink to={'/'}>
-                        <img src={logo} width={'35px'} alt={'Logo SHC'}/>
-                    </NavLink>
-                </IconButton>
-                <Stack direction={'row'} spacing={2}>
-                    <Button component={NavLink} to={'/'} color={'inherit'}>
-                        Home
-                    </Button>
-
-                    <Button component={NavLink} to={'/certificados'} color={'inherit'}>
-                        Certificados
-                    </Button>
-
-                    <Button component={NavLink} to={'/painel'} color={'inherit'}>
-                        Painel
-                    </Button>
-
-                    <Button component={NavLink} to={'/alunos'} color={'inherit'}>
-                        Alunos
-                    </Button>
-
-                    <Button component={NavLink} to={'/atividades'} color={'inherit'}>
-                        Atividades
-                    </Button>
-                </Stack>
-            </Toolbar>
-       </AppBar>
+       <header className='navbar'>
+        <div>
+            <NavLink to={'/'} style={{color:'#D9D9D9' ,textDecoration: 'none'}}>
+                <h1>CODE+</h1>
+            </NavLink>
+            <NavLink to={'/certificados'} style={{color:'#D9D9D9' ,textDecoration: 'none'}}>
+            <a>Certificados</a>
+            </NavLink>
+            <p>|</p>
+            <NavLink to={'/painel'} style={{color:'#D9D9D9' ,textDecoration: 'none'}}>
+            <a>Horas totais</a>
+            </NavLink>
+        </div>
+        <div>
+            <NavLink to={'/alunos'} style={{color:'#D9D9D9' ,textDecoration: 'none'}}>
+            <a className='person'><img src={person}/></a>
+            </NavLink>
+            <p>|</p>
+            <NavLink to={'/atividades'} style={{color:'#D9D9D9' ,textDecoration: 'none'}}>
+            <a className='filter'><img src={filter}/></a>
+            </NavLink>
+        </div>
+       </header>
     )
 }
 
 export default Navbar;
+
+//<NavLink to={'/'}>
+//<img src={logo} width={'35px'} alt={'Logo SHC'}/>
+//</NavLink>
