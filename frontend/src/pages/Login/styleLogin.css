@@ -1,0 +1,234 @@
+/*.content {*/
+/*    background-color: #ffffff;*/
+/*    margin: 0;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    height: 100vh;*/
+/*}*/
+
+
+/*.overlap-group {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.frame {*/
+/*    position: relative;*/
+/*    border: 7px solid;*/
+/*    border-color: #b6b5b5;*/
+/*    height: 536px;*/
+/*    width: 471px;*/
+/*}*/
+
+/*.overlap-group .ellipse {*/
+/*    position: absolute;*/
+/*    background-color: #b6b5b5;*/
+/*    transform: translateX(-50%);*/
+/*    border-radius: 70px;*/
+/*    height: 140px;*/
+/*    left: 50%;*/
+/*    width: 140px;*/
+/*    display: flex;*/
+/*}*/
+
+/*/////////////////////////////////////*/
+
+.content {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ellipse {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    top: 15px;
+    background-color: #b6b5b5;
+    border-radius: 70px;
+}
+
+.vector {
+    position: absolute;
+    width: 92px;
+    height: 90px;
+    top: 35px;
+}
+
+.overlap-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.frame {
+    position: absolute;
+    width: 471px;
+    height: 536px;
+    top: 90px;
+    border: 7px solid;
+    border-radius: 5%;
+    border-color: #b6b5b5;
+}
+
+.titulo-login {
+    padding-top: 15%;
+    font-size: 48px;
+    font-weight: 600;
+    color: #686868;
+    font-family: "Saira-SemiBold", Helvetica;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.form-group-input {
+    display: flex;
+    width: 22rem;
+    height: 2.5rem;
+    align-items: center;
+    gap: 8px;
+    margin: 2rem auto 0px auto;
+    padding: 8px 12px 8px 10px;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #c8c8c8;
+}
+
+.form-group-input input {
+    width: 23rem;
+    height: 3rem;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.form-group-input:focus-within {
+    border-color: #7e7e7e;
+}
+
+.form-auxiliar {
+    display: flex;
+    width: 23.5rem;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3rem 0rem 0px 3rem;
+}
+
+.remember-div {
+    display: flex;
+    align-items: center;
+}
+
+.remember-label {
+    display: flex;
+    align-items: center;
+    font-family: "Saira-Medium", Helvetica;
+    font-weight: 500;
+    color: #686868;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-right: 1rem;
+}
+
+.remember-label h1 {
+    padding-left: .5rem;
+    font-family: "Saira-Medium", Helvetica;
+    font-weight: 500;
+    color: #686868;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-right: 0.5rem;
+}
+
+.remember-div input {
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border: 2px solid;
+    border-color: #c8c8c8;
+}
+
+.forgot-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    position: relative;
+    background-color: #FFFFFF;
+    border: 1px solid #58A5FF;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.forgot-button:hover {
+    background-color: #58A5FF;
+}
+
+.forgot-button:active {
+    background-color: #FFFFFF;
+}
+
+.forgot-text:active {
+    color: #58A5FF;
+}
+
+.forgot-text{
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Saira-Medium", Helvetica;
+    font-weight: 500;
+    color: #006DEE;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.envio {
+    display: flex;
+    align-items: center;
+    margin-top: 3rem;
+    margin-right: auto;
+    margin-left: auto;
+    width: 23rem;
+}
+
+.envio button {
+    display: flex;
+    width: 23rem;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 6px 12px;
+    position: relative;
+    background-color: #0077b6;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    font-family: "Saira-Medium", Helvetica;
+    font-weight: 500;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.envio button:hover {
+    background-color: #00557d;
+}
+
