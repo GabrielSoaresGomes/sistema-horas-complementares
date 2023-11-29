@@ -1,17 +1,17 @@
 import './certificado.css'
 
-import imagem  from '../../../assets/img/placeholder.jpg';
+const Certificado = (props) => {
+    
 
-const Certificado = () => {
     return (
         <div className='Certificado'>
-            <img src={imagem} />
+            <img src={props.imagem}/>
             <div className='Dados'>
-                <p className='NomeCerificado'>Nome Certificado</p>
+                <p className='NomeCerificado'>{props.nome}</p>
                 <p>|</p>
-                <p clAssName='Horas'>10 Horas</p>
+                <p clAssName='Horas'>{props.horas}  Horas</p>
             </div>
-            <p>Pendente</p>
+            <p>{props.status}</p>
         </div>
     )
 }

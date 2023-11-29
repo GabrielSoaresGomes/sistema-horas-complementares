@@ -2,19 +2,40 @@ import './certificadomodal.css'
 
 const CertificadoModal = (props) => {
 
+    const aoSalvar = (evento) => {
+    evento.preventDefault()
+
+
+    }
+     
+
     return (
-    <div className='certificadomodal'>
-        <form>
-            <input placeholder='Nome da Atividade'></input>
-            <input placeholder='Quantidade de Horas'></input>
-            <input placeholder='Descrição'></input>
+        <div  className='formulariocertificado'>   
+                 
+          <form action="/" id='certificado' onSubmit={aoSalvar}>
+          
+          <div >
             <div>
-                <img></img>
-                <p></p>
-                <button></button>
+              <input   className='atividade' type="text" placeholder='Nome da Atividade' required autocomplete="off" />
+              <input   className='horas' type="text"  placeholder='Quantidade de Horas' required autocomplete="off"/>
             </div>
-        </form>
-    </div>
+          </div>
+
+          <div>
+            <textarea className='descricao' form="certificado" placeholder='Descrição'></textarea>
+          </div>
+          
+          <div>
+            <input className='arquivo' type="file"  required autocomplete="off"/> 
+          </div>
+
+          <button>Enviar Certificado</button>
+
+          </form>
+
+          
+
+        </div>       
     )
 }
 

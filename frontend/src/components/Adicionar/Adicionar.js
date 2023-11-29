@@ -32,7 +32,7 @@ class Adicionar extends Component {
             <button type="button" onClick={this.showModal}> <img src={imagem} /></button>
             </div>
             <Modal show={this.state.show} handleClose={this.hideModal} pagina='Adicionar Certificado'>
-            <CertificadoModal/>
+            <CertificadoModal />
              </Modal>
             <p>Adicionar Certificado</p>
         </div>

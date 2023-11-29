@@ -1,3 +1,75 @@
-.certificadomodal {
+
+  @import url('https://fonts.googleapis.com/css2?family=Abel&family=Saira:wght@500&display=swap');
+
+
+
+.formulariocertificado {
+    padding-top: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.formulariocertificado input {
+    font-family: 'Saira', sans-serif;
+    color: #8F8F8F;
+    padding-left: 10px;
+}
+
+.formulariocertificado textarea {
+    font-family: 'Saira', sans-serif;
+    color: #8F8F8F;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.formulariocertificado .atividade {
+    width: 500px;
+    height: 50px;
+    border: 1px #C8C8C8 solid;  
+    border-radius: 10px;
+
+}
+
+.formulariocertificado .horas {
+    width: 333px;
+    height: 50px;
+    margin-left: 22px;
+    border: 2px #C8C8C8 solid;
+    border-radius: 10px;
+}
+
+.formulariocertificado .descricao {
+    width: 870px;
+    height: 82px;
+    border: 2px #C8C8C8 solid;
+    border-radius: 10px;
+
+    margin-top: 14px;
+    margin-bottom: 25px;
+
+    resize: none;
+}
+
+.formulariocertificado .arquivo {
+    width: 770px;
+    height: 169px;
+    border: 5px #C8C8C8 dashed;
+    border-radius: 10px;
     padding-top: 150px;
+    padding-left: 100px;
+
+
+}
+
+.formulariocertificado button {
+    border-radius: 8px;
+    background: #0077B6;
+    width: 233px;
+    height: 46px;
+    padding: 6px 12px;
+    gap: 10px;
+    margin-top: 50px;
+    margin-right: 220px;
 }
