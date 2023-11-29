@@ -8,3 +8,4 @@ Criação de um serviço que facilite o registro e o monitoramento de horas comp
 - Junior Nascimento Guimarães, 202110323
 - Bernardo de Andrade Peçanha, 202110271
 - Luis Felipe Portella Veiga Lassarotte, 202111316
+- Luiz Henrique Vachod Miki, 202110159

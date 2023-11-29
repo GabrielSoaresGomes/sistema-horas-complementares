@@ -12,7 +12,7 @@ const CertificadoModal = (props) => {
     return (
         <div  className='formulariocertificado'>   
                  
-          <form action="/" id='certificado' onSubmit={aoSalvar}>
+          <form action="/certificados" id='certificado' onSubmit={aoSalvar}>
           
           <div >
             <div>
