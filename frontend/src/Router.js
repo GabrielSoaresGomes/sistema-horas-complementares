@@ -4,6 +4,7 @@ import Certificados from './pages/Certificados/Certificados';
 import Login from "./pages/Login/Login";
 import NavbarLogin from "./components/layout/NavbarLogin/NavbarLogin";
 import Navbar from "./components/layout/Navbar/Navbar";
+import HorasTotais from "./pages/HorasTotais/HorasTotais";
 
 const AppNavbar = () => {
     const location = useLocation();
@@ -19,7 +20,7 @@ const Router = ({footer}) => {
                     <Routes>
                         <Route path={'/'} element={<Home />}/>
                         <Route path={'/certificados'} element={<Certificados />}/>
-                        <Route path={'/painel'} element={<h1>Horas Totais</h1>}/>
+                        <Route path={'/painel'} element={<HorasTotais/>}/>
                         <Route path={'/alunos'} element={<h1>Alunos</h1>}/>
                         <Route path={'/atividades'} element={<h1>Atividades</h1>}/>
                         <Route path={'/login'} element={<Login />} />
