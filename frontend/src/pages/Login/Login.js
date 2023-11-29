@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import "./styleLogin.css";
 
 import personLogin from '../../assets/img/personLogin.svg';
@@ -88,9 +89,11 @@ const Login = () => {
                             </div>
                         </div>
                         <div className="envio">
-                            <button type="submit-button">
-                                <div className="submit-text">Login</div>
-                            </button>
+                            <Link to={'/certificados'}>
+                                <button type="submit-button">
+                                    <div className="submit-text">Login</div>
+                                </button>
+                            </Link>
                         </div>
                     </form>
                 </div>
