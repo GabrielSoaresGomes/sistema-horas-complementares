@@ -1,0 +1,315 @@
+.content {
+    position: relative;
+    background-color: #ffffff;
+}
+
+.content .card {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    position: absolute;
+    top: 0px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.content .card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 25px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.content .heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.content .img {
+    position: relative;
+    width: 24px;
+    height: 24px;
+}
+
+.content .text-wrapper {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Roboto-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: 32.6px;
+    white-space: nowrap;
+}
+
+.content .div {
+    position: relative;
+    align-self: stretch;
+    font-family: "Roboto-Regular", Helvetica;
+    font-weight: 400;
+    color: #383838;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    line-height: 23px;
+    font-style: normal;
+}
+
+.content .card-body {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 25px 25px 0px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.content .chart-leyend {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    flex: 1;
+    align-self: stretch;
+    flex-grow: 1;
+}
+
+.content .frame-horas {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.content .rectangle {
+    position: relative;
+    width: 27px;
+    height: 13px;
+}
+
+.content .text-wrapper-2 {
+    font-family: "Roboto-Medium", Helvetica;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    line-height: 23px;
+    white-space: nowrap;
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-weight: 500;
+}
+
+.content .rectangle-2 {
+    position: relative;
+    width: 27px;
+    height: 13px;
+    background-color: #5cac36d9;
+    border-radius: 20px;
+}
+
+.content .chart-graphic-wrapper {
+    display: flex;
+    height: 602px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+}
+
+.content .chart-graphic {
+    position: relative;
+    width: 542px;
+    height: 542px;
+}
+
+.content .overlap-group {
+    position: relative;
+    width: 424px;
+    height: 424px;
+    top: 59px;
+    left: 59px;
+}
+
+.content .ellipse {
+    position: absolute;
+    width: 338px;
+    height: 338px;
+    top: 43px;
+    left: 43px;
+    background-color: #b5b5b5;
+    border-radius: 168.97px;
+    opacity: 0.1;
+}
+
+.content .ellipse-2 {
+    position: absolute;
+    width: 223px;
+    height: 366px;
+    top: 26px;
+    left: 26px;
+}
+
+.content .ellipse-3 {
+    position: absolute;
+    width: 397px;
+    height: 397px;
+    top: 13px;
+    left: 13px;
+}
+
+.content .ellipse-4 {
+    position: absolute;
+    width: 424px;
+    height: 424px;
+    top: 0;
+    left: 0;
+}
+
+.content .ellipse-5 {
+    position: absolute;
+    width: 241px;
+    height: 241px;
+    top: 91px;
+    left: 91px;
+    background-color: #ffffff;
+    border-radius: 120.7px;
+    box-shadow: 0px 0px 12px 1px #00000014;
+}
+
+.content .element {
+    position: absolute;
+    width: 125px;
+    top: 176px;
+    left: 154px;
+    font-family: "Roboto-Medium", Helvetica;
+    font-weight: 500;
+    color: #000000;
+    font-size: 64px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.content .card-footer {
+    display: flex;
+    height: 90px;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 25px 25px 0px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+}
+
+.content .media {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    background-color: #ffffff;
+    position: relative;
+    flex: 1;
+    flex-grow: 1;
+}
+
+.content .media-body {
+    position: relative;
+    flex: 1;
+    flex-grow: 1;
+}
+
+.content .header {
+    position: absolute;
+    width: 1440px;
+    height: 81px;
+    top: 0;
+    left: 0;
+    background-color: #6d1d20;
+}
+
+.content .text-wrapper-3 {
+    position: absolute;
+    width: 111px;
+    top: 19px;
+    left: 73px;
+    font-family: "Abel-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 36px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.content .frame-2 {
+    display: flex;
+    width: 246px;
+    height: 24px;
+    align-items: flex-start;
+    gap: 11px;
+    position: absolute;
+    top: 31px;
+    left: 184px;
+}
+
+.content .text-wrapper-4 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    margin-bottom: -2px;
+    font-family: "Poppins-Medium", Helvetica;
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.content .line {
+    position: relative;
+    width: 1px;
+    height: 24px;
+    object-fit: cover;
+}
+
+.content .text-wrapper-5 {
+    margin-bottom: -2px;
+    font-family: "Poppins-Medium", Helvetica;
+    color: #C8C8C8FF;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-weight: 500;
+}
+
+.content .frame-3 {
+    display: inline-flex;
+    align-items: center;
+    gap: 48px;
+    position: absolute;
+    top: 29px;
+    left: 1198px;
+}
