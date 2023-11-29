@@ -1,7 +1,7 @@
 import './certificados.css'
 
 import Certificado from '../../components/layout/Certificado/Certificado';
-import Adicionar from '../../components/Adcionar/Adicionar';
+import Adicionar from '../../components/Adicionar/Adicionar';
 
 
 const Certificados = () => {

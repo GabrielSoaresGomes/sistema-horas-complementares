@@ -1,10 +1,11 @@
 import Modal from '../ModalCertificado/Modal.js';
+import CertificadoModal from '../layout/CertificadoModal/CertificadoModal.js';
 import React, { Component } from "react";
 import './adicionar.css'
 
 import imagem  from '../../assets/img/+.png'
 
-class Adicinar extends Component {
+class Adicionar extends Component {
   constructor() {
     super();
     this.state = {
@@ -31,7 +32,7 @@ class Adicinar extends Component {
             <button type="button" onClick={this.showModal}> <img src={imagem} /></button>
             </div>
             <Modal show={this.state.show} handleClose={this.hideModal} pagina='Adicionar Certificado'>
-            
+            <CertificadoModal/>
              </Modal>
             <p>Adicionar Certificado</p>
         </div>
@@ -41,7 +42,7 @@ class Adicinar extends Component {
   }
 }
 
-export default Adicinar
+export default Adicionar
 
 
 
